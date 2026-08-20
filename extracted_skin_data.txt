@@ -1,0 +1,1778 @@
+Legend:
+Blue = The overall skin condition that will appear on the analysis.
+Dark Blue = The types of the skin condition that is also common but has different appearances, symptoms, and/or causes. To help the AI accurately detect patterns.
+Contact Dermatitis
+ 
+Information:
+You can experience contact dermatitis anywhere that your skin came into contact with an allergen or irritant. The most common places that people experience symptoms include:
+• Face, neck and scalp.
+• Lips, eyelids and cheeks.
+• Hands, fingers and arms.
+• Genitals (penis, vaginal area and vulva).
+Types:
+• Irritant Contact Dermatitis
+Information:
+This painful rash tends to come on quickly in response to an irritating substance. Common irritants include detergents, soap, cleaners and acid. Irritant contact dermatitis occurs more often than allergic contact dermatitis.
+The most common causes of irritant contact dermatitis include:
+• Acids.
+• Cleaning products.
+• Body fluids, including urine and saliva.
+• Plants, like poinsettias and peppers.
+• Hair dyes.
+• Nail polish remover or other solvents.
+• Paints and varnishes.
+• Soaps or detergents.
+• Resins, plastics and epoxies.
+Symptoms:
+Irritant contact dermatitis is more often associated with burning or stinging as well as, or instead of, itching. The skin may be fissured, as well as rough and dry. Redness, oozing lesions, and inflammation may develop with chronic irritant contact dermatitis. Pain may be present if the skin is cracked and cut, and the area is usually very tender.
+• Allergic Contact Dermatitis
+Information:
+Your body has an allergic reaction to a substance (allergen) that it doesn’t like. Common allergens include jewelry metals (like nickel), cosmetic products, fragrances and preservatives. It can take several days after exposure for an itchy rash to develop.
+The most common causes of allergic contact dermatitis include:
+• Plants or parts of a plant (botanicals), like poison ivy.
+• Skin care products with fragrances.
+• Metals, such as nickel.
+• Medications, including antibiotics.
+• Preservatives or chemicals.
+Symptoms:
+Allergic reactions are either acute (within 24-48 hours), or require some days or months to first manifest. Such reactions are typically very pruritic, papular, and ill-defined. The skin is reddened. Vesicular and oozing lesions may occur. Ulceration is rare. However, higher concentrations of some allergenic substances may give rise to irritant reactions as well.
+Suborrheic Dermatitis:
+Information:
+is a common skin condition that mainly affects your scalp. It causes scaly patches, inflamed skin and stubborn dandruff. It usually affects oily areas of the body, such as the face, sides of the nose, eyebrows, ears, eyelids and chest. This condition can be irritating but it's not contagious, and it doesn't cause permanent hair loss.
+Risk factors for seborrheic dermatitis include:
+• Stress
+• Fatigue
+• A change of season
+• Nervous system conditions, such as Parkinson's disease
+• Having a mental health condition, such as depression
+• Immune system disorders, such as HIV infection
+• Recovery from stressful medical conditions, such as a heart attack
+The exact cause of seborrheic dermatitis isn't clear. It may be due to the yeast Malassezia, excess oil in the skin or a problem in the immune system.
+Symptoms:
+• Flaking skin (dandruff) on your scalp, hair, eyebrows, beard or mustache
+• Patches of greasy skin covered with flaky white or yellow scales or crust on the scalp, face, sides of the nose, eyebrows, ears, eyelids, chest, armpits, groin area or under the breasts
+• Rash that may look darker or lighter in people with brown or Black skin and redder in those with white skin
+• Ring-shaped (annular) rash, for a type called petaloid seborrheic dermatitis
+• Itchiness (pruritus)
+Atopic dermatitis (eczema):
+Information:
+is a condition that causes dry, itchy and inflamed skin. It's common in young children but can occur at any age. Atopic dermatitis is long lasting (chronic) and tends to flare sometimes. It can be irritating but it's not contagious.
+People with atopic dermatitis are at risk of developing food allergies, hay fever and asthma.
+In some people, atopic dermatitis is related to a gene variation that affects the skin's ability to provide protection. With a weak barrier function, the skin is less able to retain moisture and protect against bacteria, irritants, allergens and environmental factors — such as tobacco smoke.
+In other people, atopic dermatitis is caused by too much of the bacteria Staphylococcus aureus on the skin. This displaces helpful bacteria and disrupts the skin's barrier function.
+A weak skin barrier function might also trigger an immune system response that causes the inflamed skin and other symptoms.
+Symptoms:
+• Dry, cracked skin
+• Itchiness (pruritus)
+• Rash on swollen skin that varies in color depending on your skin color
+• Small, raised bumps, on brown or Black skin
+• Oozing and crusting
+• Thickened skin
+• Darkening of the skin around the eyes
+• Raw, sensitive skin from scratching
+Cercarial Dermatitis:
+Information:
+Swimmer’s Itch (cercarial dermatitis) is a skin rash that you can get if you’ve have swum in fresh or salt water that is infested with a certain parasite. It is an allergic reaction, so it is not contagious and will eventually go away on its own. The main symptoms are a rash with reddish pimples and itching or burning. There is no treatment for it, but over-the-counter treatments can relieve the itching.
+A certain parasite larvae, called cercariae, that can be found in fresh (pond or lake water) or salt water (ocean water) causes swimmer’s itch (cercarial dermatitis). The parasite larvae burrow (dig) into your skin and cause an allergic reaction. The parasite larvae cannot survive in the human body, and they die shortly after they burrow into your skin. The rash and itchiness you experience when you have swimmer’s itch is caused by the allergic reaction.
+Symptoms:
+You can develop swimmer’s itch within minutes or days of swimming in infested water.
+• Tingling, burning or itchy skin.
+• Small, reddish pimples or bumps that form a rash.
+• Small blisters that form a rash.
+Stasis Dermatitis:
+Information:
+Venous stasis dermatitis is a condition in which your skin — usually on your lower legs — becomes swollen or inflamed. This type of leg swelling happens as you get older. Veins normally send blood back to the heart to get more oxygen. If you have venous stasis, your veins can’t send the blood from your legs back to your heart. Blood pools in the lower legs and creates swelling, pressure and skin problems.
+Venous stasis dermatitis happens when blood collects in the lower legs (or sometimes in the arms). This blood pooling (known as stasis) may be due to chronic venous insufficiency. Veins can stretch and they have valves that keep blood moving the right direction. As we age those valves can stop working well and the veins stretch out and hold the blood instead of sending it back to the heart. Blood can also collect because you have blood clots, an injury or surgery.
+Several conditions may put you at higher risk for stasis dermatitis. One risk factor is getting older. Other risk factors include:
+• Not exercising enough.
+• Sitting too long.
+• Standing too long.
+You’re also at higher risk for stasis dermatitis if you have:
+• High blood pressure (hypertension).
+• Kidney failure.
+• Many pregnancies.
+• Obesity and heart disease.
+• Varicose veins.
+Symptoms:
+Venous stasis dermatitis happens when blood collects in the lower legs (or sometimes in the arms). This blood pooling (known as stasis) may be due to chronic venous insufficiency. Veins can stretch and they have valves that keep blood moving the right direction. As we age those valves can stop working well and the veins stretch out and hold the blood instead of sending it back to the heart. Blood can also collect because you have blood clots, an injury or surgery. Pooled blood and fluids leak from the veins and put pressure on the skin from the inside. This pressure causes stasis dermatitis.
+Tinea pedis(athlete's foot):
+Information:
+Athlete's foot, also called tinea pedis, is a skin infection caused by fungi. It usually starts between the toes. The condition can occur when feet get hot and sweaty inside closed shoes.
+Signs and symptoms of athlete's foot include an itchy, scaly rash. The fungus can live on floors, bedding, towels and shoes, spreading easily to others.
+Athlete's foot is caused by the same type of fungi, called dermatophytes, that cause jock itch and ringworm. They thrive in warm, damp places such as sweaty socks and shoes and wet towels.
+The fungi that cause athlete's foot spread easily to other people because they can travel on hands, towels and other surfaces. You can get athlete's foot through contact with someone who has it and by touching surfaces that have the fungus on them. The fungi also can spread from the feet to other parts of the body. This may happen if you use a towel to dry your feet and then use the same towel to dry the rest of your body.
+You have a higher risk of athlete's foot if you:
+• Often wear enclosed footwear.
+• Sweat a lot.
+• Share towels, shoes, rugs or bed linens with someone who has athlete's foot.
+• Walk barefoot in public showers, pools or locker rooms.
+Symptoms:
+Athlete's foot can affect one or both feet. Common symptoms are:
+• Scaly, peeling or cracked skin between the toes.
+• Itchy skin, especially right after taking off socks and shoes.
+• Swollen skin that may look red, purple or gray, depending on your skin color.
+• Burning or stinging.
+• Blisters.
+• Dry, scaly skin on the bottom and sides of the foot.
+Tinea cruris:
+Information:
+Jock itch is a fungal skin infection that causes an itchy rash in warm, moist areas of the body. The rash often affects the groin and inner thighs and may be shaped like a ring. The condition is also called tinea cruris.
+Jock itch gets its name because it's common in athletes. It's also common in people who sweat a lot. The condition can range from mild to serious. It usually clears up in 1 to 3 weeks with antifungal creams and self care.
+Jock itch is caused by fungi that thrive in warm, moist areas of the body. Jock itch is often caused by the same organism that causes athlete's foot. The rash can spread from person to person with skin contact or from sharing contaminated towels or clothing. You can also spread an infection from the foot to groin by way of the hands or a towel.
+You're at greater risk of jock itch if you:
+• Are male.
+• Are a teen or young adult.
+• Wear underwear, jeans or other clothing that's tight.
+• Sweat heavily.
+• Have a weak immune system.
+• Have athlete's foot.
+Symptoms:
+• A spreading rash that begins in the crease of the groin and moves down the upper thigh and buttocks.
+• A rash whose center tends to clear as the rash spreads.
+• A rash that may be full or partially ring shaped.
+• A rash bordered with small blisters.
+• Itchiness.
+• Scaly skin.
+• A rash that might be red, brown, purple or gray depending on your skin color.
+Tinea Corporis(ring worm):
+Information:
+Ringworm of the body (tinea corporis) is a rash caused by a fungal infection. It's usually an itchy, circular rash with clearer skin in the middle. Ringworm gets its name because of its appearance. No worm is involved.
+Ringworm of the body is related to athlete's foot (tinea pedis), jock itch (tinea cruris) and ringworm of the scalp (tinea capitis). Ringworm often spreads by direct skin-to-skin contact with an infected person or animal.
+Mild ringworm often responds to antifungal medications applied to the skin. For more-severe infections, you may need to take antifungal pills for several weeks.
+Ringworm is a contagious fungal infection caused by common mold-like parasites that live on the cells in the outer layer of your skin. It can be spread in the following ways:
+• Human to human. Ringworm often spreads by direct, skin-to-skin contact with an infected person.
+• Animal to human. You can contract ringworm by touching an animal with ringworm. Ringworm can spread while petting or grooming dogs or cats. It's also fairly common in cows.
+• Object to human. It's possible for ringworm to spread by contact with objects or surfaces that an infected person or animal has recently touched or rubbed against, such as clothing, towels, bedding and linens, combs, and brushes.
+• Soil to human. In rare cases, ringworm can be spread to humans by contact with infected soil. Infection would most likely occur only from prolonged contact with highly infected soil.
+You're at higher risk of ringworm of the body if you:
+• Live in a warm climate
+• Have close contact with an infected person or animal
+• Share clothing, bedding or towels with someone who has a fungal infection
+• Participate in sports that feature skin-to-skin contact, such as wrestling
+• Wear tight or restrictive clothing
+• Have a weak immune system
+Symptoms:
+Ringworm is a contagious fungal infection caused by common mold-like parasites that live on the cells in the outer layer of your skin. It can be spread in the following ways:
+• Human to human. Ringworm often spreads by direct, skin-to-skin contact with an infected person.
+• Animal to human. You can contract ringworm by touching an animal with ringworm. Ringworm can spread while petting or grooming dogs or cats. It's also fairly common in cows.
+• Object to human. It's possible for ringworm to spread by contact with objects or surfaces that an infected person or animal has recently touched or rubbed against, such as clothing, towels, bedding and linens, combs, and brushes.
+• Soil to human. In rare cases, ringworm can be spread to humans by contact with infected soil. Infection would most likely occur only from prolonged contact with highly infected soil.
+Pityriasis versicolor (tinea flava, Tinea Versicolor):
+Information:
+ is a common skin infection caused by a fungus. The fungus causes patchy changes in skin color. The affected skin may look lighter or darker than the healthy skin. This condition usually forms on the middle of the body and the shoulders.
+Tinea versicolor is most common in teens and young adults. Sun exposure may make the skin changes more visible because they do not tan. The condition isn't painful or contagious. It's also called pityriasis versicolor.
+The overgrowth of fungus that causes tinea versicolor interferes with the normal pigment production of the skin. This creates an uneven skin color
+Risk factors for tinea versicolor include:
+• Living in hot, humid weather.
+• Having oily skin.
+• Experiencing changes in hormone levels.
+Symptoms:
+• Patches of skin that are lighter or darker than surrounding skin. The skin color changes usually appear on the back, chest, neck and upper arms.
+• Mild itchiness.
+• Scaly skin.
+Pityriasis rosea:
+Information:
+Pityriasis rosea is a rash that often begins as an oval spot on the face, chest, abdomen or back. This is called a herald patch and may be up to 4 inches (10 centimeters) across. Then you may get smaller spots that sweep out from the middle of the body in a shape that looks like drooping pine-tree branches. The rash can be itchy.
+Can happen at any age but is most common between the ages of 10 and 35. It tends to go away on its own within 10 weeks.
+Having family members with pityriasis rosea increases your risk of developing the condition. Taking certain medicines may increase the risk of this condition as well. Examples include terbinafine, isotretinoin, omeprazole, gold, arsenic and barbiturates.
+Symptoms:
+Pityriasis rosea typically begins with an oval, slightly raised, scaly patch — called the herald patch — on the face, back, chest or abdomen. Before the herald patch appears, some people have headache, fatigue, fever or sore throat.
+A few days to a few weeks after the herald patch appears, you may notice smaller bumps or scaly spots across your face, back, chest or abdomen that look like a pine-tree pattern. The rash can cause itching.
+Rosacea:
+Information:
+Rosacea is a skin condition that causes redness on your face. The most common places to find symptoms of rosacea include your nose, cheeks and forehead. Rosacea can flare throughout your life and usually starts after age 30. Medicines, creams and lotions help reduce symptoms.
+ is a common skin condition that causes flushing or long-term redness on your face. It also may cause enlarged blood vessels and small, pus-filled bumps. Some symptoms may flare for weeks to months and then go away for a while.
+Rosacea can be mistaken for acne, dermatitis or other skin problems.
+The cause of rosacea is not known. It could be due to genetics, an overactive immune system or things in your daily life. Rosacea is not caused by poor hygiene, and you can't catch it from other people.
+Flare-ups might be brought on by:
+• Sun or wind.
+• Hot drinks.
+• Spicy foods.
+• Alcohol.
+• Very hot and cold temperatures.
+• Emotional stress.
+• Exercise.
+• Drugs that dilate blood vessels, including some blood pressure medicines.
+• Some cosmetic, skin and hair care products.
+Anyone can develop rosacea. But you may be more likely to develop it if you:
+• Have skin that burns easily in the sun.
+• Are between the ages of 30 to 50 years.
+• Have a history of smoking.
+• Have a family member with rosacea.
+Symptoms:
+• Facial redness and flushing. Rosacea can make your face flush more easily. Over time, you may notice that your face stays red. Depending on skin color, redness may be subtle or look more pink or purple.
+• Visible veins. Small blood vessels of the nose and cheeks break and become larger. These are also called spider veins. They may be subtle and hard to see, depending on skin color.
+• Swollen bumps. Many people with rosacea develop pimples on the face that look like acne. These bumps sometimes contain pus. They also may appear on the chest and back.
+• Burning sensation. The skin of the affected area may feel hot and tender.
+• Eye problems. Many people with rosacea also have dry, irritated, swollen eyes and eyelids. This is known as ocular rosacea. Eye symptoms may show up before, after or at the same time as skin symptoms.
+• Enlarged nose. Over time, rosacea can thicken the skin on the nose, causing the nose to look bigger. This condition also is called rhinophyma. It occurs more often in men than in women.
+Acne Vulgaris:
+ 
+Information:
+Acne is a skin condition that occurs when your hair follicles become plugged with oil and dead skin cells. It causes whiteheads, blackheads or pimples. Acne is most common among teenagers, though it affects people of all ages.
+Effective acne treatments are available, but acne can be persistent. The pimples and bumps heal slowly, and when one begins to go away, others seem to crop up.
+Four main factors cause acne:
+• Excess oil (sebum) production
+• Hair follicles clogged by oil and dead skin cells
+• Bacteria
+• Inflammation
+Acne typically appears on your face, forehead, chest, upper back and shoulders because these areas of skin have the most oil (sebaceous) glands. Hair follicles are connected to oil glands.
+The follicle wall may bulge and produce a whitehead. Or the plug may be open to the surface and darken, causing a blackhead. A blackhead may look like dirt stuck in pores. But actually the pore is congested with bacteria and oil, which turns brown when it's exposed to the air.
+Pimples are raised red spots with a white center that develop when blocked hair follicles become inflamed or infected with bacteria. Blockages and inflammation deep inside hair follicles produce cystlike lumps beneath the surface of your skin. Other pores in your skin, which are the openings of the sweat glands, aren't usually involved in acne.
+Certain things may trigger or worsen acne:
+• Hormonal changes. Androgens are hormones that increase in boys and girls during puberty and cause the sebaceous glands to enlarge and make more sebum. Hormone changes during midlife, particularly in women, can lead to breakouts too.
+• Certain medications. Examples include drugs containing corticosteroids, testosterone or lithium.
+• Diet. Studies indicate that consuming certain foods — including carbohydrate-rich foods, such as bread, bagels and chips — may worsen acne. Further study is needed to examine whether people with acne would benefit from following specific dietary restrictions.
+• Stress. Stress doesn't cause acne, but if you have acne already, stress may make it worse.
+Symptoms:
+• Whiteheads (closed plugged pores)
+• Blackheads (open plugged pores)
+• Small red, tender bumps (papules)
+• Pimples (pustules), which are papules with pus at their tips
+• Large, solid, painful lumps under the skin (nodules)
+• Painful, pus-filled lumps under the skin (cystic lesions)
+Acne usually appears on the face, forehead, chest, upper back and shoulders.
+Warts:
+Verruca Vulgaris:
+Information:
+touch and often have tiny black dots. These dots are clotted blood vessels.
+Common warts are caused by a virus and are transmitted by touch. It can take 2 to 6 months for a wart to develop. The warts are usually harmless and over time go away on their own. 
+Common warts are caused by the human papillomavirus, also called HPV. There are more than 100 types of this common virus, but only a few cause warts on the hands. Some strains of HPV are spread through sexual contact. But most are spread by casual skin contact or shared objects, such as towels or washcloths. The virus usually spreads through breaks in the skin, such as hangnails or scrapes. Biting your nails also can cause warts to spread on your fingertips and around your nails.
+Each person's immune system responds to HPV differently. So not everyone who comes in contact with HPV develops warts.
+People at higher risk of developing common warts include:
+• Children and young adults.
+• People with weakened immune systems, such as those with HIV/AIDS or those who have had organ transplants.
+• People with the habit of nail biting or picking at hangnails.
+Symptoms:
+People at higher risk of developing common warts include:
+• Children and young adults.
+• People with weakened immune systems, such as those with HIV/AIDS or those who have had organ transplants.
+• People with the habit of nail biting or picking at hangnails.
+Verruca Plana:
+Information:
+Flat warts are smooth, small bumps on your skin. They’re flatter and smaller than other warts and usually appear in groups on your face or hands. Four different strains of the human papillomavirus (HPV) cause flat warts. Flat warts don’t usually require treatment. They’ll usually go away on their own, but it may take several months or even years.
+Flat warts are smooth, small noncancerous (benign) bumps on your skin. They’re flatter and smaller than other warts — each one is about the size of a pinhead. They may be yellowish-brown, pink or skin-colored. Flat warts usually appear in groups. There may be anywhere from a dozen to a hundred in one area.
+These flat types of warts are most common on your face and the top of your hands. They may also spread by shaving. For this reason, they may appear on the beard area in males and on the legs of females. A flat wart doesn’t usually cause any pain, but it can be difficult to treat.
+The human papillomavirus (HPV) causes flat warts. There are more than 100 types of HPV. Specifically, HPV types 3, 10, 28 and 49 cause flat warts. These strains of HPV are noncancerous (benign). They’re not caused by the same strain of HPV that causes genital warts.
+Symptoms:
+Flat warts typically appear on your face and the back of your hands. They may also show up on your neck or legs after nicking your skin after shaving. They surround scratches and cuts. You may also get flat warts on your fingers and arms.
+Flat warts are skin-colored — often yellow, brown or pinkish. They’re very small — between 1 and 5 millimeters (mm) across — no bigger than the head of a pin. They’re smaller than other warts and smooth on top.
+Flat warts may be round or oval-shaped. They’re only very slightly raised, sometimes not even noticeable. They almost always appear in groups or clusters of up to 100 or more.
+Herpes Gladiatorum
+Information:
+Herpes gladiatorum is a viral infection. Sometimes called mat herpes, it is common among people who play high-contact sports, such as wrestling. It may present as blisters on the chest, neck, and face.
+Once the herpes simplex virus 1 (HSV-1) enters the body, it resides there for life.
+While there is no cure for an HSV-1 infection such as herpes gladiatorum, the virus often lies dormant, so there are periods when the person has no symptoms.
+When the virus reactivates and symptoms flare, the virus is more likely to transmit to another person via skin-to-skin contact.
+HSV-1 commonly causes blisters, such as cold sores, to form on the skin. Bacteria may enter these blisters, causing a secondary infection. In this case, antibiotics may be necessary.
+Without treatment, the bacterial infection may spread to other areas, such as the brain, eyes, liver, or lungs. If this occurs, it is a medical emergency, and the person needs urgent care.
+HSV-1 transmits via skin-to-skin contact. Herpes gladiatorum typically passes between people participating in high-contact sports, such as wrestling, rugby, or basketball. For this reason, the condition is also known as mat herpes.
+The virus can also transmit through:
+• kissing, if one person has a cold sore
+• sexual contact
+• sharing item such as drinks, utensils, and cellphones
+Also, periods of illness and stress can cause herpes flare-ups.
+While some people go for long periods without having any symptoms, flare-ups can happen at any time.
+A doctor can recommend precautions to prevent transmission, and this is especially important for people who regularly participate in contact sports.
+Symptoms:
+Symptoms tend to become evident within 8 days of the virus entering the body. They can include:
+• a fever
+• swollen glands
+• a sore throat
+• sores or blisters, which can be painful
+• a tingling sensation in the affected area
+• a headache
+Without treatment, the sores or blisters usually take 7–10 days to clear. While symptoms are apparent, the virus is more transmissible.
+The pattern of flare-ups varies from person to person. Symptoms of herpes gladiatorum may flare once a month or once a year, for example.
+When the virus is dormant, the person has no symptoms. This is no guarantee that the virus cannot pass on, but it is less likely to do so during this time.
+A tiny, eight-legged mite causes scabies. The female mite burrows just under the skin. It makes a tunnel where it lays eggs.
+The eggs hatch, and the mite larvae travel to the surface of the skin, where they become adults. These mites can then spread to other areas of the skin or to the skin of other people. The itching comes from the body's allergic reaction to the mites, their eggs and their waste.
+Close skin-to-skin contact and, less often, sharing clothing or bedding with a person who has scabies can spread the mites.
+Pets don't spread scabies to humans. The scabies mites that affect animals don't survive or reproduce in people.
+Scabies:
+Information:
+Scabies is a skin rash. A tiny mite called Sarcoptes scabiei causes it. The mite burrows into the skin, causing intense itching. The need to scratch may be stronger at night.
+Scabies can spread through close, long-term person-to-person contact. This may be within a family, child care group, school class, or a place where people live together, such as a nursing home or prison. Because scabies spreads easily, healthcare professionals often treat the whole family or any close contacts.
+Symptoms:
+• Intense itching and often worse at night.
+• Thin, wavy tunnels made up of tiny blisters or bumps on the skin.
+Scabies is often in the skin folds. But scabies can appear on many parts of the body. In adults and older children, scabies is most often found:
+• Between the fingers and toes and on the soles of the feet.
+• Around the waist.
+• On the insides of the wrists, in the armpits and on the inner elbows.
+• On the chest and buttocks.
+• Around the nipples and belly button.
+• Around the genitals.
+In infants and young children, scabies most often are on the:
+• Fingers.
+• Scalp and face.
+• Palms of the hands.
+• Soles of the feet.
+If you've had scabies before, symptoms may start within a few days after getting the mites. If you've never had scabies, it can take up to six weeks for symptoms to start. You can still spread scabies even if you don't have symptoms yet
+Pyoderma gangrenosum:
+Information:
+Pyoderma gangrenosum  is a rare condition that causes large, painful sores on the skin. The sores can develop quickly. Most often they appear on the legs.
+The exact causes of pyoderma gangrenosum are unknown, but it appears to be a disorder of the immune system. People who have certain other conditions are at higher risk of pyoderma gangrenosum.
+No one knows the exact cause of pyoderma gangrenosum. It's often seen in people who have autoimmune diseases, such as ulcerative colitis, Crohn's disease and arthritis. And some studies suggest that it may be passed down through families.
+If you have pyoderma gangrenosum, getting a cut or other skin wound can bring on new sores. The condition isn't an infection and it isn't contagious.
+Symptoms:
+Pyoderma gangrenosum usually starts with a small bump on the skin. It might look like a spider bite. Within days it can turn into a large and painful open sore.
+The sore usually appears on the legs but may develop anywhere on the body. Sometimes it appears around surgical sites. If you have two or more sores, they may grow and merge into one.
+Furunculosis:
+Information:
+A boil is a painful, pus-filled bump that forms under your skin when bacteria infect and inflame one or more of your hair follicles. A carbuncle is a cluster of boils that form a connected area of infection under the skin.
+Boils (furuncles) usually start as reddish or purplish, tender bumps. The bumps quickly fill with pus, growing larger and more painful until they rupture and drain. Areas most likely to be affected are the face, back of the neck, armpits, thighs and buttocks.
+Most boils are caused by Staphylococcus aureus, a type of bacterium commonly found on the skin and inside the nose. A bump forms as pus collects under the skin. Boils sometimes develop at sites where the skin has been broken by a small injury or an insect bite, which gives the bacteria easy entry.
+Symptoms:
+Boils
+Boils can occur anywhere on your skin, but appear mainly on the face, back of the neck, armpits, thighs and buttocks — hair-bearing areas where you're most likely to sweat or experience friction. Signs and symptoms of a boil usually include:
+• A painful, red bump that starts out small and can enlarge to more than 2 inches (5 centimeters)
+• Reddish or purplish, swollen skin around the bump
+• An increase in the size of the bump over a few days as it fills with pus
+• Development of a yellow-white tip that eventually ruptures and allows the pus to drain out
+Miliaria:
+Information:
+Heat rash — also known as prickly heat and miliaria — isn't just for babies. It affects adults, too, especially in hot, humid conditions.
+Heat rash occurs when sweat is trapped in the skin. Symptoms can range from small blisters to deep, inflamed lumps. Some forms of heat rash are very itchy.
+Miliaria rubra (A), one type of heat rash, appears as clusters of small, inflamed blister-like bumps that can produce intense itching. Miliaria crystallina (B), another type of heat rash, appears as clear, fluid-filled bumps that don't hurt or itch.
+Heat rash usually goes away once the skin cools down. Severe forms of the condition might need treatment from a health care provider.
+Eccrine sweat glands occur over most of the body and open directly onto the skin's surface. Apocrine glands open into the hair follicle, leading to the surface of the skin. Apocrine glands develop in areas with many hair follicles, such as on the scalp, armpits and groin. Eccrine sweat glands are involved in hyperhidrosis, though apocrine glands may play a role as well
+Symptoms:
+Adults usually develop heat rash in skin folds and where clothing rubs against the skin. In infants, the rash is mainly found on the neck, shoulders and chest. It can also show up in the armpits, elbow creases and groin.
+Types of heat rash
+The types of heat rash are classified according to how deep the sweat is trapped in the skin. Signs and symptoms for each type vary.
+• The mildest form of heat rash is called miliaria crystallina. It occurs when the opening of the sweat duct on the surface of the skin (sweat pore) is blocked. This form is marked by tiny, clear, fluid-filled bumps that break easily.
+• A type that occurs deeper in the skin is called miliaria rubra. It is sometimes called prickly heat. Signs and symptoms include small, inflamed blister-like bumps and itching or prickling in the affected area.
+• Occasionally, the inflamed bumps of miliaria rubra fill with pus. This form is called miliaria pustulosa.
+• A less common form of heat rash is called miliaria profunda. It affects the deepest layer of the skin (dermis). It causes firm, painful or itchy inflamed bumps that look like goose bumps and may break open.
+Herpes zoster:
+Information:
+Shingles is nerve pain and a rash caused by the varicella-zoster virus, the same virus that causes chickenpox. If you’ve had chickenpox in the past, you could get shingles. Early symptoms include burning pain, tingling and discoloration. You might get a headache or fever not long before the rash appears.
+Shingles is caused by the same virus that causes chickenpox. It stays inactive in your body and can reactivate in your nerves later in life. So, if you’ve had chickenpox before, you could get shingles.
+Varicella-zoster virus (VZV) causes shingles. After having chickenpox, VZV stays in your body after your symptoms go away. It hides in your nerve cells, inactive (dormant). Sometimes, the virus reactivates later in life, causing shingles.
+You can’t spread shingles to someone else, but you could give them chickenpox if you have shingles. Varicella-zoster virus can spread through direct skin-to-skin contact with fluid from the blisters or from breathing in particles from the blisters. Someone who hasn’t had chickenpox before can get infected with the virus.
+Symptoms:
+A painful, raised or blistered rash is the most common symptom of shingles. It might appear near your waist or on one side of your face, neck, chest, belly or back. Sometimes, it shows up on other parts of your body.
+Other symptoms that can appear before or along with the rash include:
+• Deep, burning or shooting nerve pain
+• Itching or tingling
+• Areas of reddish or discolored skin
+• Fever
+• Chills
+• Headache
+• Generally feeling unwell (malaise)
+• Stomach upset
+Some early symptoms, like nerve pain and discoloration, can appear weeks before the rash. Others might show up in the days leading up to it. The rash turns into blisters about three to four days after it appears. Within about 10 days, the blisters dry out and crust over into scabs. The scabs may take a few weeks to completely go away.
+Yaws:
+Information:
+Yaws is a skin disease you get from the bacteria Treponema pallidum pertenue. You get it through contact with the broken skin of someone who has it. It causes skin growths that can spread and cause serious damage to your skin, bones and tissues if left untreated. Antibiotics can cure yaws but can’t reverse extensive damage.
+A specific type (subspecies pertenue) of the bacteria Treponema pallidum causes yaws. In the first and second stages of yaws, the skin growths are filled with bacteria. You can get infected from contact with the ulcers or skin growths of someone who has yaws.
+yaws is contagious. It spreads from person to person through skin-to-skin contact with yaws growths. Yaws is contagious in the first two stages but not the third.
+Symptoms:
+Primary yaws symptoms:
+Primary yaws is the first skin growth to appear when you’re infected with Treponema pallidum pertenue. It can appear anywhere on your body, but it most commonly appears on your legs or feet. It’s often called the “mother yaw.” It grows from a cyst to a large, itchy ulcer. It may be pus-filled and crust over. It can heal on its own over a few months and leave a scar.
+Secondary yaws symptoms:
+Secondary yaws symptoms usually start a month or two after the first cyst, but they can start up to two years later. Secondary yaws causes multiple skin growths, often on your hands, arms, legs or feet. They might look or feel:
+• Wart-like.
+• Ulcer- or wound-like.
+• Raised and bumpy (“raspberry-like”).
+• Red or yellow.
+• Scaly and flat.
+• Hard and thick.
+Yaws can spread to your bones in this stage, causing pain and swelling in your fingers, toes, arms or legs.
+Tertiary yaws symptoms
+Without treatment, some people get late yaws five to 10 years after their first symptoms. Yaws growths are spread over many parts of your body in this stage. You might have:
+• Large growths near your joints.
+• Open wounds that go deep into your skin, cartilage and bones.
+• Hard patches (plaques) on your hands and feet.
+Hansen's disease(leprosy):
+Information:
+Leprosy is a bacterial infection that damages your nerves, muscles, skin, eyes and respiratory tract. It can cause patches of pale or discolored skin, loss of sensation (numbness) and permanent disabilities.
+Leprosy was once a mysterious disease that created a lot of fear. People with leprosy were often treated unfairly and isolated from others. We now know the cause and that it’s a treatable disease. It doesn’t spread easily from person to person.
+Leprosy is also called Hansen’s disease. Some people prefer that name because of the stigma associated with the word “leprosy.”
+Mycobacterium leprae bacteria cause leprosy. Experts don’t fully understand how the disease spreads, but they think it’s transmitted through airborne droplets when an infected person coughs or sneezes.
+Yes, leprosy is contagious (spreads from person to person). But it’s not easy to get. You have to spend a long time — many months — in close contact with someone to get leprosy. Most people’s immune systems fight it off. You’re not contagious if you’re receiving treatment.
+Symptoms:
+• Patches of skin, often with raised edges, that are different from areas around them — they might be discolored, pale, red, thick, stiff, swollen or numb
+• Red or purple nodules or lumps
+• Painless ulcers or sores on the bottom of your feet
+• Enlarged nerves
+• Weakness or paralysis
+• Loss of eyebrows or eyelashes
+• Vision loss or other eye issues
+Leprosy develops slowly. It takes several years — sometimes, decades — to develop symptoms after exposure.
+Psoriasis:
+Information:
+Psoriasis is a skin disease that causes a rash with itchy, scaly patches, most commonly on the knees, elbows, trunk and scalp.
+Psoriasis is a common, long-term (chronic) disease with no cure. It can be painful, interfere with sleep and make it hard to concentrate. The condition tends to go through cycles, flaring for a few weeks or months, then subsiding for a while. Common triggers in people with a genetic predisposition to psoriasis include infections, cuts or burns, and certain medications.
+• Plaque psoriasis. The most common type of psoriasis, plaque psoriasis causes dry, itchy, raised skin patches (plaques) covered with scales. There may be few or many. They usually appear on the elbows, knees, lower back and scalp. The patches vary in color, depending on skin color. The affected skin might heal with temporary changes in color (post inflammatory hyperpigmentation), particularly on brown or Black skin.
+• Nail psoriasis. Psoriasis can affect fingernails and toenails, causing pitting, abnormal nail growth and discoloration. Psoriatic nails might loosen and separate from the nail bed (onycholysis). Severe disease may cause the nail to crumble.
+• Guttate psoriasis. Guttate psoriasis primarily affects young adults and children. It's usually triggered by a bacterial infection such as strep throat. It's marked by small, drop-shaped, scaling spots on the trunk, arms or legs.
+• Inverse psoriasis. Inverse psoriasis mainly affects the skin folds of the groin, buttocks and breasts. It causes smooth patches of inflamed skin that worsen with friction and sweating. Fungal infections may trigger this type of psoriasis.
+• Pustular psoriasis. Pustular psoriasis, a rare type, causes clearly defined pus-filled blisters. It can occur in widespread patches or on small areas of the palms or soles.
+• Erythrodermic psoriasis. The least common type of psoriasis, erythrodermic psoriasis can cover the entire body with a peeling rash that can itch or burn intensely. It can be short-lived (acute) or long-term (chronic).
+Psoriasis is thought to be an immune system problem that causes skin cells to grow faster than usual. In the most common type of psoriasis, known as plaque psoriasis, this rapid turnover of cells results in dry, scaly patches.
+The cause of psoriasis isn't fully understood. It's thought to be an immune system problem where infection-fighting cells attack healthy skin cells by mistake. Researchers believe that both genetics and environmental factors play a role. The condition is not contagious.
+Many people who are predisposed to psoriasis may be free of symptoms for years until the disease is triggered by some environmental factor. Common psoriasis triggers include:
+• Infections, such as strep throat or skin infections
+• Weather, especially cold, dry conditions
+• Injury to the skin, such as a cut or scrape, a bug bite, or a severe sunburn
+• Smoking and exposure to secondhand smoke
+• Heavy alcohol consumption
+• Certain medications — including lithium, high blood pressure drugs and antimalarial drugs
+• Rapid withdrawal of oral or injected corticosteroids
+Symptoms:
+• A patchy rash that varies widely in how it looks from person to person, ranging from spots of dandruff-like scaling to major eruptions over much of the body
+• Rashes that vary in color, tending to be shades of purple with gray scale on brown or Black skin and pink or red with silver scale on white skin
+• Small scaling spots (commonly seen in children)
+• Dry, cracked skin that may bleed
+• Itching, burning or soreness
+• Cyclic rashes that flare for a few weeks or months and then subside
+Impetigo:
+Information:
+Impetigo is a common and highly contagious skin infection that mainly affects infants and young children. It usually appears as reddish sores on the face, especially around the nose and mouth and on the hands and feet. Over about a week, the sores burst and develop honey-colored crusts.
+Illustration of impetigo on different skin colors. Sores mainly occur around the nose and mouth in infants and children.
+Treatment with antibiotics can limit the spread of impetigo to others. Keep children home from school or day care until they're no longer contagious — usually 24 hours after beginning antibiotic treatment.
+Impetigo is caused by bacteria, usually staphylococci organisms.
+You might be exposed to the bacteria that cause impetigo when you come into contact with the sores of someone who's infected or with items they've touched — such as clothing, bed linen, towels and even toys.
+Symptoms:
+The main symptom of impetigo is reddish sores, often around the nose and mouth. The sores quickly rupture, ooze for a few days and then form a honey-colored crust. Sores can spread to other areas of the body through touch, clothing and towels. Itching and soreness are generally mild.
+A less common form of the condition called bullous impetigo causes larger blisters on the trunk of infants and young children. Ecthyma is a serious form of impetigo that causes painful fluid- or pus-filled sores.
+Types:
+ 
+Non-bullous impetigo
+The symptoms of non-bullous impetigo begin with the appearance of red sores – usually around the nose and mouth but other areas of the face and the limbs can also be affected.
+The sores quickly burst leaving behind thick, golden crusts typically around 2cm across. The appearance of these crusts is sometimes likened to cornflakes stuck to the skin.
+After the crusts dry, they leave a red mark that usually fades without scarring. The time it takes for the redness to disappear can vary between a few days and a few weeks.
+The sores aren’t painful, but they may be itchy. It’s important not to touch or scratch the sores because this can spread the infection to other parts of the body, and to other people.
+Other symptoms, such as a high temperature (fever) and swollen glands, are rare but can occur in more severe cases.
+Bullous impetigo
+The symptoms of bullous impetigo begin with the appearance of fluid-filled blisters (bullae) which usually occur on the central part of the body between the waist and neck, or on the arms and legs. The blisters are usually about 1cm to 2cm across.
+The blisters may quickly spread, before bursting after several days to leave a yellow crust that usually heals without leaving any scarring.
+The blisters may be painful and the area of skin surrounding them may be itchy. As with non-bullous impetigo, it’s important not to touch or scratch the affected areas of the skin.
+Symptoms of fever and swollen glands are more common in cases of bullous impetigo
+Symptoms:
+The main symptom of impetigo is reddish sores, often around the nose and mouth. The sores quickly rupture, ooze for a few days and then form a honey-colored crust. Sores can spread to other areas of the body through touch, clothing and towels. Itching and soreness are generally mild.
+A less common form of the condition called bullous impetigo causes larger blisters on the trunk of infants and young children. Ecthyma is a serious form of impetigo that causes painful fluid- or pus-filled sores.
+Ecthyma:
+Information:
+Ecthyma is a skin infection characterised by crusted sores beneath which ulcers form. It is a deep form of impetigo, as the same bacteria causing the infection are involved. Ecthyma causes deeper erosions of the skin into the dermis.
+Ecthyma is a skin infection characterised by crusted sores beneath which ulcers form. It is a deep form of impetigo, as the same bacteria causing the infection are involved. Ecthyma causes deeper erosions of the skin into the dermis.People of all ages, sex and race can be affected, although children, older people and immunocompromised patients (eg, diabetes, neutropenia, immunosuppressive medication, malignancy, HIV) tend to have a higher chance of infection. Other factors that increase the risk of ecthyma include:
+• Poor hygiene and crowded living conditions
+• High temperature and humidity in tropical places
+• Presence of minor injuries or other skin conditions such as scratches, insect bites or dermatitis
+• Untreated impetigo, particularly in patients with poor hygiene.
+Symptoms:
+Ecthyma most often affects buttocks, thighs, legs, ankle and feet. Occasionally, the local lymph nodes become swollen and painful.
+Ecthyma lesion usually begins as a vesicle (small blister) or a pustule on an inflamed area of skin.
+• A hard crust soon covers the blister.
+• With difficulty, the crust can be removed to reveal an indurated ulcer that may be red, swollen and oozing with pus.
+• Lesions may stay fixed in size and sometimes resolve spontaneously without treatment, or they may gradually enlarge to a sore of 0.5–3 cm in diameter.
+• They resolve slowly leaving a scar.
+Lichen Simplex Chronicus (Neurodermatitis):
+Information:
+Lichen simplex chronicus, also called neurodermatitis, happens when a patch of skin becomes thick and rough from repeated itching and scratching. The itch can be intense, and scratching makes it worse.
+This type of eczema affects about 1 in 8 people worldwide.
+This condition can appear anywhere on your body. But it’s most common on your arms, legs, neck or other visible areas.
+The constant itch and irritation can also cause stress or anxiety. This may make symptoms feel stronger. A healthcare provider can help you find ways to calm the itch, care for your skin and feel more comfortable.
+Symptoms and Causes
+What Is Lichen Simplex Chronicus?
+Lichen simplex chronicus, also called neurodermatitis, happens when a patch of skin becomes thick and rough from repeated itching and scratching. The itch can be intense, and scratching makes it worse.
+This type of eczema affects about 1 in 8 people worldwide.
+This condition can appear anywhere on your body. But it’s most common on your arms, legs, neck or other visible areas.
+The constant itch and irritation can also cause stress or anxiety. This may make symptoms feel stronger. A healthcare provider can help you find ways to calm the itch, care for your skin and feel more comfortable.
+Symptoms and Causes
+Lichen simplex chronicus symptoms
+Symptoms can come and go without warning. They may feel worse when you relax, especially before falling asleep. Common symptoms include:
+• Intense itching
+• Skin color changes with distinct borders (red, purple, gray, brown or darker than your natural tone)
+• Thick, dry or scaly plaque that feels rough or leathery
+Scratching can make things worse. It irritates the nerves in your skin, causing more itching. This leads to what’s called the itch-scratch cycle.
+Where do symptoms appear?
+This condition can affect many parts of your body. The most common areas include:
+• Arms, hands, shoulders, wrists or elbows
+• Neck, face, scalp, lips or cheeks
+• Genital area (scrotum, vulva or around the anus)
+• Legs and ankles
+Healthcare providers aren’t sure what causes lichen simplex chronicus. It may happen when the nerves in your skin become overly sensitive. Certain things can trigger (start) the itching and scratching cycle, creating a reaction between your mind and body.
+Common triggers include:
+• Allergic reactions
+• Bug bites
+• Dry skin
+• Emotional stress, anxiety or depression
+• Heat or sweating
+• Skin injuries
+• Tight clothing
+Symptoms:
+• Intense itching
+• Skin color changes with distinct borders (red, purple, gray, brown or darker than your natural tone)
+• Thick, dry or scaly plaque that feels rough or leathery
+Scratching can make things worse. It irritates the nerves in your skin, causing more itching. This leads to what’s called the itch-scratch cycle.
+Intertrigo:
+Information:
+Intertrigo is a common and treatable skin condition that can lead to an infection. It often happens in skin folds where your skin rubs together. The friction causes inflammation that looks like a red, bumpy rash.
+Intertrigo is a common inflammatory skin condition that is caused by skin-to-skin friction (rubbing) that is intensified by heat and moisture. It usually looks like a reddish rash. Trapped moisture, which is usually due to sweating, causes the surfaces of your skin to stick together in your skin folds. The moisture increases the friction, which leads to skin damage and inflammation.
+In many cases of intertrigo, damage to the skin allows bacteria and/or fungus normally present on the surface of your skin to overgrow. The warmth, trapped moisture and friction-induced skin damage create an ideal environment for bacteria and fungi to grow and multiply. This overgrowth of bacteria and/or fungi triggers your immune system to respond, which results in secondary inflammation and a visible rash. In more severe cases, the bacterial and/or fungal overgrowth is significant enough to cause a secondary infection.
+Intertrigo itself is not an infection. It’s an inflammatory skin condition. However, intertrigo often leads to a fungal or bacterial infection. This is known as a secondary infection. Candida — a type of yeast, or fungus — is the most common cause of secondary infection related to intertrigo.
+You can have intertrigo in more than one place on your body at the same time, but intertrigo does not spread to other parts of your body. This is because a key contributing factor for intertrigo is friction from skin-to-skin rubbing, so only places on your body where your skin rubs together can have intertrigo.
+If you get an infection from your intertrigo, the infection can spread to other parts of your body and can cause serious complications. It’s important to see your healthcare provider as soon as possible if you have signs of an infection.
+Intertrigo is a common skin condition. It’s most common in hot and humid environments and during the summer.
+Intertrigo is caused by skin-to-skin friction that is made worse by heat and moisture. This most commonly happens between skin folds or creases and between your toes or fingers.
+The trapped moisture — often due to sweating — causes your skin surfaces to stick together. This increases the friction between your skin surfaces, which causes skin damage, bacterial and/or fungal overgrowth and inflammation. In many cases of intertrigo, the skin breaks open from the friction, which allows bacteria and/or fungus to get into your skin, causing an infection. The moisture and warmth make a perfect environment for bacteria and fungi to multiply. If the affected area comes in contact with sweat, pee or poop, it can make your intertrigo worse.
+There are a few names for intertrigo (also known as intertriginous dermatitis) depending on certain factors such as where it appears and if it’s caused an infection or not. Your healthcare provider may use one or more of these terms to describe your intertrigo:
+• Acute intertrigo: If your intertrigo just recently appeared, it’s called acute intertrigo.
+• Recurrent intertrigo: If you’ve had multiple cases of intertrigo over time, it’s called recurrent (relapsing) intertrigo.
+• Chronic intertrigo: If your case of intertrigo has lasted six weeks or more, it’s called chronic intertrigo.
+• Uncomplicated intertrigo: Uncomplicated intertrigo means your intertrigo has not caused an infection.
+• Interdigital intertrigo: Intertrigo between your fingers or toes is called interdigital intertrigo.
+• Candidal intertrigo: Candidal intertrigo happens when your intertrigo becomes infected by the yeast (fungus) Candida. Candida is the most common cause of intertrigo infections.
+• Diaper rash: Also known as diaper dermatitis, diaper rash is a form of intertrigo.
+Symptoms:
+• Having a somewhat symmetrical red or reddish-brown rash with small bumps in an area where your skin rubs against itself.
+• Having itching, stinging and/or burning in the affected area.
+• Feeling uncomfortable or experiencing pain in the affected area.
+If intertrigo is not treated in its early phase, you can develop the following symptoms:
+• Feeling like your affected skin is raw.
+• Having cracks in your affected skin.
+• Experiencing bleeding or oozing from your affected skin.
+• Having skin that is crusted over and/or scaly in the affected area.
+Symptoms of intertrigo with an infection can include:
+• Having a foul smell in the affected area.
+• Having bumps on your affected skin that contain pus.
+• Having raised, tender bumps on your affected skin.
+Mycetoma (rare disease):
+Information:
+Mycetoma is a chronic slow-growing infection that is either bacterial (actinomycetoma) or fungal (eumycetoma) The fungal form of mycetoma is a highly neglected disease that is not well understood or widely studied. Infection begins most often in the foot, probably after a cut or thorn prick allows bacteria or fungi to enter the body. It can spread to other parts of the body. It is initially painless, but slowly and progressively destroys body tissue beneath the skin. Mycetoma affects skin, muscle, and bone, causing severe disability.
+Mycetoma is acquired when organisms enter through sites of penetrating local trauma on bare skin of the feet or on the extremities or backs of workers carrying contaminated vegetation or other objects. Men aged 20 to 40 are most often affected, presumably because of trauma incurred while working outdoors.
+Infections spread through contiguous subcutaneous areas, resulting in tumefaction and formation of multiple draining sinuses that exude characteristic grains of clumped organisms. Microscopic tissue reactions may be primarily suppurative or granulomatous depending on the specific causative agent. As the infection progresses, bacterial superinfections can develop.
+How do you get mycetoma?
+• Bacteria or fungi enter the body through a cut or penetrating injury, such as a thorn prick.
+• People who work in rural settings doing manual labour and people who walk barefoot are most at risk.
+• Mycetoma cannot be transmitted from person to person.
+Symptoms:
+Mycetoma usually progresses slowly:
+• starts with a painless lump under the skin
+• progresses to open infection, discharging small ‘grains’ containing fungal spores
+• causes swollen, disfigured body parts – most commonly the hands and feet, back, and buttocks
+• deteriorates into a chronic condition as mycetoma spreads to the skin, deep tissue, and bone, resulting in ‎destruction, ‎deformity, and loss of function.
+Secondary bacterial infection is also common, which may cause increased pain, disability, sepsis, and even death if untreated.
+Chromoblastomycosis:
+Information:
+Chromoblastomycosis is a sporadically occurring infection seen in tropical and subtropical climates caused by a number of different pigmented fungi, the most common of which are Fonsecaea pedrosoi, Fonsecaea monophora and Cladophialophora carrionii. Other fungi can also cause chromoblastomycosis.
+Chromoblastomycosis can cause disability due to limb enlargement, which may lead to inability to work and considerable social stigma. Rarely, the fungi that cause chromoblastomycosis can infect other organs, such as the brain, or lead to skin cancer.
+This infection occurs when fungi from the natural environment invade deeper parts of an individual’s skin after their skin is damaged by a superficial abrasion or a penetrating injury. An infected person cannot directly transmit the infection to other people. Intermediate vectors, such as mosquitoes, do not transmit chromoblastomycosis.
+Symptoms:
+Chromoblastomycosis presents with wart-like lesions on exposed areas of the skin such as the legs or forearms. These can exceed 10 centimetres in diameter.
+Patches of skin may also appear flattened (plaque-like) and show central scarring or atrophy, but they are not itchy or painful. Pain and itching can appear in moderate or severe disease. Small dark spots can be seen on the surface of lesions and represent clusters of the pigmented fungal cells – an important diagnostic clue.
+Large lesions cause severe limb swelling and discomfort, limiting movement. In longstanding cases, secondary bacterial infections are common and the smell from affected limbs may be unpleasant, which may also lead to social exclusion. There is a risk of development of squamous cell carcinoma of the skin in longstanding untreated lesions.
+Although the infection usually remains in one body region, local spread through the lymphatics, and very rarely blood stream dissemination to the central nervous system, can occur.
+Dengue rash:
+Information:
+A rash can be one of the earliest visible signs of dengue fever—a viral illness transmitted by mosquitoes in tropical and subtropical regions. While the rash itself might look mild at first, it can be an important clue to the body’s immune response and the severity of the infection.
+A dengue fever rash typically appears between two and five days after symptoms begin. It often starts as flat, red patches that may later become raised. Some people describe the rash as looking like sunburn, while others notice small red dots or spots spread across the body—particularly the chest, arms, and legs.
+The rash may be itchy or slightly uncomfortable, but not always. It can appear once, fade, and return again during the recovery stage. In some cases, the skin may also start to peel, especially as the fever subsides.
+While the rash is a common feature of dengue, not everyone will develop it. Still, recognising it early can help in identifying the illness and getting prompt support.
+Symptoms:
+Dengue fever symptoms can vary from person to person. The most common include:
+→ High fever (often sudden onset)
+→ Severe headache, especially behind the eyes
+→ Joint, muscle, or bone pain (sometimes called “breakbone fever”)
+→ Nausea or vomiting
+→ Fatigue or weakness
+→ Swollen glands
+→ The dengue fever rash
+If you’ve recently travelled to Asia, South America, Africa, or the Caribbean and experience these symptoms within 14 days of your return, speak to a healthcare professional. Even if you feel you’re on the mend, it’s best to check in for advice.
+Drug eruption:
+Information:
+Acute or subacute adverse cutaneous reactions to a drug or medicine include drug eruptions.
+There are many types of drug eruption, which range from a clinically mild and unnoticed rash to a severe cutaneous adverse reaction (SCAR) that may be life-threatening.
+The most common drug eruptions are:
+• Morbilliform or exanthematous drug eruption
+• Urticaria and/or angioedema (which rarely leads to anaphylaxis).
+SCARs are rare:
+• Drug hypersensitivity syndrome
+• Stevens–Johnson syndrome / toxic epidermal necrolysis (SJS/TEN).
+There are many other cutaneous adverse reactions including:
+• Acute generalised exanthematous pustulosis (AGEP)
+• Generalised pustular psoriasis
+• Serum sickness (urticaria, fever, arthralgia, lymphadenopathy)
+• Hypersensitivity vasculitis (palpable purpura)
+• Fixed drug eruption (single or multiple recurring blistered plaques)
+• Lichenoid drug eruption (lichen planus-like reaction)
+• Drug-induced photosensitivity: phototoxicity (exaggerated sunburn) or photoallergy (eczema in sun-exposed sites)
+• Bullous drug eruptions (immunobullous disease is important to recognise, as drug withdrawal leads to clearance)
+• Drug-induced lupus erythematosus.
+A drug eruption is sometimes, unnecessarily, called a cutaneous drug eruption.
+Drugs can also cause:
+• Drug-induced skin pigmentation
+• A skin problem that is ordinarily not caused by a drug (eg psoriasis triggered by lithium, eczema triggered by retinoids)
+• Systemic contact dermatitis
+• Allergic contact dermatitis and photocontact dermatitis
+• Hair loss or increase in hair (hypertrichosis)
+• Nail dystrophy or pigmentation.
+Certain classes of drugs have their own spectra of reactions, particularly:
+• Hormones such as antiandrogens
+• Chemotherapy drugs
+• Anticoagulants
+• Topical and systemic corticosteroids
+• Biologics
+• Calcineurin inhibitors
+• Epidermal growth factor inhibitors and targeted cancer therapies.
+On average, about 2% of prescriptions for a new medication lead to a drug eruption.
+• Allergic reactions to some drugs are more common in females than in males.
+• There are genetic factors that predispose people to drug eruptions. These may include differences in drug metabolism.
+• Underlying viral infections and diseases can influence reactions.
+• Previous allergic drug reaction or drug intolerance increases the risk of reaction to another drug. The more drugs prescribed, the more likelihood of allergy.
+• Cross-reactions can occur relating to previous sensitivity to different medications, sunscreens, cosmetics, foods or insect bites.
+It should be noted that some symptoms are falsely attributed to a medication when due to another cause.
+There are several causes of drug eruptions:
+• True allergy: this is due to an immunological mechanism
+• Immediate reactions occur within an hour of exposure to the drug and are mediated by IgE antibodies (urticaria, anaphylaxis).
+• Delayed reactions occur between 6 hours and several weeks of first exposure to the drug. They may be mediated by IgG antibody, immune complex, or cytotoxic T cells.
+• Predictable reactions explicable by pharmacology
+• Drug intolerance (ie, dose-related reactions)
+• Pseudoallergy (ie, an urticarial reaction assumed to be an allergy but is actually due to the direct release of mast cell mediators by the drug [opioids, NSAIDs]).
+Symptoms:
+Additional systemic symptoms accompanying drug eruption may include:
+• Fever
+• Malaise
+• Other organ involvement (in SCAR).
+Types:
+• Morbilliform (Exanthematous drug eruption)
+Information:
+Sometimes dermatologists call them morbilliform eruptions. Many viral illnesses can cause this type of rash. But kids and adults also can get morbilliform rashes after taking a new medicine. When they happen from drugs, they’re called “morbilliform drug eruptions.”
+It’s hard to say exactly how common these rashes are since they have so many different causes. Many people get morbilliform rashes after starting a new drug for the first time. This happens with about 2 in every 100 new prescriptions. Morbilliform rashes are by far the most common type people get from taking medicines. About 95% of drug-related rashes are morbilliform rashes.
+You’re more likely to have this happen if you’ve had a rash after starting a new medicine before or if other people in your family have had this happen to them. It’s also more likely if you have a viral infection, such as Epstein-Barr virus or herpesvirus, or are taking multiple medicines at once. A weakened immune system from HIV, cystic fibrosis, or an autoimmune condition also makes it more likely. 
+Morbilliform drug eruption is the most common form of drug eruption. Many drugs can trigger this allergic reaction, but antibiotics are the most common group. The eruption may resemble exanthems caused by viral and bacterial infections.
+• A morbilliform skin rash in an adult is usually due to a drug.
+• In a child, it is more likely to be viral in origin.
+Morbilliform drug eruption is also called maculopapular drug eruption, exanthematous drug eruption and maculopapular exanthem.
+Symptoms:
+On the first occasion, a morbilliform rash usually appears 1–2 weeks after starting the drug, but it may occur up to 1 week after stopping it. On re-exposure to the causative (or related) drug, skin lesions appear within 1–3 days. It is very rare for a drug that has been taken for months or years to cause a morbilliform drug eruption.
+Morbilliform drug eruption usually first appears on the trunk and then spreads to the limbs and neck. The distribution is bilateral and symmetrical.
+The primary lesion is a pink-to-red flat macule or papule.
+• Annular, targetoid, urticaria-like or polymorphous morphology may occur.
+• Lesions mostly blanch with pressure but may be non-blanchable (purpuric) on the lower legs.
+• Discrete lesions may merge together to form large erythematous patches or plaques.
+• Axilla, groin, hands and feet are usually spared.
+• Paradoxical prominent rash in axillae and groins may be due to symmetrical drug related intertriginous and flexural exanthem (SDRIFE)
+• Mucous membranes, hair and nails are not affected in uncomplicated drug eruptions.
+The rash may be associated with a mild fever and itch. As it improves, the redness dies away and the surface skin peels off.
+•  Drug induced Urticaria:
+Information:
+Urticaria is commonly called hives, a skin reaction characterised by weals, which are caused by the release of histamine and other vasoactive substances from mast cells. Oedema is located in the superficial dermis in urticaria, whereas the swelling is deeper in the skin in angioedema.
+Drug-induced urticaria is the term used when urticaria is caused by a drug, most often penicillin, a non-steroidal anti-inflammatory agent (NSAID), or sulfamethoxazole in combination with trimethoprim (see Sulfa drugs and the skin). The drug may be ingested or applied to the skin surface (contact urticaria).
+The clinical features and treatment for drug-induced urticaria are identical to those for urticaria not related to drugs. It can be associated with angioedema, anaphylaxis, and serum sickness.
+Drugs are capable of inducing three subtypes of urticaria:
+• Acute urticaria
+• Chronic urticaria
+• Contact urticaria.
+Acute urticaria is less than six weeks’ duration and is often gone within hours to days.
+Chronic urticaria is greater than six weeks’ duration, with daily or episodic weals.
+Drug-induced urticaria is sometimes called urticaria medicamentosa.
+Drug-induced urticaria can be mediated by immune or non-immune mechanisms related to the administration or contact with a drug.
+Immune mechanisms are allergic reactions mediated by the immune system (see Allergies explained) and include urticaria due to type I hypersensitivity (IgE dependent) and type III hypersensitivity (immune complex-mediated).
+Non-immunological mechanisms are pseudo-allergic reactions and are not dependent on the immune system. Non-immunological mechanisms include the direct release of mast cell mediators, an effect on the cell membrane, and activation of the complement system without immunoglobulin.
+Schistosomiasis:
+Information:
+Schistosomiasis is an infection with the parasitic worm Schistosoma. You get it from contact with freshwater sources that have the parasite in them. This includes swimming in or drinking the contaminated water, or using it for laundry. It’s mostly found in parts of Africa. It can lead to organ damage if left untreated.
+Schistosomiasis is an infection with the parasitic worm Schistosoma. The worm enters your body through your skin and can spread through your blood to other parts of your body. If you don’t treat the infection, it can damage your organs. You get it from contact with freshwater — like rivers, lakes and creeks — that contain the snails that carry it. Schistosomiasis is also called bilharzia.
+You can get infected when you’re exposed to contaminated water, like:
+• Swimming or bathing in it
+• Drinking it
+• Washing your clothes in it
+• Fishing in it
+People without access to clean, running water and toilet facilities are at the highest risk.
+Symptoms:
+It takes a while for symptoms of schistosomiasis to show up. The only symptom you might notice right away is itching or a rash where the worm entered your skin. You might have flu-like symptoms a few weeks or months after getting infected. These include:
+• Fever
+• Chills
+• Muscle aches
+• Cough
+• Stomach pain
+These symptoms often go away on their own. If the worms spread to your organs, you might develop additional symptoms months later. These include:
+• Digestive symptoms (loss of appetite, diarrhea, abdominal pain, vomiting blood, black stool)
+• Urinary symptoms (difficulty peeing, blood in your pee, leaking pee)
+• Painful intercourse
+• Abnormal vaginal discharge
+• Painful or bloody ejaculation
+• Lower back pain
+• Shortness of breath
+Dyshidrotic Eczema:
+Information:
+Dyshidrotic eczema, also called dyshidrosis or pompholyx, is a type of eczema that causes tiny, itchy blisters and dry skin. It usually affects the skin between your fingers, on your palms and on the soles of your feet.
+The fluid-filled blisters look like small, cloudy beads. They’re about 1 to 2 millimeters wide — the size of a pinhead. Sometimes, they join together to form a larger blister. When the blisters dry out, your skin may turn scaly and crack.
+Healthcare providers don’t know exactly what causes dyshidrotic eczema. They believe that both genes and the environment play a role. This condition can run in biological families. So, if your parent or sibling has it, you might get it, too. Certain things in your environment, like allergens or stress, can also trigger symptoms.
+Dyshidrotic eczema isn’t contagious. You can’t catch it from someone else. And you can’t spread it through physical contact.
+Symptoms:
+Dyshidrotic eczema causes symptoms that come and go. These may last for several weeks at a time. The most common symptoms affect your skin and may include:
+• Small, firm blisters
+• Pain or soreness
+• Itching
+• Peeling or scaling
+• Changes in color
+• Extra sweating
+• Dryness and cracking (after blisters go away)
+In severe cases, blisters may get bigger and spread to the backs of your fingers, hands and feet. They won’t spread to other parts of your body.
+Molluscum Contagiosum:
+Information:
+Molluscum contagiosum is a viral skin infection that causes one or many raised, pearl-like bumps (papules) on your skin. Papules may persist from a few months to a few years. The condition easily spreads (contagious). Treatment helps the infection go away but isn’t always necessary, as it can also go away on its own.
+Molluscum contagiosum is a skin infection caused by a virus. The infection creates small, raised bumps on your skin that have the appearance of a pearl. These bumps are usually white but can match your natural skin tone or appear pink to purple. Bumps from the infection can form anywhere on your skin but it’s most common on your face, neck, arms, legs or genitals.
+Molluscum contagiosum can affect anyone at any age. It’s most common among children under 10 years. You could be at an increased risk if you:
+• Have a weakened immune system.
+• Have eczema.
+• Live in a warm, humid climate.
+• Live in an environment with a lot of other people (crowded).
+Molluscum contagiosum is an infection caused by a virus. The virus (poxvirus) spreads from person to person through physical contact or contaminated surfaces or objects. This infection begins with a single bump that can spread and increase in number when you itch your skin. These bumps can be bothersome, sore, swollen and itchy. The condition resolves on its own within six to 12 months and usually doesn’t scar your skin.
+Papules from a molluscum contagiosum infection can form anywhere on your body but are most common on your:
+• Face (eyelids, lips).
+• Neck.
+• Arms.
+• Legs.
+• Genitals (penis, vagina, vulva).
+• Abdomen.
+• Inner thighs.
+The molluscum contagiosum virus, which is a virus of the poxvirus family, causes molluscum contagiosum. When this virus enters your body, bumps or spots (papules) appear on your skin. These papules can spread to other areas of your skin and other people (contagious).
+ Molluscum contagiosum is contagious. The virus that causes this infection spreads through:
+• Close physical contact (skin to skin).
+• Touching contaminated objects (clothing, towels, toys).
+• Sexual contact.
+The exact time that you’re contagious is unknown, but studies suggest you could be contagious and spread the virus until the papules leave your skin.
+Molluscum contagiosum can be considered a sexually transmitted infection (STI). The virus that causes the condition can spread through close personal contact, which includes sexual contact. Symptoms can form on your genitals. But it's more commonly spread through casual contact.
+Symptoms:
+Symptoms of molluscum contagiosum range from mild to severe and include:
+• Small, pimple-like bump (papule), lesion or wart on your skin (2 to 5 millimeters).
+• Papule is white, the same color as your natural skin tone or pink to purple.
+• Papule has a small indent (dimple) in the center.
+• Papule is firm but can become soft over time.
+• Papule can drain a clear to white fluid.
+• Itchy skin.
+Scratching the papule on your skin causes it to spread. It causes:
+• Multiple papules form in a line or cluster (crops or rash) near the area of the original papule.
+• The skin around the papules swells (inflammation), gets bigger and turns red to purple.
+• The papules become painful.
+Among people who have eczema, AIDS or other conditions that affect their immune system, the lesions associated with molluscum contagiosum can grow larger than 5 mm (giant molluscum contagiosum).
+Erysipelas:
+Information:
+Erysipelas is a common bacterial infection of the skin. It affects the upper dermis (upper layer of the skin) and the lymphatic vessels within the skin. The condition begins with the breaking of the skin, followed by bacterial invasion. 
+Erysipelas face occurs when the bacteria causes tender and bright red rashes to appear on the facial skin. Erysipelas infections usually affect the face and the legs but can occur anywhere on the skin. 
+Although erysipelas is a common bacterial infection - and tends to recur -- it may become serious if left untreated. 
+Erysipelas causes raised rashes on the skin. The bacteria releases toxins, which play a role in causing skin inflammation. The legs, face, and arms are the main sites of infection.
+One of the strains of group A Streptococcus bacteria (“strep”) causes erysipelas. This condition affects children as well as adults. Although it affects any age group, people with these conditions are at higher risk of getting erysipelas:
+• Venous diseases (for example, eczema)
+• Diabetes
+• Pregnancy 
+• Obesity
+• Alcoholism
+• Prior injuries 
+• Prior episodes of erysipelas
+• Surgical wounds
+• Radiotherapy
+• Skin sores
+Symptoms:
+• Fevers
+• Chills
+• Shivering 
+• Fatigue
+• Headaches
+• Vomiting
+People with erysipelas begin to notice red swollen patches on the skin. The condition also forms blisters and sores (erysipelas lesions). If the infection affects other parts of the skin, you will notice redness and painful skin lesions with raised borders. 
+Erythrasma:
+Information:
+Erythrasma is a skin condition that causes red or brown patches. A lot of people have erythrasma, but some people are more likely to get it. 
+Erythrasma is a skin condition caused by the normal skin bacteria Corynebacterium minutissimum. Erythrasma is also called cutaneous erythrasma. It is usually an ongoing or long term health condition.‌
+Anyone can get erythrasma, but it’s most common in adults and men. People who live in warm and humid climates are more likely to get erythrasma. It can affect other people with certain health conditions. These include people who:
+• Have poor hygiene
+• Have obesity
+• Have diabetes
+• Sweat a lot
+• Are older
+• Have a weakened immune system
+• Have other skin disorders‌
+People who live in shared living spaces are also more likely to get erythrasma. This includes student dorms, residential nursing homes, and barracks. 
+Types of Erythrasma
+There are three types of cutaneous erythrasma.‌
+Interdigital erythrasma. This type is a bacterial infection on your feet. It usually happens between your last two toes. Sometimes people also have fungal infections on the foot at the same time. 
+Intertriginous erythrasma. This type affects areas where your skin touches and rubs itself. It’s most commonly seen in people who have type 2 diabetes. 
+The infection usually shows up in skin folds, including:
+• Armpit
+• Groin
+• Under breasts
+• Crease between buttocks
+• Belly button
+• Thighs 
+This infection can develop between the folds of excess fat on your stomach or legs where the skin chafes.‌
+Generalized erythrasma. This type is also called disciform. It is rare and can appear anywhere on your body. Women who live in tropical climates are more likely to get this type. It can be an early sign of type 2 diabetes.
+Symptoms:
+Most people have signs of erythrasma where there’s a change in the skin. This can look like:
+• Red patches
+• Pink patches
+• Brown patches
+• Scaly skin
+• Cracking skin, especially on your feet
+• Softened or macerated skin
+• Skin that looks wrinkly
+On darker skin, erythrasma can look like a patch of skin with loss of color but darker than normal edges. 
+Lots of people who have erythrasma don’t have any symptoms. Some people can have burning and itchiness, particularly if there is an infection in the groin.
+Carbuncle: 
+Information:
+A carbuncle is a cluster of boils painful, pus-filled bumps that form a connected area of infection under the skin.
+A carbuncle is a cluster of boils that form a connected area of infection. Compared with single boils, carbuncles cause a deeper and more severe infection and are more likely to leave a scar. People who have a carbuncle often feel unwell in general and may experience a fever and chills.
+ A carbuncle is a group of boils located in one area of the body. If left alone, a boil will break and drain on its own over time. In certain cases, a doctor may need to cut into your skin to drain the pus.
+Boils are usually caused by the bacteria Staphylococcus aureus (staph infection), but other bacteria and fungi can cause them too. Bacteria enter your skin through a cut or a hair follicle (the opening in your skin where hair grows out). Your body’s immune system responds by sending infection-fighting white blood cells to the area. The white blood cells build up, along with damaged skin, to form pus. Carbuncles develop when more than one hair follicle gets infected. The infection is deeper and more severe than one boil.
+Symptoms:
+A boil (or furuncle) is a pus-filled bump that develops in your skin. Carbuncles are clusters of several boils. Boils usually begin as red bumps, which quickly increase in size and fill with pus. Boils are usually caused by the bacteria Staphylococcus aureus (staph infection).
+Carbuncles are formed when multiple boils cluster together and form an area of infection. In addition to the symptoms seen with boils, carbuncles may also be associated with fever, chills and fatigue
+Folliculitis:
+Information:
+Folliculitis is a common skin condition that happens when hair follicles become inflamed. It's often caused by an infection with bacteria. At first it may look like small pimples around the tiny pockets from where each hair grows (hair follicles).
+The condition can be itchy, sore and embarrassing. The infection can spread and turn into crusty sores.
+Mild folliculitis will likely heal without scarring in a few days with basic self-care. More-serious or repeat infections may need prescription medicine. Left untreated, severe infections can cause permanent hair loss and scarring.
+Certain types of folliculitis are known as hot tub rash and barber's itch.
+The two main types of folliculitis are superficial and deep. The superficial type involves part of the follicle, and the deep type involves the entire follicle and is usually more severe.
+Types of folliculitis, with the most common listed first, include:
+• Bacterial folliculitis. This common type is a rash of itchy, pus-filled bumps. It occurs when hair follicles become infected with bacteria, usually Staphylococcus aureus (staph). Staph bacteria live on the skin all the time. And they can cause problems when they enter the body through a cut or other wound.
+• Hot tub rash (pseudomonas folliculitis). This type is a rash of round, itchy bumps that can show up 1 to 2 days after exposure to the bacteria that causes it. Hot tub folliculitis is caused by pseudomonas bacteria, which can be found in hot tubs, water slides and heated pools in which the chlorine and pH levels aren't correct.
+• Razor bumps (pseudofolliculitis barbae). This rash can look like folliculitis but it's caused by ingrown hairs, not infected follicles. It mainly affects people with curly hair who shave too close and is most noticeable on the face and neck. People who get bikini waxes may get razor bumps in the groin area.
+• Pityrosporum (pit-ih-ROS-puh-rum) folliculitis. This type is a rash of itchy, pus-filled bumps, most often on the back and chest. It's caused by a yeast infection.
+• Gram-negative folliculitis. This type causes pus-filled bumps around the nose and mouth. It sometimes develops in people who are receiving long-term antibiotic therapy for acne.
+• Eosinophilic (e-o-sin-o-FILL-ik) folliculitis. This type causes intense itching and recurring patches of bumps and pimples that form near hair follicles of the face and upper body. It mainly affects people with HIV/AIDS. The cause of this condition isn't fully understood.
+• Boils (furuncles) and carbuncles. These occur when hair follicles become deeply infected with staph bacteria. A boil tends to appear suddenly as a painful inflamed bump. A carbuncle is a cluster of boils.
+• Sycosis barbae. This type affects people who shave.
+Folliculitis is often caused when hair follicles are infected with bacteria, commonly Staphylococcus aureus (staph). It may also be caused by viruses, fungi, parasites, medications or physical injury. Sometimes the cause isn't known.
+When hair follicles are damaged, they may be invaded by viruses, bacteria and fungi. This can lead to development of folliculitis. Superficial folliculitis affects the upper part of the hair follicle and the skin around the follicle. Deep folliculitis affects more of the follicle or even all of it.
+Symptoms:
+• Clusters of small bumps or pimples around hair follicles
+• Pus-filled blisters that break open and crust over
+• Itchy, burning skin
+• Painful, tender skin
+• An inflamed bump
+Urticaria (hives/pantal):
+Information:
+Hives are itchy, raised bumps or welts on your skin. They’re often random, without a known cause. Triggers could include heat, cold, physical pressure and stress. Sometimes, an allergic reaction causes them. They’re often red or the same color as the surrounding skin. Healthcare providers usually treat hives with antihistamines.
+Hives are itchy, raised bumps or welts that come and go on your skin. They’re most often red or skin-toned, but can look different depending on the color of your skin. They can be as small as a pencil eraser or as large as a dinner plate.
+Hives are common. They affect up to 20% of people, both kids and adults. In many cases, they’re harmless and short-lived. Sometimes, hives can become chronic. This means they last more than six weeks. These aren’t life-threatening, but they can be very bothersome and frustrating.
+Hives are raised and welt-like. They’re usually itchy. It can be easy to confuse hives with other types of rashes. Common features of hives include:
+• Itching (mild to severe)
+• Last no more than 24 hours in one spot
+• Can change size or shape
+• Can move around different parts of your body
+• Don’t leave a mark or bruise
+Hives can appear on their own or with swelling under the skin of your lips, tongue, mouth or throat (angioedema).
+Hives caused by an allergic reaction happen immediately after you’re exposed — for example, right after you eat a food you’re allergic to. In this case, you may also have other symptoms, like shortness of breath, vomiting or dizziness.
+Anaphylaxis happens when you have a severe allergic reaction. Common anaphylaxis triggers include:
+• Foods
+• Medications
+• Insect stings
+Sometimes, hives can be a sign of ongoing medical conditions, like autoimmune diseases.
+Symptoms:
+• Infections
+• Emotional or physical stress
+• Temperature (hot or cold)
+• Vibrations, pressure or scratching your skin
+• Exercise
+Varicella (chicken pox):
+Information:
+Chickenpox is an illness caused by the varicella-zoster virus. It brings on an itchy rash with small, fluid-filled blisters. Chickenpox spreads very easily to people who haven't had the disease or haven't gotten the chickenpox vaccine. Chickenpox used to be a widespread problem, but today the vaccine protects children from it.
+A virus called varicella-zoster causes chickenpox. It can spread through direct contact with the rash. It also can spread when a person with chickenpox coughs or sneezes and you breathe in the air droplets.
+Symptoms:
+The rash caused by chickenpox appears 10 to 21 days after you're exposed to the varicella-zoster virus. The rash often lasts about 5 to 10 days. Other symptoms that may appear 1 to 2 days before the rash include:
+• Fever.
+• Loss of appetite.
+• Headache.
+• Tiredness and a general feeling of being unwell.
+Once the chickenpox rash appears, it goes through three phases:
+• Raised bumps called papules, which break out over a few days.
+• Small fluid-filled blisters called vesicles, which form in about one day and then break and leak.
+• Crusts and scabs, which cover the broken blisters and take a few more days to heal.
+New bumps keep showing up for several days. So you may have bumps, blisters and scabs at the same time. You can spread the virus to other people for up to 48 hours before the rash appears. And the virus stays contagious until all broken blisters have crusted over.
+The disease is by and large mild in healthy children. But sometimes, the rash can cover the whole body. Blisters may form in the throat and eyes. They also may form in tissue that lines the inside of the urethra, anus and vagina
+Cellulitis
+Information:
+Cellulitis (sel-u-LIE-tis) is a spreading skin infection, most commonly of the lower leg. It's caused by bacteria entering through a break in the skin.
+The affected skin is swollen, painful and warm to the touch. The infection can cause a fever and become very serious, involving deeper tissues.
+The condition often clears up with antibiotic medicine.
+Cellulitis is usually an infection of the skin (left). But if the condition is severe or left untreated, as in the photo on the right, it can spread into tissue under the skin, the lymph nodes and the bloodstream.
+Cellulitis happens when bacteria enter the body through a crack or break in the skin. Bacteria are most likely to enter broken, dry, flaky or swollen skin. Examples of entry points for bacteria are a recent surgical site, a cut, a puncture wound, a sore, and skin affected by athlete's foot or dermatitis. Cellulitis usually isn't spread from person to person.
+The most common bacteria with this condition are streptococcus and staphylococcus. The incidence of a more serious staphylococcus infection called methicillin-resistant Staphylococcus aureus (MRSA) is increasing.
+Symptoms:
+Cellulitis is a common condition that can occur anywhere on the body, but it often involves the lower leg and usually just one side of the body.
+Cellulitis symptoms include:
+• Swelling.
+• Warmth.
+• Pain.
+• Fever.
+• Chills.
+• Spots on the skin.
+• Blisters.
+• Skin dimpling.
+Candidiasis (yeast infection):
+Information:
+Candidiasis is a yeast infection that occurs when a type of yeast called Candida albicans grows out of control. It commonly affects your mouth, skin and vagina. Candidiasis isn’t a serious infection, but you still want to seek treatment right away. Antifungal medications can effectively treat and clear up the infection within two days to two weeks.
+Candidiasis is a fungal infection caused by an overgrowth of a type of yeast that lives on your body called Candida albicans. A candidiasis infection often appears where Candida naturally lives in small amounts, like your skin, mouth or vagina.
+Normally, healthy bacteria on your body prevent yeast overgrowth. Imagine you have a two-armed scale with healthy bacteria on one side and yeast on the other. The scale stays balanced until something disrupts it, like:
+• Certain medical conditions
+• Stress
+• Unhealthy eating patterns
+• Weakened immune system
+When something disrupts your scale, a candidiasis infection can occur.
+Candidiasis causes discomfort, itching and irritation until you find treatment, but it isn’t a major threat to your overall health. Like any other infection, you should treat it right away to relieve your symptoms. Left untreated, severe infections could spread to other parts of your body, including your blood, heart and brain.
+Since yeast naturally lives on your body, there are different types of candidiasis based on the location of the infection. Types of candidiasis include:
+• Cutaneous candidiasis. Cutaneous means skin. A cutaneous candidiasis infection causes red, raised patches to form in the folds of your skin, like in your underarms, under your breasts and near your buttocks (diaper rash).
+• Nail candidiasis (candidal paronychia). Nail candidiasis is an infection in your nail folds or cuticles. It causes redness, pain and swelling around your nails. In severe cases, your nail plate may separate from your nail bed (onycholysis).
+• Oral candidiasis (thrush). Thrush is an infection that affects your mouth, throat, tongue or esophagus. It causes raised, white sores to develop, along with mouth pain, irritation and redness.
+• Vaginal candidiasis (vaginal yeast infection). Vaginal candidiasis is a common infection that causes burning, itching and redness in your vulva and changes to your vaginal discharge. A vaginal yeast infection is a type of vaginitis.
+An overgrowth of Candida yeast causes candidiasis infections. This occurs when there’s an imbalance between healthy bacteria and Candida yeast on your body. Triggers that can disrupt this balance include:
+• Being immunocompromised
+• Eating foods high in refined carbohydrates, sugar or yeast
+• Experiencing hormonal changes, like pregnancy or menopause
+• Feeling stressed
+• Having certain medical conditions, including cancer, diabetes and HIV/AIDS
+• Taking certain medications, including antibiotics, oral contraceptives and steroids
+Symptoms:
+Symptoms depend on the part of the body that is infected. Different types of infections can cause similar symptoms. Healthcare providers can test to see if you have candidiasis.
+Vaginal candidiasis (yeast infection)
+The symptoms of vaginal candidiasis include:
+• Vaginal itching or soreness
+• Pain during sexual intercourse
+• Pain or discomfort when urinating
+• Abnormal vaginal discharge
+Vaginal candidiasis is often mild. However, some women can develop severe infections involving redness, swelling, and cracks in the wall of the vagina.
+Candidiasis of the mouth and throat (thrush) and esophagus
+Candidiasis in the mouth and throat can have many different symptoms, including:
+• White patches on inner cheeks, tongue, roof of the mouth, and throat.
+• Redness or soreness
+• Cotton-like feeling in the mouth
+• Loss of taste
+• Pain while eating or swallowing
+• Cracking and redness at the corners of the mouth
+Symptoms of candidiasis of the esophagus include pain and difficulty swallowing. Most people who get candidiasis of the esophagus also have mouth and throat infections.
+Invasive candidiasis
+Most people are not at risk for invasive candidiasis, including candidemia (bloodstream infections). People who develop invasive candidiasis are often already sick from other medical conditions, so it can be difficult to know which symptoms are related to a Candida infection.
+The most common symptoms of invasive candidiasis are fever and chills that don't improve after antibiotic treatment for suspected bacterial infections.
+Other symptoms can develop if the infection spreads to other parts of the body, such as the heart, brain, eyes, bones, or joints.
+Ichthyosis:
+Information:
+Ichthyosis refers to a group of skin disorders that lead to dry, itchy skin that appears scaly, rough, and red. The symptoms can range from mild to severe. Ichthyosis can affect only the skin, but some forms of the disease can affect internal organs as well.
+Most people have a genetic form of ichthyosis that results from a changed gene, often inherited from their parents. However, some people develop a form of acquired (nongenetic) ichthyosis from another medical disorder or certain medications. While there is currently no cure for ichthyosis, research is ongoing and treatments are available to help manage the symptoms.
+The outlook for people with ichthyosis varies depending on the type of the disease and how severe it is. Most people with ichthyosis need treatment for life to help make the disease more manageable
+Anyone can get ichthyosis. The disease is usually passed down from your parents; however, some people can be the first in a family to develop ichthyosis due to a new gene mutation.  Other people develop an acquired (nongenetic) form of ichthyosis, which results from another medical condition or a side effect of a medication.
+There are more than 30 distinct types of ichthyosis, including those that occur as part of another syndrome or condition. Doctors may determine the type of ichthyosis by identifying the:
+• Gene mutation.
+• Inheritance pattern through analyzing family trees.
+• Symptoms, including their severity and which organs they affect.
+• Age when symptoms first appeared.
+Some types of the disease, which are inherited and are not part of a syndrome, include the following:
+• Ichthyosis vulgaris is the most common type. It is usually mild and appears in the first year of life with dry, flaky skin.
+• Harlequin ichthyosis is usually seen at birth and causes thick scaly plates of skin that cover the entire body. This form of the disorder can affect the shape of facial features and may limit joint movement.
+• Epidermolytic ichthyosis is present at birth. Most infants are born with fragile skin and blisters covering their body. Over time, the blisters disappear, and scaling of the skin develops. This can have a ridged appearance over areas of the body that bend.
+• Lamellar ichthyosis is present at birth. The infant is born with a tight clear covering the entire body, called a collodion membrane. Over several weeks, the membrane peels away, and large, dark, plate-like scales develop over most of the body.
+• Congenital ichthyosiform erythroderma is present at birth. Infants also often present with a collodion membrane.
+• X-linked ichthyosis usually develops in males and begins at about 3 to 6 months of life. Scaling is usually present on the neck, lower face, trunk, and legs, and symptoms can worsen over time.
+• Erythrokeratodermia variabilis usually develops a few months after birth and progresses during childhood. The skin can develop rough, thick or reddened areas of skin, usually on the face, buttocks, or limbs. The affected areas can spread on the skin over time.
+• Progressive symmetric erythrokeratoderma usually appears in childhood with dry, red, scaly skin primarily on the limbs, buttocks, face, ankles, and wrists.
+Gene mutations (changes) cause all of the inherited types of ichthyosis. Many gene mutations have been identified and the inheritance pattern depends on the type of ichthyosis. People continually grow new skin and shed old skin throughout their lives. For people with ichthyosis, the mutated genes change the normal skin growth and shedding cycle, causing skin cells to do one of the following:
+• Grow faster than they are shed.
+• Grow at a normal rate, but shed at a slow rate.
+• Shed faster than they grow.
+There are different types of inheritance patterns of ichthyosis, including:
+• Dominant, which means you inherit one normal copy and one mutated copy of the gene that causes ichthyosis. The abnormal copy of the gene is stronger or “dominant” over the normal copy of the gene, causing the disease. A person with a dominant mutation has a 50% chance (1 in 2) of passing the disorder to each of his or her children.
+• Recessive, which means that your parents do not have signs of ichthyosis, but both parents carry only one abnormal gene, which is not enough to cause the disease. When both parents carry one recessive gene, there is a 25% chance (1 out of 4) per pregnancy of having a child who inherits both of these mutated genes and develops the disorder. There is a 50% chance (2 out of 4) per pregnancy of having a child who inherits only one mutated recessive gene, making them a carrier of the disease gene without noticeable signs. If one parent has a recessive form of ichthyosis with two mutated genes, all their children will carry one abnormal gene, but will not usually have noticeable signs of ichthyosis.
+• X-linked, which means the gene mutations are located on the X sex chromosome. Each person has two sex chromosomes: Females generally have two X chromosomes (XX), and males generally have one X chromosome and one Y chromosome (XY). The mother always passes on an X chromosome, but the father can pass on either an X or Y chromosome. The inheritance pattern for X-linked ichthyosis is usually recessive; this means that males, who only have one X chromosome to begin with, pass on the mutated X chromosome. Because of this pattern, females are affected more often, and typically they have one mutated and one normal X chromosome.
+• Spontaneous, which means the gene mutation occurs randomly without a family history of the disorder. This is most common in dominant and X-linked ichthyoses.
+Symptoms:
+The symptoms of ichthyosis can range from mild to severe. The most common symptoms include:
+• Dry skin.
+• Itching.
+• Redness of the skin.
+• Cracking of the skin.
+• Scales on the skin that are white, gray, or brown and have the following appearance:
+• Small and flaky.
+• Large, dark, plate-like scales.
+• Hard, armor-like scales.
+Depending on the type of ichthyosis, other symptoms may include:
+• Blisters that can break, leading to wounds.
+• Hair loss or fragile hair.
+• Dry eyes and difficulty closing eyelids. Inability to perspire (sweat) because skin scales clog the sweat glands.
+• Difficulty hearing.
+• Thickening of the skin on the palms of the hands and soles of the feet.
+• Tightening of the skin.
+• Difficulty flexing some joints.
+Keratosis pilaris( chicken skin):
+Information:
+Keratosis pilaris is a harmless skin condition that causes dry, rough patches and tiny bumps, often on the upper arms, thighs, cheeks or buttocks. The bumps usually don't hurt or itch.
+Keratosis pilaris is often considered a common variant of skin. It can't be cured or prevented. But you can treat it with moisturizers and prescription creams to help improve how the skin looks. The condition usually disappears by age 30.
+Keratosis pilaris causes small, discolored bumps to develop around your hair follicles. The palms of your hands and soles of your feet don’t have hair follicles, so keratosis pilaris won’t appear in these areas of your body.
+Keratosis pilaris is caused by the buildup of keratin — a hard protein that protects skin from harmful substances and infection. The keratin blocks the opening of hair follicles, causing patches of rough, bumpy skin.
+It's not clear why keratin builds up in people with keratosis pilaris. It might happen along with a genetic disease or skin conditions such as atopic dermatitis. Dry skin tends to make keratosis pilaris worse.
+Keratosis pilaris is a benign (not harmful) skin condition that looks like small bumps. If you have this condition, you may notice small, painless bumps on your skin around hair follicles. The bumps consist of excess keratin, which is a protein that helps form your hair, nails and skin’s outer layer (epidermis). Keratosis pilaris bumps may look red, brown or white, or they may look the same color as your skin. Other names for keratosis pilaris include KP or “chicken skin” because it looks like goose bumps.
+Keratosis pilaris causes small, discolored bumps to develop around your hair 
+follicles. The palms of your hands and soles of your feet don’t have hair follicles, so keratosis pilaris won’t appear in these areas of your body.
+Symptoms:
+Keratosis pilaris can occur at any age, but it's more common in young children. Symptoms include:
+• Painless tiny bumps on the upper arms, thighs, cheeks or buttocks
+• Dry, rough skin in the areas with bumps
+• Worsening when seasonal changes cause low humidity and dry skin
+• Sandpaper-like bumps resembling goose flesh
+Lymphatic filariasis:
+Information:
+Elephantiasis is an infectious disease that spreads through mosquito bites. It can lead to fluid retention and, in some cases, disfigurement. Elephantiasis is common in many tropical and sub-tropical climates. It’s very rare in the United States.
+Elephantiasis (pronounced “eh-luh-fuhn-TAI-uh-suhs”) is a type of infectious disease that causes skin thickening and (in some cases) disfigurement. You get elephantiasis through tiny parasitic worms (filarial worms) that infect your lymphatic system. These parasites block your lymphatic capillaries and cause fluid (lymph) to accumulate.
+People with elephantiasis may also develop inflammation, swelling and fever. Without treatment, elephantiasis can cause health complications.
+Another name for elephantiasis is lymphatic filariasis (pronounced “fil-ur-AI-uh-suhs”).
+About 120 million people worldwide — 1.5% of the world’s population — have a lymphatic filariasis infection. The condition is most common in tropical climates. Countries in Asia, Africa and South America have higher cases.
+Elephantiasis is rare in North America. The worms that cause it don’t live in the United States.
+It’s rare to get an elephantiasis infection during a short visit to one of these countries. You’re more likely to get the condition if you stay in a high-risk area for months or years.
+Elephantiasis can affect various parts of the body, including your:
+• Arms.
+• Legs.
+• Breasts.
+• Scrotum.
+• Penis.
+• Vulva.
+• Face
+Elephantiasis can occur when a person has filariasis — a parasitic infection by a type of roundworm. Tiny worms, too small to see with the naked eye, invade your body. Under a microscope, the filarial worms look like threads.
+There are several types of filarial worms:
+• Wuchereria bancrofti causes 9 out of 10 infections.
+• Brugia malayi leads to most of the remaining cases of the disease.
+• Brugia timori can also cause infection.
+Lymphatic filariasis spreads through mosquito bites. When a mosquito bites someone who has filariasis, the filarial worms in the person’s blood infect the mosquito. Then, when the infected mosquito bites another person, the worms pass into that person’s bloodstream.
+In general, a person won’t get filariasis from a single mosquito bite. It usually takes repeated mosquito bites over several months (or even years) for a person to get the condition.
+When these worms enter your bloodstream, they travel to your lymphatic system. There, they grow into adult worms. The adult worms stay alive for up to seven years. The filarial worms reproduce and release millions of worms into your bloodstream.
+Symptoms:
+About 2 in every 3 people who have lymphatic filariasis don’t have severe symptoms. But filariasis usually leads to a weakened immune system.
+Some people may experience:
+• Inflammation (due to an overactivated immune system).
+• Lymphedema (fluid buildup in your lymphatic system).
+• Hydrocele (swelling and fluid buildup in your scrotum).
+• Edema (swelling and fluid buildup in tissues throughout your body).
+Actinic keratosis:
+Information:
+An actinic keratosis (ak-TIN-ik ker-uh-TOE-sis) is a rough, scaly patch on the skin that develops from years of sun exposure. It's often found on the face, lips, ears, forearms, scalp, neck or back of the hands.
+Actinic keratoses are scaly spots or patches on the top layer of skin. With time they may become hard with a wartlike surface.
+Also known as a solar keratosis, an actinic keratosis grows slowly and usually first appears in people over 40. You can reduce your risk of this skin condition by minimizing your sun exposure and protecting your skin from ultraviolet (UV) rays.
+Left untreated, the risk of actinic keratoses turning into a type of skin cancer called squamous cell carcinoma is about 5% to 10%.
+An actinic keratosis is caused by frequent or intense exposure to ultraviolet (UV) rays from the sun or tanning beds.
+Symptoms:
+• Rough, dry or scaly patch of skin, usually less than 1 inch (2.5 centimeters) in diameter
+• Flat to slightly raised patch or bump on the top layer of skin
+• In some cases, a hard, wartlike surface
+• Color variations, including pink, red or brown
+• Itching, burning, bleeding or crusting
+• New patches or bumps on sun-exposed areas of the head, neck, hands and forearms
+Basal cell carcinoma:
+Information:
+Basal cell carcinoma is a type of skin cancer. Basal cell carcinoma begins in the skin cells called basal cells. The basal cells make new skin cells as old ones die off.
+Basal cell carcinoma often looks like a slightly transparent bump on the skin, though it can take other forms. Basal cell carcinoma occurs most often on areas of the skin that get a lot of sun, such as the face and neck.
+Most basal cell carcinomas are caused by exposure to light from the sun. Using sunscreen and other sun protection methods can help lower your chances of getting basal cell carcinoma.
+Basal cell carcinoma on white skin
+Basal cell carcinoma is a type of skin cancer that most often develops on areas of skin exposed to the sun, such as the face. On white skin, basal cell carcinoma often looks like a bump that's skin-colored or pink.
+Basal cell carcinoma on brown skin
+Basal cell carcinoma is a type of skin cancer that most often develops on areas of skin exposed to the sun, such as the face. On brown and Black skin, basal cell carcinoma often looks like a bump that's brown or glossy black and has a rolled border.
+Basal cell carcinoma starts in basal cells in the skin. Basal cells are found at the bottom of the outermost layer of skin, which is called the epidermis. Basal cells create new skin cells. As new skin cells form, they push older cells toward the skin's surface, where the old cells die and are sloughed off.
+Most basal cell carcinomas are caused by exposure to light from the sun. The light that comes from the sun is a kind of ultraviolet light. This kind of light also can come from tanning beds and tanning lamps. Ultraviolet light contains radiation that changes the DNA inside the skin's basal cells. This can lead to basal cell carcinoma.
+Not all basal cell carcinomas happen on skin that typically gets a lot of sun. This means something else also causes basal cell carcinomas. The cause is not always clear. But healthcare professionals have found some factors that increase the risk of basal cell carcinoma. These include having a weakened immune system and having a family history of skin cancer.
+Basal cell carcinoma starts when the skin's basal cells develop changes in their DNA. A cell's DNA holds the instructions that tell the cell what to do. In healthy cells, the DNA tells the cells to grow and multiply at a set rate. The DNA also tells the cells to die at a set time.
+In cancer cells, the DNA changes give different instructions. The changes tell the cancer cells to grow and multiply quickly. Cancer cells can keep living when healthy cells would die. This causes too many cells.
+The cancer cells can invade and destroy healthy body tissue. In time, cancer cells can break away and spread to other parts of the body. When cancer spreads, it's called metastatic cancer. Basal cell carcinoma can spread, but this is rare. Most basal cell carcinomas do not spread.
+Skin cancer begins in the cells that make up the outer layer of the skin, called the epidermis. One type of skin cancer called basal cell carcinoma begins in the basal cells. Basal cells make skin cells that keep pushing older cells toward the surface. As new cells move up, they become squamous cells. Skin cancer that starts in the squamous cells is called squamous cell carcinoma of the skin. Melanoma, another type of skin cancer, happens in the pigment cells, called melanocytes.
+Symptoms:
+Basal cell carcinoma usually occurs on parts of the body that get a lot of sun, especially the head and neck. Less often, basal cell carcinoma can develop on parts of the body usually protected from the sun, such as the genitals.
+Basal cell carcinoma appears as a change in the skin, such as a growth or a sore that won't heal. These changes in the skin are called lesions. Lesions usually have one of the following characteristics:
+• A shiny, skin-colored bump that's translucent, meaning you can see a bit through the surface. The bump can look pearly white or pink on white skin. On brown and Black skin, the bump often looks brown or glossy black. Tiny blood vessels might be visible, though they may be difficult to see on brown and Black skin. The bump may bleed and scab over.
+• A brown, black or blue lesion, or a lesion with dark spots, with a slightly raised, translucent border.
+• A flat, scaly patch with or without a raised edge. Over time, these patches can grow quite large.
+• A white, waxy, scarlike lesion without a clearly defined border.
+Squamous cell carcinoma :
+Information:
+Squamous cell carcinoma of the skin is a type of cancer that starts as a growth of cells on the skin. It starts in cells called squamous cells. The squamous cells make up the middle and outer layers of the skin. Squamous cell carcinoma is a common type of skin cancer.
+Squamous cell carcinoma of the skin is usually not life-threatening. But if it's not treated, squamous cell carcinoma of the skin can grow large or spread to other parts of the body. The growth of the cancer can cause serious complications.
+Most squamous cell carcinomas of the skin are caused by too much ultraviolet (UV) radiation. UV radiation comes either from sunlight or from tanning beds or lamps. Protecting your skin from UV light can help reduce the risk of squamous cell carcinoma of the skin and other forms of skin cancer.
+Squamous cell carcinomas can be anywhere on the skin. In people who sunburn easily, the cancer is usually found on areas of skin that have had a lot of sun. In people with Black and brown skin, squamous cell carcinomas are more likely to be on skin that isn't exposed to sun, such as the genitals.
+Squamous cell carcinoma of the skin occurs when the squamous cells in the skin get changes in their DNA. Cells' DNA holds the instructions that tell cells what to do. The changes tell the squamous cells to multiply quickly. The cells continue living when healthy cells would die as part of their natural life cycle.
+This causes too many cells. The cells can invade and destroy healthy body tissue. In time, the cells can break away and spread to other parts of the body.
+Ultraviolet (UV) radiation causes most of the DNA changes in skin cells. UV radiation can come from sunlight, tanning lamps and tanning beds.
+But skin cancers also can grow on skin that's not usually in sunlight. This means that other factors might add to the risk of skin cancer. One such factor might be having a condition that weakens the immune system.
+Symptoms:
+Squamous cell carcinoma of the skin most often occurs on sun-exposed skin. This includes the scalp, the backs of the hands, the ears or the lips. But it can occur anywhere on the body. It can even occur inside the mouth, on the bottoms of the feet or on the genitals. When squamous cell carcinoma of the skin happens in people with Black and brown skin, it tends to happen in places that aren't exposed to the sun.
+Symptoms of squamous cell carcinoma of the skin include:
+• A firm bump on the skin, called a nodule. The nodule might be the same color as the skin, or it might look different. It can look pink, red, black or brown, depending on skin color.
+• A flat sore with a scaly crust.
+• A new sore or raised area on an old scar or sore.
+• A rough, scaly patch on the lip that may become an open sore.
+• A sore or rough patch inside the mouth.
+• A raised patch or wartlike sore on or in the anus or on the genitals.
+Melanoma:
+Information:
+Melanoma is a kind of skin cancer that starts in the melanocytes. Melanocytes are cells that make the pigment that gives skin its color. The pigment is called melanin.
+Melanoma typically starts on skin that's often exposed to the sun. This includes the skin on the arms, back, face and legs. Melanoma also can form in the eyes. Rarely, it can happen inside the body, such as in the nose or throat.
+The exact cause of all melanomas isn't clear. Most melanomas are caused by exposure to ultraviolet light. Ultraviolet light, also called UV light, comes from sunlight or tanning lamps and beds. Limiting exposure to UV light can help reduce the risk of melanoma.
+The risk of melanoma seems to be increasing in people under 40, especially women. Knowing the symptoms of skin cancer can help ensure that cancerous changes are detected and treated before the cancer has spread. Melanoma can be treated successfully if it is found early.
+Melanomas also can develop in areas of the body that have little or no exposure to the sun. These areas may include the spaces between the toes and on the palms, soles, scalp or genitals. These are sometimes referred to as hidden melanomas because they occur in places most people wouldn't think to check. When melanoma occurs in people with brown or Black skin, it's more likely to occur in a hidden area.
+Hidden melanomas include:
+• Melanoma inside the body. Mucosal melanoma develops in the mucous membrane. This tissue lines the nose, mouth, esophagus, anus, urinary tract and vagina. Mucosal melanomas are especially difficult to detect because they can easily be mistaken for other far more common conditions.
+• Melanoma in the eye. Eye melanoma also is called ocular melanoma. It most often occurs in the layer of tissue beneath the white of the eye. This layer is called the uvea. An eye melanoma may cause vision changes and may be diagnosed during an eye exam.
+• Melanoma under a nail. Acral-lentiginous melanoma is a rare form of melanoma that can occur under a fingernail or toenail. It also can be found on the palms of the hands or the soles of the feet. Acral-lentiginous melanoma tends to be very dark, flat and have very unusual borders. It's more common in people of Asian descent and people with brown or Black skin.
+Melanoma happens when something changes healthy melanocytes into cancer cells. Melanocytes are skin cells that make pigment that gives skin its color. The pigment is called melanin.
+Melanoma starts when melanocytes develop changes in their DNA. A cell's DNA holds the instructions that tell a cell what to do. In healthy cells, DNA gives instructions to grow and multiply at a set rate. The instructions tell the cells to die at a set time. In cancer cells, the DNA changes give different instructions. The changes tell the cancer cells to make many more cells quickly. Cancer cells can keep living when healthy cells would die. This causes too many cells.
+The cancer cells might form a mass called a tumor. The tumor can grow to invade and destroy healthy body tissue. In time, cancer cells can break away and spread to other parts of the body. When cancer spreads, it's called metastatic cancer.
+It isn't clear what changes the DNA in skin cells and how it leads to melanoma. It's likely a combination of factors, including environmental and genetic factors. Still, healthcare professionals believe exposure to ultraviolet light is the leading cause of melanoma. Ultraviolet light, also called UV light, comes from the sun and from tanning lamps and beds.
+UV light doesn't cause all melanomas, especially those that occur in places on your body that don't receive exposure to sunlight. This means that other factors may contribute to your risk of melanoma.
+Symptoms:
+The first melanoma signs and symptoms often are:
+• A change in an existing mole.
+• The development of a new pigmented or unusual-looking growth on the skin.
+Melanoma doesn't always begin as a mole. It also can happen on otherwise healthy skin.
+Melanomas symptoms can happen anywhere on the body. Melanomas most often develop in areas that have had exposure to the sun. This includes the arms, back, face and legs.
+Melanomas also can happen in areas that aren't as exposed to the sun. This includes the soles of the feet, palms of the hands and fingernail beds. Melanoma also can happen inside the body. These hidden melanomas are more common in people with brown or Black skin.
+Signs that may indicate melanoma
+Some moles aren't typical. They may have certain characteristics that indicate melanomas or other skin cancers. Characteristics may include:
+• Asymmetrical shape. Look for moles with unusual shapes, such as two very different-looking halves.
+• Changes in color. Look for growths that have many colors or unusual color patterns.
+• Changes in size. Look for new growth in a mole larger than 1/4 inch (about 6 millimeters).
+• Changes in symptoms. Look for changes in symptoms, such as new itchiness or bleeding.
+• Unusual border. Look for moles with unusual, notched or scalloped borders.
+Moles that become cancers can all look very different. Some may show all of the changes listed above, while others may have only one or two unusual characteristics.
+Kaposi Sarcoma:
+Information:
+Kaposi sarcoma is a rare type of soft tissue sarcoma. It causes cancerous spots on your skin and in the tissue that lines your GI tract. You’re more likely to develop it if you carry human herpesvirus 8 (HHV-8) and have a weakened immune system. Healthcare providers can treat Kaposi sarcoma, but it may come back.
+Kaposi sarcoma (KS) is a type of soft tissue sarcoma. It causes lesions that can form on your skin or mucus membranes that line the inside of your mouth, nose and anus. These tumors may also develop in the lining of internal organs like your liver, belly and lungs.Kaposi sarcoma happens when HHV-8 infects the cells that line your blood and lymphatic vessels. HHV-8 is a rare disease that turns healthy cells into cancerous cells. Certain factors increase the risk of HHV-8 becoming Kaposi sarcoma.
+You can get KS if you carry human herpesvirus 8 (HHV-8) and have a weakened immune system. KS is rare. Fewer than 5,000 people living in the United States have it.
+Symptoms:
+Kaposi sarcoma symptoms can vary depending on the location of the lesions. You might develop:
+• Abnormal spots on your skin that appear in one or more areas (these patchy spots might be smooth or bumpy)
+• Belly pain or blood in your poop from lesions in your belly
+• Constipation, diarrhea or vomiting from lesions in your digestive system
+• Coughing up blood or difficulty breathing because there are lesions in your lungs
+• Lymphedema, which can happen when lesions block one of your lymph nodes
+• Mouth pain when eating due to lesions in your mouth
+Kaposi sarcoma causes
+Kaposi sarcoma happens when HHV-8 infects the cells that line your blood and lymphatic vessels. HHV-8 is a rare disease that turns healthy cells into cancerous cells. Certain factors increase the risk of HHV-8 becoming Kaposi sarcoma.
+Risk factors
+Risk factors for Kaposi sarcoma include:
+• Age. Kaposi sarcoma mostly affects those between ages 40 and 70.
+• Ethnicity. You have a higher risk for KS if you’re of Mediterranean, Southwest Asian, Eastern European or Ashkenazi Jewish descent.
+• Immune deficiency. You’re more likely to develop KS if you have a weakened immune system. This can happen from taking immunosuppressants or having conditions like HIV/AIDS.
+• Location. You have a higher risk for endemic KS if you live near the equator in Africa.
+• Sex. Males are more likely to develop Kaposi sarcoma.
+• Sexual activity. Having unprotected sex can increase your risk of contracting HHV-8 and HIV. These viruses typically spread through bodily fluids.
+ 
+Mycosis Fungoides (Cutaneous T-cell Lymphoma):
+Information:
+Mycosis fungoides is a type of skin lymphoma (cancer) that affects your body’s T cells. It occurs when these white blood cells become cancerous. Often, a skin rash is the first sign of mycosis fungoides. It doesn’t have a cure, but many people who receive timely treatment experience long periods with no symptoms.
+Mycosis fungoides (pronounced “my-KOH-sis fun-GOY-deez”) is a blood cancer that happens when white blood cells called T cells transform into malignant (cancer) cells. T cells are a kind of lymphocyte. Lymphocytes fight harmful pathogens in your body, like viruses and bacteria. With mycosis fungoides, T cells transform into cancer cells that affect your skin.
+Mycosis fungoides is a type of cutaneous T-cell lymphoma (CTCL). CTCL is a group of rare blood cancers that cause changes in your skin, like itchiness, rashes, plaques or tumors.
+Although mycosis fungoides affects your skin, it’s not a form of skin cancer because your T cells — not skin cells — become cancerous.
+Experts don’t know what causes mycosis fungoides, but genetic mutations may play a role. Genetic mutations are changes in the genetic material inside a cell, like DNA or chromosomes. Many people with mycosis fungoides have missing genetic material or errors in the genetic material inside the cells that become malignant.
+These genetic mutations don’t seem to be inherited (passed down through families).
+Researchers continue to study other potential causes, such as exposure to certain environmental toxins and infections.
+Symptoms:
+Mycosis fungoides symptoms occur in several stages of skin changes. Not everyone progresses through all the phases. Some may happen simultaneously.
+For many people, the first sign of disease in the early stage is a mycosis fungoides rash. Mycosis fungoides stages include:
+• Premycotic phase: A scaly skin rash forms. It appears on parts of your body not usually exposed to the sun, like your lower belly, thighs, butt and breasts (chest).
+• Patch phase: The skin around the rash becomes thin. It may be itchy and dry, like eczema.
+• Plaque phase: Your skin forms small, raised bumps or hard bumps.
+• Tumor phase: Tumors, raised areas of skin that penetrate more deeply than plaques, form on your skin. The most common locations include your thighs, groin, armpits and the inside of your elbow. The tumors may develop ulcers and get infected.
+In the most severe stages, many cancerous T cells circulate in your blood. At this point, they’re called Sézary cells. High levels of Sézary cells may cause mycosis fungoides to evolve into Sézary syndrome. With this condition, you may develop a red rash all over your body, called erythroderma.
+Dermatofibrosarcoma Protuberans (DFSP):
+Information:
+Dermatofibrosarcoma protuberans (DFSP) is a rare type of skin cancer. It starts in connective tissue cells in the middle layer of the skin (dermis).
+Dermatofibrosarcoma protuberans might look like a pimple or feel like a firm patch of skin at first. As it grows, lumps of tissue (protuberans) may form near the surface of the skin. This skin cancer often forms on the arms, legs and trunk.
+The cause of dermatofibrosarcoma protuberans often isn't known.
+This skin cancer happens when cells in the skin develop changes. The changes happen in the cells' chromosomes. Chromosomes are threadlike structures inside cells that contain DNA and proteins. The changes in the chromosomes cause the cells to make many more cells quickly. The cancer cells form a growth that starts underneath the skin and may push up to create a lump over time. Other lumps may appear as well.
+Symptoms:
+• A lump or lumps on the skin that look like pimples, scars or birthmarks.
+• A lump or lumps on the skin that may feel hard to the touch or rubberlike.
+• A patch of skin that feels firm to the touch.
+The lumps typically appear on the arms, legs or trunk. They rarely form on the head or neck.
+Merkel Cell Carcinoma:
+Information:
+Merkel cell carcinoma is a rare type of skin cancer. It most often appears as a bump on the face, head or neck. Merkel cell carcinoma also is called neuroendocrine carcinoma of the skin.
+Merkel cell carcinoma most often happens in people older than 50. Long-term sun exposure or a weakened immune system may raise the risk of getting this cancer.
+Merkel cell carcinoma tends to grow fast and to spread quickly to other parts of the body. Treatment may depend on whether the cancer has spread beyond the skin.
+It's often not clear what causes Merkel cell carcinoma.
+This skin cancer happens when cells in the skin develop changes in their DNA. A cell's DNA holds the instructions that tell the cell what to do. In healthy cells, the DNA gives instructions to grow and multiply at a set rate. The instructions tell the cells to die at a set time.
+In cancer cells, the DNA changes give other instructions. The changes tell the cancer cells to grow and multiply at a fast rate. Cancer cells can keep living when healthy cells would die. This causes too many cells.
+The cancer cells might form a mass called a tumor. The tumor can grow to invade and destroy healthy body tissue. In time, cancer cells can break away and spread to other parts of the body. When cancer spreads, it's called metastatic cancer.
+Merkel cell carcinoma is named for the cells where experts once thought it started. The Merkel cells are found at the bottom of the outer layer of skin. The Merkel cells are connected to the nerve endings in the skin that play a role in the sense of touch. Healthcare professionals no longer believe that this cancer starts in the Merkel cells. They don't know exactly what kind of cells it starts in.
+It's often not clear what causes the DNA changes that lead to Merkel cell carcinoma. Researchers have found that a common virus plays a role in causing Merkel cell carcinoma. The virus, called Merkel cell polyomavirus, lives on the skin. It doesn't cause symptoms. Experts don't know exactly how this virus causes Merkel cell carcinoma.
+Symptoms:
+The first symptom of Merkel cell carcinoma most often is a growth on the skin. This skin cancer can happen anywhere on the body. It happens most often on skin that typically gets sunlight. In white people, the growth is most likely to be on the head or neck. In Black people, the growth more often is on the legs.
+A Merkel cell carcinoma can cause:
+• A bump on the skin that often is painless.
+• A bump that grows quickly.
+• A bump whose two sides don't match.
+• A bump that looks pink, purple, red-brown, or the same color as the skin around it.
+Sebaceous Carcinoma:
+Information:
+Sebaceous carcinoma is a rare type of skin cancer that starts in your skin’s oil-producing (sebaceous) glands. It’s an aggressive cancer that can return after treatment. A pimple-like bump on your upper eyelid is a common symptom, but tumors can form anywhere. Dermatologists often perform Mohs surgery to treat this cancer.The cancer most commonly affects your eyelids, but can develop almost anywhere on your body. That’s because you have sebaceous glands underneath most of your skin, especially where there’s hair. These glands secrete an oily substance called sebum that protects your body from germs.
+Sebaceous carcinoma is an aggressive skin cancer, which means it spreads quickly. Cancer that spreads outside of the original tumor is metastatic cancer
+Sebaceous carcinoma is most likely to affect the lymph nodes. These small glands cleanse and remove damaged cells in your lymphatic system.
+Sebaceous carcinoma tumors can also appear on your head, ears or neck. Less commonly, tumors form on your back, chest, abdomen, genitals or buttocks.
+You should contact a healthcare provider if you notice:
+• Changes to a mole or birthmark on your skin.
+• New skin growths, including inside of your ear.
+• Slow-growing pink or yellow skin bumps that bleed easily.
+Symptoms:
+Sebaceous carcinoma tumors tend to affect your upper eyelids, which have many sebaceous glands. Tumors can also affect your lower eyelids. You may need to pull gently on your eyelid to see the lump.
+On your eyelid, you may notice:
+• Firm, round, yellow painless bump that resembles a pimple.
+• A sore that bleeds, doesn’t heal, or heals and then comes back.
+• Thickened, yellow or red crusty skin near your eyelashes.
+Untreated sebaceous carcinoma can cause:
+• Loss of eyelashes.
+• Oozing growths on your upper and lower eyelids.
+• Reddish eyes that resemble pink eye (conjunctivitis).
+• Vision problems
+Scrofuloderma:
+Information:
+Scrofula (mycobacterial cervical lymphadenitis) is an infection in the lymph nodes of your neck. It causes a swollen, sometimes discolored mass that’s usually painless. The bacteria that cause tuberculosis (Mycobacterium tuberculosis) is the most common cause. Nontuberculous mycobacteria can also cause it. It’s treated with antibiotics.
+Scrofula is a swelling of the lymph nodes in your neck caused by a bacterial infection. It can cause a large, matted mass on your neck from several lymph nodes fusing together. It’s usually painless or only slightly tender. It can be discolored, purplish or the same color as your skin.
+Scrofula is usually a form of tuberculosis. It used to be called “king’s evil” because people thought the king could heal diseases. Now healthcare professionals call scrofula “mycobacterial cervical lymphadenitis.”
+Mycobacterium tuberculosis, the bacteria that causes tuberculosis (TB), causes most cases of scrofula in adults. You get it when you breathe the bacteria into your lungs and it travels to the lymph nodes of your neck.
+Other kinds of Mycobacterium infections cause scrofula in kids.
+Symptoms:
+Most people with scrofula only have enlarged cervical (neck) lymph nodes. Some people with scrofula also have additional symptoms of a bacterial infection, including:
+• Fever.
+• Night sweats.
+• Unintended weight loss.
+• Fatigue.
+Sporotrichosis:
+Information:
+Sporotrichosis (rose gardener’s disease) is an infection that happens when the fungus Sporothrix schenckii gets into a cut or break in your skin. It causes bumps, sores or thickened skin where you’re infected. Rarely, it can also infect your lungs, bones or brain. People who work with plants, soil and moss are at a higher risk. Antifungals treat it.
+Sporotrichosis is a fungal infection that can cause large ulcers or thickened areas on your skin. You can get it when the fungus Sporothrix schenckii gets into your skin through a cut or wound. Rarely, it can also infect your lungs, brain, bones or joints.
+The most common type of sporotrichosis is a skin infection. Other types include:
+• Disseminated: This is when you have many, widespread sores or when the infection spreads to other organs. This usually only happens when you have a severely weakened immune system.
+• Osteoarticular: This is an infection in your bones and joints.
+• Pulmonary: This is an infection in your lungs from inhaling the fungus. This is most common in people with COPD (chronic obstructive pulmonary disease).
+The fungus Sporothrix schenckii causes sporotrichosis. It’s found on plants and in soil, including flowers, vegetables, sphagnum moss, rotting wood and straw. It exists in parts of the world with warm climates, like Asia, South America and Mexico. In the U.S., it’s mostly found in southern states.
+The most common way to get sporotrichosis is from the fungus getting into scratches or puncture wounds in your skin (like from getting pricked by a thorn). This can happen while gardening or working with soil, plants, moss or rotting wood. Less common ways to get infected include:
+• From the scratch of infected animals, especially cats
+• By breathing it in
+Symptoms:
+Symptoms of sporotrichosis
+The most common symptom of sporotrichosis is an area of painless, infected skin. This might be:
+• A single bump, sore or open wound
+• A series of bumps, sores or open wounds in a line
+• A raised, thickened area of skin
+• Discolored (red, purple or darker than surrounding skin)
+• Scaly or a different texture than surrounding skin
+• Filled with pus
+If you have an infection somewhere else in your body, you might have additional symptoms. These depend on where the infection is. They could include:
+• Bone or joint pain
+• Shortness of breath, cough, chest pain
+• Headache, sensitivity to light, confusion
+Hand, Foot, and Mouth Disease (HFMD):
+Information:
+Hand-foot-and-mouth disease is a mild illness caused by viruses. Most often, a virus called coxsackievirus A16 causes it.
+Hand-foot-and-mouth disease is common in young children. But people of any age can get it. Viruses that cause the illness spread easily between people and through the air.
+Hand, foot and mouth disease (HFMD) is a very contagious viral infection that causes a blister-like rash on your child’s hands and feet and painful sores in their mouth. The disease most often affects babies and children younger than 5 years old. HFMD is typically mild and usually clears up on its own within seven to 10 days.
+Hand-foot-and-mouth disease often causes a rash of painful, blister-like lesions on the palms of the hands. Rashes appear differently depending on skin color.
+Hand-foot-and-mouth disease often causes a rash of painful, blister-like lesions on the soles of the feet. Rashes appear differently depending on skin color.
+If sores form in the back of the mouth and throat, a related viral illness called herpangina may be the cause. Other symptoms of herpangina include a sudden high fever and, sometimes, seizure. Rarely, sores form on the hands, feet or other parts of the body.
+Symptoms:
+Symptoms of hand-foot-and-mouth disease include sores in the mouth and a rash on the hands and feet.
+There's no specific treatment for hand-foot-and-mouth disease. Most people get better in 7 to 10 days. But certain medicines can ease pain and general discomfort in the meantime.
+Help prevent hand-foot-and-mouth disease with frequent hand-washing. Also, stay away from people who are sick.
+Symptoms usually appear 3 to 6 days after infection. Hand-foot-and-mouth disease may cause all of the following symptoms or just some of them.
+Infants and toddlers with hand-foot-and-mouth disease may be fussy.
+At any age, children may get a fever and develop a sore throat. They sometimes lose their appetites and don't feel well.
+One or two days after the fever begins, painful lister-like lesions may form in the front of the mouth or throat. This includes the tongue, gums and inside of the cheeks.
+A rash on the hands and feet and sometimes on the buttocks also may appear. The rash is not itchy, but sometimes it has blisters. Depending on skin tone, the rash may appear red, white or gray. Or it may show only as tiny bumps.
+Measles (Tigdas):
+Information:
+Measles, also called rubeola, was once a common childhood illness. It's caused by a virus that spreads easily through the air and settles on surfaces. A vaccine can prevent measles infection.
+Most people recover from measles in about 10 days. It usually doesn't cause long-term medical issues. But measles can be serious and even deadly. This is especially true for children younger than age 5 and people with severely weakened immune systems.
+Measles is treated by managing symptoms and preventing complications.
+Get a measles vaccine when recommended to keep the virus from spreading. Because of vaccination, measles hasn't been common in the United States for more than two decades. Often, measles cases in the U.S. come from outside the country. Outbreaks are more common among people who are not vaccinated.
+Measles illness causes a blotchy rash. It may be shades of red, purple or brown depending on your skin color. The rash most often shows up first on the face and behind the ears. The rash then spreads to the chest and back and finally to the feet.
+Measles is caused by a virus that spreads only among humans. When someone with measles coughs, sneezes or talks, droplets spray into the air. People who breathe in the droplets can catch the virus. Droplets also may land on surfaces. You can catch measles if you touch an infected surface and then touch your mouth, nose or eyes. These droplets can infect other people for up to two hours.
+Measles can be serious in all age groups. However, there are several groups that are more likely to suffer from measles complications:
+• Children younger than 5 years of age
+• Adults older than 20 years of age
+• Pregnant women
+• People with weakened immune systems, such as from leukemia or HIV infection
+Symptoms:
+Measles isn't just a little rash. Measles can be dangerous for anyone but especially for babies and young children.
+7–14 days after a measles infection: first symptoms show
+Measles symptoms appear 7 to 14 days after contact with the virus. Measles typically begins with:
+• High fever (may spike to more than 104°)
+• Cough
+• Runny nose (coryza)
+• Red, watery eyes (conjunctivitis or pink eye)
+2–3 days after symptoms begin: Koplik spots
+Tiny white spots (Koplik spots) may appear inside the mouth two to three days after symptoms begin.
+3–5 days after symptoms begin: measles rash
+Measles rash appears 3 to 5 days after the first symptoms. It usually begins as flat red spots that appear on the face at the hairline. They then spread downward to the neck, trunk, arms, legs, and feet.
+• Small raised bumps may also appear on top of the flat red spots.
+• The spots may become joined together as they spread from the head to the rest of the body.
+• When the rash appears, a person's fever may spike to more than 104° Fahrenheit.
+Rubella:
+Information:
+Rubella is a viral infection that passes easily to others, called contagious. It's best known by its rash. It's also called German measles or three-day measles.
+This infection causes mild or no symptoms in most people. But it can cause serious problems for the unborn babies of pregnant people who get rubella.
+Rubella isn't the same as measles. But the illnesses share some symptoms, such as a rash. Rubella and measles are caused by different viruses. And the virus that causes rubella isn't as easy to catch and doesn't cause a disease as severe as measles.
+The measles-mumps-rubella, also called MMR, vaccine is safe and works well in preventing rubella. The vaccine gives lifelong protection against rubella.
+In many countries, rubella infection is rare or doesn't exist. But the vaccine isn't used everywhere. So the virus still causes serious problems for the babies of pregnant people who get rubella.
+Rubella results in a fine rash that appears on the face, the belly (as shown in image), and then the arms and legs. The rash can appear pink or red on white skin. It can be harder to see on Black or brown skin.
+Rubella is caused by a virus that's passed from person to person. It can spread when an infected person coughs or sneezes. It also can spread through direct contact with infected mucus from the nose and throat. And it can be passed from pregnant people to their unborn children.
+A person who has been infected with the virus that causes rubella is contagious from about one week before the rash starts until about one week after the rash goes away. Infected people can spread the illness before they know they have it.
+Rubella is rare in many countries because most children are vaccinated against the infection at an early age. In some parts of the world, the virus is still active. Keep this in mind before going abroad, especially if you're pregnant.
+Once you've had the disease, you're likely to be immune for life.
+Symptoms:
+Some people have no symptoms. But if they do, symptoms of rubella most often appear 2 to 3 weeks after being exposed to the virus. Symptoms last about 1 to 5 days and may include:
+• Mild fever of 102 degrees Fahrenheit (38.9 degrees Celsius) or lower.
+• Headache.
+• Stuffy or runny nose.
+• Red, itchy eyes.
+• Enlarged, tender lymph nodes at the base of the skull, at the back of the neck and behind the ears.
+• A fine rash that begins on the face. It can look pink or red on white skin. It might be harder to see on Black or brown skin. It quickly spreads to the belly and then to the arms and legs. It goes away in the same order.
+• Aching joints, most often in adults assigned female at birth.
+Lichen Planus:
+Information:
+Lichen planus (LIE-kun PLAY-nus) is a condition of the skin, hair, nails, mouth and genitals. On skin, lichen planus often appears as purple, itchy, flat bumps that develop over several weeks. In the mouth and genital mucosa, lichen planus forms lacy white patches, sometimes with painful sores.
+Mild lichen planus of the skin may not need treatment. If the condition causes pain or intense itching, you may need prescription medicine.
+The cause of lichen planus is likely related to the immune system attacking cells of the skin or mucous membranes. It's not clear why this irregular immune response happens. The condition isn't contagious.
+Lichen planus may be activated by:
+• Hepatitis C infection.
+• Pain relievers and other medicines.
+• An allergic reaction to the metal in dental fillings.
+Symptoms:
+Symptoms of lichen planus vary depending on the part of the body affected. Nail disease usually affects several nails. Symptoms include:
+• Purple, shiny, flat bumps, often on the inner forearms, wrists or ankles.
+• Lines of rash where the skin has been scratched.
+• Lacy white patches on the tongue or inside of the cheeks.
+• Itchiness.
+• Painful sores in the mouth or genitals.
+• Rarely, hair loss.
+• Nail scarring or loss.
+• Dark lines from the tip of the nail to the base.
+Pemphigus:
+Information:
+Pemphigus is a group of rare skin disorders that cause blisters and sores on the skin or mucous membranes, such as in the mouth or on the genitals. It's most common in people middle-aged or older.
+Pemphigus is easier to control if caught and treated early. It's usually treated with medicines that you take long term. The sores may heal slowly or not at all. The condition can become life-threatening if the sores become infected.
+Pemphigus is an autoimmune disorder, which means that your immune system mistakenly attacks healthy cells in your body. With pemphigus the immune system attacks cells in the skin and mucous membranes.
+Pemphigus isn't passed from one person to another. In most cases, it's unknown what causes the disease to arise.
+Rarely, the disease can develop as a side effect of medicines, like penicillamine and certain blood pressure drugs. This type of the condition usually clears up when the medicine is stopped.
+Symptoms:
+Pemphigus causes blisters on the skin and mucous membranes. The blisters break easily, leaving open sores. The sores may become infected and ooze.
+The symptoms of two common types of pemphigus are as follows:
+• Pemphigus vulgaris. This type usually begins with blisters in the mouth and then on the skin or genital mucous membranes. They're often painful but don't itch. Blisters in the mouth or throat may make it hard to talk, drink and eat.
+• Pemphigus foliaceus. This type causes blisters on the chest, back and shoulders. The blisters may be itchy or painful. Pemphigus foliaceus doesn't cause mouth blisters.
+Pemphigus is distinct from bullous pemphigoid, which is another type of blistering skin condition that affects older adults.
+Discoid Lupus Erythematosus:
+Information:
+Chronic cutaneous lupus, or discoid lupus, causes skin lesions (sores). These lesions usually occur on your scalp or face. Discoid lesions are not typically painful or itchy. There is no cure for discoid lupus, but treatment can help. These lesions can increase your risk for skin cancer, so it’s important to protect your skin.
+There are three types of CLE. Each type causes a different skin rash:
+• Discoid lupus: Causes circular patches of thick, inflamed skin on your ears, cheeks or nose.
+• Subacute cutaneous lupus: Ring-shaped or scaly rashes appear, usually on your back, chest or neck.
+• Acute cutaneous lupus: Known for a “butterfly rash” that looks like a sunburn across your cheeks and nose.
+Some people only have SLE, CLE or another type of lupus. Others have multiple types of lupus.
+Most people who have discoid lupus do not have another type of lupus. Only about 5% of people with discoid lupus also develop SLE. About one in four people with SLE develop lesions that look like discoid lesions.
+About two out of every three people who have systemic lupus also have symptoms of cutaneous lupus. Discoid lupus is the most common type of CLE.
+Discoid lupus causes round, coin-shaped lesions (sores). The sores most commonly develop on your scalp and face, but they may show up on other parts of your body.
+Discoid lesions typically do not hurt or itch. They may be scaly, thick or red. When the lesions go away, they may leave scars or skin discoloration.
+Symptoms:
+Discoid lupus causes round, coin-shaped lesions (sores). The sores most commonly develop on your scalp and face, but they may show up on other parts of your body.
+Discoid lesions typically do not hurt or itch. They may be scaly, thick or red. When the lesions go away, they may leave scars or skin discoloration.
+Dermatomyositis:
+Information:
+Dermatomyositis (dur-muh-toe-my-uh-SY-tis) is a condition in which swelling and irritation, called inflammation, attacks the body's tissues. Dermatomyositis causes muscle weakness and a skin rash.
+The condition, also called an autoimmune condition, isn't common. It can affect adults and children. In adults, dermatomyositis most often happens in the late 40s to early 60s. In children, it most often appears at ages 5 to 15.
+There's no cure for dermatomyositis. But treatment can improve muscle strength and help muscles work better. Treatment also can help clear the skin rash.
+Symptoms:
+The symptoms of dermatomyositis can appear at once or they can come on over time. The most common symptoms include:
+• Skin changes. A violet-colored or dusky red rash appears, most often on the face and eyelids and on the knuckles, elbows, knees, chest and back. The rash may be harder to see on Black skin or brown skin.
+The rash is often the first sign of dermatomyositis. It may hurt and itch. There also may be small bumps on the hands, mainly near the knuckles.
+Children also may get white spots on their skin from calcium deposits, called calcinosis.
+• Muscle weakness. Muscle weakness involves the muscles closest to the center of the body, called the trunk. This includes the muscles in the hips, thighs, shoulders, upper arms and neck. The weakness affects both the left and right sides of the body. It tends to get worse over time.
+Some people with dermatomyositis have only the skin symptoms. But muscle weakness may start years later.
+Morphea (Localized Scleroderma):
+Information:
+Morphea (mor-FEE-uh) is a rare condition that causes painless, discolored patches on your skin.
+Typically, the skin changes appear on the belly, chest or back. But they might also appear on your face, arms and legs. Over time the patches may become firm, dry and smooth. Morphea tends to affect only the outer layers of your skin. But some forms of the condition also affect deeper tissues and may restrict movement in the joints.
+Morphea usually improves on its own over time, though recurrences are common. In the meantime, medications and therapies are available to help treat the skin discoloration and other effects.
+The cause of morphea is unknown. It may be caused by an unusual reaction of your immune system. In people at increased risk of morphea, it could be triggered by injury to the affected area, medications, chemical toxins, an infection or radiation therapy.
+The condition isn't contagious.
+Symptoms:
+Signs and symptoms of morphea vary depending on the type and stage of the condition. They include:
+• Reddish or purplish oval patches of skin, often on the belly, chest or back
+• Patches that gradually develop a lighter or whitish center
+• Linear patches, especially on the arms or legs and possibly the forehead or scalp
+• A gradual change in the affected skin, which becomes firm, thickened, dry and shiny
+Morphea affects the skin and underlying tissue and sometimes bone. The condition generally lasts several years and then improves or at times disappears by itself. It may leave scars or areas of darkened or discolored skin. It is possible for morphea to recur.
+Granuloma Annulare:
+Information:
+Granuloma annulare (gran-u-LOW-muh an-u-LAR-e) is a skin condition that causes a raised rash or bumps in a ring pattern. The most common type affects young adults, usually on the hands and feet.
+Minor skin injuries and some medicines might trigger the condition. It's not contagious and usually not painful, but it can make you feel self-conscious. And if it becomes a long-term condition, it can cause emotional distress.
+Treatment might clear the skin gradually, but the bumps tend to come back. Untreated, the condition might last from a few weeks to decades.
+It's not clear what causes granuloma annulare. Sometimes it's triggered by:
+• Animal or insect bites
+• Infections, such as hepatitis
+• Tuberculin skin tests
+• Vaccinations
+• Sun exposure
+• Minor skin injuries
+• Medicines
+Granuloma annulare is not contagious.
+Symptoms:
+The signs and symptoms of granuloma annulare can vary, depending on the type:
+• Localized. This is the most common type of granuloma annulare. The rash borders are circular or semicircular, with a diameter up to 2 inches (5 centimeters). The rash occurs most commonly on the hands, feet, wrists and ankles of young adults.
+• Generalized. This type is uncommon and usually affects adults. It causes bumps that form a rash on most of the body, including the trunk, arms and legs. The rash might cause discomfort or itchiness.
+• Under the skin. A type that usually affects young children is called subcutaneous granuloma annulare. It produces small, firm lumps under the skin, instead of a rash. The lumps form on the hands, shins and scalp.
+Sweet’s Syndrome:
+Information:
+Sweet syndrome, or acute febrile neutrophilic dermatosis, causes a sudden, painful, discolored rash and fever. It can develop after infections, medications or certain cancers. While the rash can be uncomfortable, most people recover quickly with steroid treatment.
+Sweet syndrome, also known as acute febrile neutrophilic dermatosis, is a rare inflammatory skin condition. It causes a sudden fever and a painful rash. The rash most often appears on your upper body. Like on your arms, face, trunk or neck. But the rash can form on any skin area.
+This condition can happen with certain medications, infections, pregnancy and cancer. It’s best to talk to a healthcare provider if you notice symptoms. Treatment options are available to reduce symptoms and discomfort.
+Healthcare providers don’t know exactly why Sweet syndrome develops. Research suggests it may happen when your immune system becomes overactive. Too many white blood cells (neutrophils) move into your skin, causing painful bumps and swelling.
+Researchers are also studying whether genes or chromosomal changes play a role in some cases.
+Although the exact cause isn’t known, certain factors can trigger or be associated with Sweet syndrome. These are grouped into three main types:
+• Classical (idiopathic) Sweet syndrome: The specific cause is unknown, but it may appear after infections (like an upper respiratory or gastrointestinal infection) or during pregnancy.
+• Malignancy-associated Sweet syndrome: This links to an underlying cancer, most often a blood cancer like acute myeloid leukemia.
+• Drug-associated Sweet syndrome: Symptoms triggered by certain medications, like antibiotics (co-trimoxazole), nonsteroidal anti-inflammatory drugs (NSAIDs) or granulocyte colony-stimulating factor (G-CSF).
+Symptoms:
+The symptoms of Sweet syndrome come on suddenly. On your skin, you might notice a rash with the following features:
+• Bumpy or blistering (filled with fluid or pus)
+• Discolored (darker than your natural skin tone or red to purple)
+• Lumpy and deep under your skin (feels like a bruise)
+• Painful to the touch
+• Breaks open (a wound or ulcer)
+You may also have:
+• A fever higher than 100.4 degrees Fahrenheit (38 degrees Celsius)
+• Eye problems (blurred vision, pain)
+• Fatigue
+• Headaches
+• Joint pain and muscle aches
+Hidradenitis Suppurativa:
+Information:
+Hidradenitis suppurativa (hi-drad-uh-NIE-tis sup-yoo-ruh-TIE-vuh), also known as acne inversa, is a condition that causes small, painful lumps to form under the skin. The lumps usually develop in areas where your skin rubs together, such as the armpits, groin, buttocks and breasts. The lumps heal slowly, recur, and can lead to tunnels under the skin and scarring.
+Hidradenitis suppurativa tends to start after puberty, usually before age 40. It can persist for many years and worsen over time. It can affect your daily life and emotional well-being. Combined medical and surgical therapy can help manage the disease and prevent complications.
+Women are three times more likely to develop hidradenitis suppurativa, though this ratio can differ by location around the world. Also, Black people are more likely to develop this disease than people of other races. This could be attributed to genetic factors.
+Hidradenitis suppurativa develops when hair follicles become blocked, but why this blockage occurs isn't known. Experts think it could be connected to hormones, genetic predisposition, cigarette smoking or excess weight.
+An infection or being unclean does not cause hidradenitis suppurativa, and it can't be spread to other people.
+Symptoms:
+Hidradenitis suppurativa can affect one or several areas of the body. Signs and symptoms of the condition include:
+• Blackheads. Blackheads appear in small, pitted areas of skin, often appearing in pairs.
+• Painful pea-sized lumps. The condition usually starts with a single, painful lump under the skin that persists for weeks or months. More bumps may form later, usually in areas where you have more sweat and oil glands or where the skin rubs together, such as the armpits, groin, buttocks and breasts.
+• Leaking bumps or sores. Some bumps or sores get bigger, break open and drain pus with an odor.
+• Tunnels. Over time, tunnels might form under the skin, connecting the lumps. These wounds heal slowly, if at all, and drain blood and pus.
+Some people with this condition experience only mild symptoms. The course of the disease is highly variable. Excess weight and being a smoker are associated with worse symptoms, but people who are thin and don't smoke can experience severe disease.
+Perioral Dermatitis:
+Information:
+Perioral (periorificial) dermatitis is a red rash that circles your mouth. Your skin can be scaly, dry and flaky with swollen, inflamed bumps called papules. It is one of many types of dermatitis. Perioral dermatitis can look like acne and is often mistaken for it.
+Perioral dermatitis can return after treatment. This happens even when it was successfully treated. Many cases that return can turn into rosacea, a skin condition that causes red papules in the middle of your face, including on your nose.
+You’re most at risk if you’re a woman between 25 and 45 who uses topical steroids, face creams and more (see the Causes section). However, children and men can develop perioral dermatitis, too.
+No type of dermatitis is contagious. It can’t be spread to another person.
+Overuse of topical steroids is the most likely cause of perioral dermatitis. However, there are a number of theories and the exact cause is yet to be determined. One theory is that perioral dermatitis is caused by candida albicans. Candida albicans is a yeast, which is a type of fungus.
+No food or drink is known to cause or worsen perioral dermatitis. However, in some cases, chewing gum has been linked to the rash. Work with your healthcare provider to figure out the cause of your perioral dermatitis so that you can avoid that cause in the future – if possible.
+Perioral dermatitis may be permanent if you don’t get treatment. Most cases eventually resolve, but this can take weeks to years. If you do get treatment, your symptoms and rash are likely to go away much sooner. However, there is no known reproducible cure for perioral dermatitis. (It might return.)
+Symptoms:
+The primary symptom of perioral dermatitis is a red rash around your mouth. The rash may be scaly or dry and flaky. Often there are inflamed bumps that are called papules. Additionally, you may develop vesicles (clear fluid-filled bumps) or pustules (white fluid-filled bumps). Although it is usually found around the mouth, perioral dermatitis can also move to your eyelids, or around your eyes and nose. It can also appear on your genitals, scalp, ears, neck, extremities and trunk.
+The rash can cause an itching or burning sensation.
+Some people experience conjunctivitis (pink eye) when they have perioral dermatitis. If you have pink eye then your healthcare provider may refer you to an eye doctor (an ophthalmologist).
+Seborrheic Keratosis:
+Information:
+A seborrheic keratosis (seb-o-REE-ik ker-uh-TOE-sis) is a common noncancerous (benign) skin growth. People tend to get more of them as they get older.
+Seborrheic keratoses are usually brown, black or light tan. The growths (lesions) look waxy or scaly and slightly raised. They appear gradually, usually on the face, neck, chest or back.
+Seborrheic keratoses are very common on the back. They appear as waxy light tan, brown or black growths that look as if they were dripped onto the skin by a candle. Some can grow large, more than 1 inch (2.5 centimeters) across.
+Seborrheic keratoses are harmless and not contagious. They don't need treatment, but you may decide to have them removed if they become irritated by clothing or you don't like how they look.
+Seborrheic keratoses are usually round or oval and range in color from light tan to black. They can develop as a single growth or in clusters.
+Experts don't completely understand what causes a seborrheic keratosis. This type of skin growth does tend to run in families, so there is likely an inherited tendency. If you've had one seborrheic keratosis, you're at risk of developing others.
+A seborrheic keratosis isn't contagious or cancerous.
+Symptoms:
+A seborrheic keratosis grows gradually. Signs and symptoms might include:
+• A round or oval-shaped waxy or rough bump, typically on the face, chest, a shoulder or the back
+• A flat growth or a slightly raised bump with a scaly surface, with a characteristic "pasted on" look
+• Varied size, from very small to more than 1 inch (2.5 centimeters) across
+• Varied number, ranging from a single growth to multiple growths
+• Very small growths clustered around the eyes or elsewhere on the face, sometimes called flesh moles or dermatosis papulosa nigra, common on Black or brown skin
+• Varied in color, ranging from light tan to brown or black
+• Itchiness
+Granuloma Annulare:
+Information:
+Granuloma annulare (gran-u-LOW-muh an-u-LAR-e) is a skin condition that causes a raised rash or bumps in a ring pattern. The most common type affects young adults, usually on the hands and feet.
+Minor skin injuries and some medicines might trigger the condition. It's not contagious and usually not painful, but it can make you feel self-conscious. And if it becomes a long-term condition, it can cause emotional distress.
+Treatment might clear the skin gradually, but the bumps tend to come back. Untreated, the condition might last from a few weeks to decades.
+It's not clear what causes granuloma annulare. Sometimes it's triggered by:
+• Animal or insect bites
+• Infections, such as hepatitis
+• Tuberculin skin tests
+• Vaccinations
+• Sun exposure
+• Minor skin injuries
+• Medicines
+Granuloma annulare is not contagious.
+Symptoms:
+The signs and symptoms of granuloma annulare can vary, depending on the type:
+• Localized. This is the most common type of granuloma annulare. The rash borders are circular or semicircular, with a diameter up to 2 inches (5 centimeters). The rash occurs most commonly on the hands, feet, wrists and ankles of young adults.
+• Generalized. This type is uncommon and usually affects adults. It causes bumps that form a rash on most of the body, including the trunk, arms and legs. The rash might cause discomfort or itchiness.
+• Under the skin. A type that usually affects young children is called subcutaneous granuloma annulare. It produces small, firm lumps under the skin, instead of a rash. The lumps form on the hands, shins and scalp.
+Sweet’s Syndrome:
+Information:
+Sweet syndrome, or acute febrile neutrophilic dermatosis, causes a sudden, painful, discolored rash and fever. It can develop after infections, medications or certain cancers. While the rash can be uncomfortable, most people recover quickly with steroid treatment.
+Sweet syndrome, also known as acute febrile neutrophilic dermatosis, is a rare inflammatory skin condition. It causes a sudden fever and a painful rash. The rash most often appears on your upper body. Like on your arms, face, trunk or neck. But the rash can form on any skin area.
+This condition can happen with certain medications, infections, pregnancy and cancer. It’s best to talk to a healthcare provider if you notice symptoms. Treatment options are available to reduce symptoms and discomfort.
+Healthcare providers don’t know exactly why Sweet syndrome develops. Research suggests it may happen when your immune system becomes overactive. Too many white blood cells (neutrophils) move into your skin, causing painful bumps and swelling.
+Researchers are also studying whether genes or chromosomal changes play a role in some cases.
+Although the exact cause isn’t known, certain factors can trigger or be associated with Sweet syndrome. These are grouped into three main types:
+• Classical (idiopathic) Sweet syndrome: The specific cause is unknown, but it may appear after infections (like an upper respiratory or gastrointestinal infection) or during pregnancy.
+• Malignancy-associated Sweet syndrome: This links to an underlying cancer, most often a blood cancer like acute myeloid leukemia.
+• Drug-associated Sweet syndrome: Symptoms triggered by certain medications, like antibiotics (co-trimoxazole), nonsteroidal anti-inflammatory drugs (NSAIDs) or granulocyte colony-stimulating factor (G-CSF).
+Symptoms:
+The symptoms of Sweet syndrome come on suddenly. On your skin, you might notice a rash with the following features:
+• Bumpy or blistering (filled with fluid or pus)
+• Discolored (darker than your natural skin tone or red to purple)
+• Lumpy and deep under your skin (feels like a bruise)
+• Painful to the touch
+• Breaks open (a wound or ulcer)
+You may also have:
+• A fever higher than 100.4 degrees Fahrenheit (38 degrees Celsius)
+• Eye problems (blurred vision, pain)
+• Fatigue
+• Headaches
+• Joint pain and muscle aches
+Hidradenitis Suppurativa:
+Information:
+Hidradenitis suppurativa (hi-drad-uh-NIE-tis sup-yoo-ruh-TIE-vuh), also known as acne inversa, is a condition that causes small, painful lumps to form under the skin. The lumps usually develop in areas where your skin rubs together, such as the armpits, groin, buttocks and breasts. The lumps heal slowly, recur, and can lead to tunnels under the skin and scarring.
+Hidradenitis suppurativa tends to start after puberty, usually before age 40. It can persist for many years and worsen over time. It can affect your daily life and emotional well-being. Combined medical and surgical therapy can help manage the disease and prevent complications.
+Women are three times more likely to develop hidradenitis suppurativa, though this ratio can differ by location around the world. Also, Black people are more likely to develop this disease than people of other races. This could be attributed to genetic factors.
+Hidradenitis suppurativa develops when hair follicles become blocked, but why this blockage occurs isn't known. Experts think it could be connected to hormones, genetic predisposition, cigarette smoking or excess weight.
+An infection or being unclean does not cause hidradenitis suppurativa, and it can't be spread to other people.
+Symptoms:
+Hidradenitis suppurativa can affect one or several areas of the body. Signs and symptoms of the condition include:
+• Blackheads. Blackheads appear in small, pitted areas of skin, often appearing in pairs.
+• Painful pea-sized lumps. The condition usually starts with a single, painful lump under the skin that persists for weeks or months. More bumps may form later, usually in areas where you have more sweat and oil glands or where the skin rubs together, such as the armpits, groin, buttocks and breasts.
+• Leaking bumps or sores. Some bumps or sores get bigger, break open and drain pus with an odor.
+• Tunnels. Over time, tunnels might form under the skin, connecting the lumps. These wounds heal slowly, if at all, and drain blood and pus.
+Some people with this condition experience only mild symptoms. The course of the disease is highly variable. Excess weight and being a smoker are associated with worse symptoms, but people who are thin and don't smoke can experience severe disease.
+Perioral Dermatitis:
+Information:
+Perioral (periorificial) dermatitis is a red rash that circles your mouth. Your skin can be scaly, dry and flaky with swollen, inflamed bumps called papules. It is one of many types of dermatitis. Perioral dermatitis can look like acne and is often mistaken for it.
+Perioral dermatitis can return after treatment. This happens even when it was successfully treated. Many cases that return can turn into rosacea, a skin condition that causes red papules in the middle of your face, including on your nose.
+You’re most at risk if you’re a woman between 25 and 45 who uses topical steroids, face creams and more (see the Causes section). However, children and men can develop perioral dermatitis, too.
+No type of dermatitis is contagious. It can’t be spread to another person.
+Overuse of topical steroids is the most likely cause of perioral dermatitis. However, there are a number of theories and the exact cause is yet to be determined. One theory is that perioral dermatitis is caused by candida albicans. Candida albicans is a yeast, which is a type of fungus.
+No food or drink is known to cause or worsen perioral dermatitis. However, in some cases, chewing gum has been linked to the rash. Work with your healthcare provider to figure out the cause of your perioral dermatitis so that you can avoid that cause in the future – if possible.
+Perioral dermatitis may be permanent if you don’t get treatment. Most cases eventually resolve, but this can take weeks to years. If you do get treatment, your symptoms and rash are likely to go away much sooner. However, there is no known reproducible cure for perioral dermatitis. (It might return.)
+Symptoms:
+The primary symptom of perioral dermatitis is a red rash around your mouth. The rash may be scaly or dry and flaky. Often there are inflamed bumps that are called papules. Additionally, you may develop vesicles (clear fluid-filled bumps) or pustules (white fluid-filled bumps). Although it is usually found around the mouth, perioral dermatitis can also move to your eyelids, or around your eyes and nose. It can also appear on your genitals, scalp, ears, neck, extremities and trunk.
+The rash can cause an itching or burning sensation.
+Some people experience conjunctivitis (pink eye) when they have perioral dermatitis. If you have pink eye then your healthcare provider may refer you to an eye doctor (an ophthalmologist).
+Seborrheic Keratosis:
+Information:
+A seborrheic keratosis (seb-o-REE-ik ker-uh-TOE-sis) is a common noncancerous (benign) skin growth. People tend to get more of them as they get older.
+Seborrheic keratoses are usually brown, black or light tan. The growths (lesions) look waxy or scaly and slightly raised. They appear gradually, usually on the face, neck, chest or back.
+Seborrheic keratoses are very common on the back. They appear as waxy light tan, brown or black growths that look as if they were dripped onto the skin by a candle. Some can grow large, more than 1 inch (2.5 centimeters) across.
+Seborrheic keratoses are harmless and not contagious. They don't need treatment, but you may decide to have them removed if they become irritated by clothing or you don't like how they look.
+Seborrheic keratoses are usually round or oval and range in color from light tan to black. They can develop as a single growth or in clusters.
+Experts don't completely understand what causes a seborrheic keratosis. This type of skin growth does tend to run in families, so there is likely an inherited tendency. If you've had one seborrheic keratosis, you're at risk of developing others.
+A seborrheic keratosis isn't contagious or cancerous.
+Symptoms:
+A seborrheic keratosis grows gradually. Signs and symptoms might include:
+• A round or oval-shaped waxy or rough bump, typically on the face, chest, a shoulder or the back
+• A flat growth or a slightly raised bump with a scaly surface, with a characteristic "pasted on" look
+• Varied size, from very small to more than 1 inch (2.5 centimeters) across
+• Varied number, ranging from a single growth to multiple growths
+• Very small growths clustered around the eyes or elsewhere on the face, sometimes called flesh moles or dermatosis papulosa nigra, common on Black or brown skin
+• Varied in color, ranging from light tan to brown or black
+• Itchiness
+Cherry Angioma:
+Information:
+Cherry angiomas are small, red bumps on your skin that are harmless to your overall health. Angiomas commonly appear after age 30 and can be removed if you don’t like how they look.
+Cherry angiomas and cherry hemangiomas are very similar in how they look, but are made of different cells. Angiomas are benign growths made of blood vessels or lymphatic vessels, whereas hemangiomas are small growths made of blood vessels only. Cherry angiomas are most commonly associated with adults. Hemangiomas can appear in early infancy through childhood.
+An estimated 50% of adults have cherry angiomas on their skin after age 30. Cherry angiomas are also very common in about 75% of adults aged 75 years or older
+Cherry angiomas aren’t dangerous or harmful. They’re benign growths that can easily be confused with melanoma and moles. Although it can be scary to see a new growth on your skin, cherry angiomas aren’t a sign of cancer.
+The direct cause of cherry angiomas is unknown. But research has identified several factors that can cause cherry angiomas to appear on your skin, including:
+• Aging.
+• Pregnancy (hormones).
+• Genetic mutations.
+• Chemical exposure (topical nitrogen mustard, bromides and butoxyethanol).
+• Bumps on the skin (1 mm – 5 mm in diameter).
+• Light to dark red in color.
+• Surrounded by a pale halo.
+• Often appear in groups.
+Symptoms:
+Cherry angiomas are asymptomatic and shouldn’t itch. If you notice your skin feels itchy near angiomas, be cautious not to scratch the area because you could irritate the angioma and cause it to bleed.
+An itchy bump on your skin could be caused by several factors that aren’t related to the angioma, including:
+• Allergy.
+• Acne.
+• Dry skin.
+• Chickenpox or shingles.
+If you notice the bump on your skin continues to itch and is causing you discomfort, contact your healthcare provider for treatment.
+Spider Angioma:
+Information:
+Spider angiomas are a collection of blood vessels under the surface of your skin that resembles a spider. Angiomas are red to purple marks on your skin. Treatment isn’t necessary but your healthcare provider can remove the mark if you don’t like how it looks. If you have multiple angiomas, it could be a sign of an underlying condition.
+A spider angioma, also known as a spider nevus or spider telangiectasia, is a small red to purple mark on your skin caused by dilated (wide) blood vessels (capillaries) near the surface of your skin. Spider angiomas get their name because the mark on your skin looks like the body and legs of a spider.Spider angiomas are common. Studies estimate that nearly 38% of healthy children had at least one spider angioma and nearly 60% of women who were pregnant had a spider angioma.
+Spider angiomas leave a red to purple mark on your skin. These marks can appear anywhere on your skin and are only cosmetic. Most cases of spider angiomas are benign (noncancerous or not a threat to your health) and fade away or disappear over time.
+Spider angiomas can appear anywhere on your skin but they’re most common on your:
+• Arms.
+• Face.
+• Fingers.
+• Legs.
+• Neck.
+• Torso.
+Enlarged (dilated) blood vessels cause spider angiomas to appear on your skin. Blood vessels dilate when your muscles restrict the blood flow in the arteriole, which is a small tube that branches off of your arteries (a major blood vessel) and leads to capillaries (a small, thin blood vessel). The reason for your blood vessels to dilate is unknown.
+Studies suggest that spider angiomas form when you have a lot of estrogen in your body. Estrogen is a hormone that helps your reproductive system stay healthy.
+Spider angiomas are usually harmless, but if you have multiple (more than three) marks on your skin, it could be a sign of another condition like:
+• Alcoholic hepatitis.
+• Liver disease.
+• Cirrhosis.
+• Rheumatoid arthritis.
+• Thyrotoxicosis.
+If you have multiple spider angiomas, visit your healthcare provider for an examination.
+Symptoms:
+Spider angiomas are marks on your skin caused by enlarged blood vessels. Symptoms of a spider angioma include:
+• Flat or slightly raised red to purple dot on your skin that’s similar to a small pimple.
+• Dot has red to purple lines extending from the center (that resemble spider legs).
+• Dot is less than 1/4-inch in diameter (1/2 centimeter).
+• The entire mark disappears when you press your finger on the spot, and then reappears when you move your finger off of your skin.
+Spider angiomas don’t cause pain and may lightly bleed if they’re injured.
+Dermatofibroma:
+Information:
+A dermatofibroma is a common benign fibrous nodule usually found on the skin of the lower legs.
+A dermatofibroma is also called a cutaneous fibrous histiocytoma.
+Dermatofibromas are mostly seen in adults. People of every ethnicity can develop dermatofibromas. Ordinary dermatofibromas are more common in women than in men, although some histologic variants are more commonly identified in males.
+It is not clear if dermatofibroma is a reactive process or a true neoplasm. The lesions are composed of proliferating fibroblasts. Histiocytes may also be involved.
+They are sometimes attributed to minor trauma including insect bites, injections, or a rose thorn injury, but not consistently. Multiple dermatofibromas can develop in patients with altered immunity such as HIV, immunosuppression, or autoimmune conditions.
+Symptoms:
+A dermatofibroma usually presents as a solitary firm papule or nodule on a limb.
+• A dermatofibroma can occur anywhere on the skin.
+• Dermatofibroma size varies from 0.5–1.5 cm diameter; most lesions are 7–10 mm diameter.
+• A dermatofibroma is tethered to the skin surface and mobile over subcutaneous tissue.
+• The overlying skin dimples on pinching the lesion – the dimple or pinch sign.
+• Colour may be pink to light brown in white skin, and dark brown to black in dark skin; some appear paler in the centre.
+• Dermatofibromas do not usually cause symptoms, but they are sometimes painful, tender, or itchy.
+Clinical variants include giant, eruptive, and multiple forms.
+Pyogenic Granuloma:
+Information:
+A pyogenic granuloma is a noncancerous, raised tumor on your skin or mucous membranes. They’re often associated with pregnancy, medications and injury to your skin or membranes. The lesions, made of abnormal blood vessels, break and bleed easily. Several medications and procedures can help, but lesions might come back or appear in other areas.
+A pyogenic granuloma (granuloma pyogenicum) is a noncancerous (benign), raised tumor on your skin or mucous membranes. Pyogenic granulomas tend to ooze, and they break and bleed easily.
+A pyogenic granuloma is a tumor made up of abnormal blood vessels, but it isn’t cancerous.
+The exact cause of pyogenic granulomas is unknown.
+They often happen along with:
+• Hormonal changes, such as pregnancy or the use of birth control pills.
+• Infection with the bacteria Staphylococcus aureus (staph infection).
+• Minor injury or irritation to your skin or mucous membranes (such as poor oral hygiene or piercings).
+The skin condition has also been linked to the use of certain types of medications, including:
+• Antineoplastics (medications used to fight cancer).
+• Antiretrovirals (often used for HIV).
+• Immunosuppressants.
+• Retinoids (vitamin A compounds often used to improve or heal skin).
+They can appear anywhere on your skin or mucous membranes. Mucous membranes are thin linings of cavities and canals that leave your body. Examples include the lining of your mouth and nose.
+Common sites for pyogenic granulomas are:
+• Face.
+• Mouth (gums), lips, tongue or nose.
+• Fingers and toes.
+Symptoms:
+A pyogenic granuloma starts as a small, fleshy bump protruding from your skin or mucous membranes. It usually grows quickly, from a few millimeters (the tip of a crayon) to about a half-inch (the tip of a finger).
+Pyogenic granulomas have been described as looking like ground beef. They may be pink, red, reddish-brown or purple. They often develop a scaly, white “collar” around the bottom.
+At maturity, the growths are often attached to your skin by a stalk-like structure (pedunculated). But they can also attach directly to your skin (sessile).
+The surface of a pyogenic granuloma starts smooth but can become bumpy or crusty. The lesions are delicate, so they ooze, break and bleed easily.
+Lipoma:
+Information:
+A lipoma is a lump of fatty tissue that grows just under the skin. Lipomas move easily when you touch them and feel rubbery, not hard. Most lipomas aren’t painful and don't cause health problems so they rarely need treatment. If a lipoma is bothering you, your provider can remove it.
+A lipoma is a round or oval-shaped lump of tissue that grows just beneath the skin. It’s made of fat, moves easily when you touch it and doesn’t usually cause pain. Lipomas can appear anywhere on the body, but they’re most common on the back, trunk (torso), arms, shoulders and neck.
+Lipomas are benign soft tissue tumors. They grow slowly and are not cancerous. Most lipomas don’t need treatment. If a lipoma is bothering you, your healthcare provider can remove it with an outpatient procedure.
+Lipomas are very common. About 1 of every 1,000 people has a lipoma. Lipomas appear most often between ages 40 and 60, but they can develop at any age. They can even be present at birth. Anyone can get a lipoma, but they're slightly more common in women.
+Lipomas can develop anywhere on the body. Rarely, lipomas grow on the muscles, internal organs or brain. The majority of people with a lipoma only have one, although more than one lipoma can grow. Most lipomas develop just under the skin on the:
+• Arms or legs.
+• Back.
+• Neck.
+• Shoulders.
+• Trunk (chest and torso).
+• Forehead.
+Symptoms:
+Lipomas aren’t usually painful, but they can be uncomfortable if they press against a nerve or develop near a joint. Many people who have a lipoma don’t notice any symptoms. Lipomas are usually:
+• Encapsulated: They don’t spread to the tissues surrounding them.
+• Painless: However, some lipomas cause pain and discomfort depending on their location, size and if blood vessels are present.
+• Round or oval-shaped: The fatty lumps of rubbery tissue are usually symmetrical.
+• Moveable: They sit just beneath the skin’s surface and move when you touch them.
+• Smaller than 2 inches in diameter: In a few cases, lipomas can be larger than 6 inches wide.
+Epidermoid Cyst:
+Information:
+Epidermoid (ep-ih-DUR-moid) cysts are harmless small bumps beneath the skin. They are most common on the face, neck and trunk.
+Epidermoid cysts are slow growing and often painless, so they rarely cause problems or need treatment. You might choose to have a cyst removed if it bothers you, breaks open, or is painful or infected.
+The surface of the skin, also called the epidermis, is made up of a thin, protective layer of cells that the body sheds nonstop. Most epidermoid cysts form when these cells move deeper into the skin rather than shed. Sometimes this type of cyst forms due to irritation or injury of the skin or a hair follicle.
+Epidermal cells form the walls of the cyst and then secrete the protein keratin into it. Keratin is the thick, cheesy substance that can leak from the cyst.
+Symptoms:
+Epidermoid cyst signs and symptoms include:
+• A small, round bump under the skin, often on the face, neck or trunk
+• A tiny blackhead plugging the central opening of the cyst
+• A thick, smelly, cheesy substance that leaks from the cyst
+• An inflamed or infected bump
+Stevens-Johnson Syndrome (SJS):
+Information:
+Stevens-Johnson syndrome (SJS) is a rare, serious disorder of the skin and mucous membranes. It's usually a reaction to medication that starts with flu-like symptoms, followed by a painful rash that spreads and blisters. Then the top layer of affected skin dies, sheds and begins to heal after several days.
+Stevens-Johnson syndrome is a medical emergency that usually requires hospitalization. Treatment focuses on removing the cause, caring for wounds, controlling pain and minimizing complications as skin regrows. It can take weeks to months to recover.
+A more severe form of the condition is called toxic epidermal necrolysis (TEN). It involves more than 30% of the skin surface and extensive damage to the mucous membranes.
+If your condition was caused by a medication, you'll need to permanently avoid that drug and others like it.
+Stevens-Johnson syndrome is a rare and unpredictable illness. Your health care provider may not be able to identify its exact cause, but usually the condition is triggered by medication, an infection or both. You may react to medication while you're using it or up to two weeks after you've stopped using it.
+Drugs that can cause Stevens-Johnson syndrome include:
+• Anti-gout medications, such as allopurinol
+• Medications to treat seizures and mental illness (anticonvulsants and antipsychotics)
+• Antibacterial sulfonamides (including sulfasalazine)
+• Nevirapine (Viramune, Viramune XR)
+• Pain relievers, such as acetaminophen (Tylenol, others), ibuprofen (Advil, Motrin IB, others) and naproxen sodium (Aleve)
+Infections that can cause Stevens-Johnson syndrome include pneumonia and HIV.
+Symptoms:
+One to three days before a rash develops, you may show early signs of Stevens-Johnson syndrome, including:
+• Fever
+• A sore mouth and throat
+• Fatigue
+• Burning eyes
+As the condition develops, other signs and symptoms include:
+• Unexplained widespread skin pain
+• A red or purple rash that spreads
+• Blisters on your skin and the mucous membranes of the mouth, nose, eyes and genitals
+• Shedding of skin within days after blisters form
+Toxic Epidermal Necrolysis (TEN):
+Information:
+Toxic epidermal necrolysis (TEN) is a rare, life-threatening skin reaction, usually caused by a medication. It's a severe form of Stevens-Johnson syndrome (SJS). In people with SJS, TEN is diagnosed when more than 30% of the skin surface is affected and the moist linings of the body (mucous membranes) have extensive damage.
+TEN is a life-threatening condition that affects people of all ages. TEN is usually treated in a hospital. While the skin heals, supportive care includes controlling pain, caring for wounds and making sure you're getting enough fluids. Recovery can take weeks to months.
+If your condition was caused by a medication, you'll need to permanently avoid that drug and those related to it.
+SJS/TEN is usually caused by a skin reaction to medicine. The symptoms are likely to start showing up one to four weeks after you start taking a new drug.
+The most common drug triggers of SJS/TEN include antibiotics, epilepsy drugs, sulfa drugs and allopurinol (Aloprim, Zyloprim).
+Symptoms:
+Toxic epidermal necrolysis signs and symptoms include:
+• Widespread skin pain
+• A spreading rash covering more than 30% of the body
+• Blisters and large areas of peeling skin
+• Sores, swelling and crusting on the mucous membranes, including the mouth, eyes and vagina
+DRESS Syndrome:
+Information:
+Drug hypersensitivity syndrome is a specific, severe, unexpected reaction to a medicine, which affects several organ systems at the same time. It typically causes a combination of:
+• High fever
+• Morbilliform eruption
+• Haematological abnormalities
+• Lymphadenopathy
+• Inflammation of one or more internal organs.
+Drug hypersensitivity syndrome is sometimes also called drug reaction with eosinophilia and systemic symptoms (DRESS), and drug-induced hypersensitivity syndrome (DIHS).
+Drug hypersensitivity syndrome is relatively rare. It mainly affects adults and is equal in incidence in males and females. Genetic susceptibility and HLA associations have been found for several causative drugs.
+The most common drugs to cause this reaction are a number of anticonvulsant drugs (particularly carbamazepine, phenobarbital, and phenytoin), the anti-gout drug, allopurinol, olanzapine, and the sulphonamide group of antibiotics. It has been estimated that at least 1 in every 10,000 patients treated with an anticonvulsant will develop drug hypersensitivity syndrome.
+The risk of drug hypersensitivity syndrome in patients on allopurinol depends on the dose of allopurinol, associated kidney disease, and concomitant thiazide diuretics.
+It has been rarely reported with many other medications, including azathioprine. It can be very difficult to determine the exact cause of drug hypersensitivity syndrome if several medicines have been commenced in preceding weeks. In about 10% of cases, the causative drug is never identified.
+Drug hypersensitivity syndrome occurring within 2 weeks of starting the responsible drug is most likely with beta-lactam antibiotics or iodinated contrast media. Onset is delayed more than 2 weeks with anticonvulsants and allopurinol.
+Drug hypersensitivity syndrome is a delayed T cell-mediated reaction. Tissue damage is due to cytotoxic T cells and cytokine release.
+• There is a genetic predisposition to drug hypersensitivity syndrome.
+• A defect in the way the liver metabolises drugs may be responsible.
+• Re-activation of human herpesvirus 6 (HHV6, the cause of roseola) or Epstein-Barr virus (EBV) may also be important.
+Drug hypersensitivity syndrome usually develops over several days, with onset 2-8 weeks after starting the responsible medicine.
+A high fever of 38–40 C is usually noticed first. This is quickly followed by a widespread skin rash. Characteristics of the rash are diverse.
+• Morbilliform eruption affects 80% of cases, with varying morphology including targetoid lesions, blisters and pustules
+• Erythroderma or exfoliative dermatitis (involving > 90% body surface area) may follow in about 10%
+• Facial swelling affects 30%
+• Mucosal involvement affects 25% (lips, mouth, throat, genitalia)
+Symptoms:
+Symptoms may worsen after stopping the drug and may continue for weeks, or even months, despite drug withdrawal. The severity of the rash does not necessarily correlate with the extent of internal organ involvement. Later symptoms depend on the internal organs affected. They may include:
+• Enlarged lymph nodes in several sites (75%)
+• Haematological disorders: raised white count (or less often, reduced white count), eosinophilia (in 30% this is > 2.0 x 109/L), atypical lymphocytes, thrombocytopenia, anaemia, haemophagocytic syndrome
+• Liver enlargement, hepatitis, and rarely hepatic necrosis with liver failure. Abnormal liver function tests are found in 70–90%.
+• Kidneys are affected in about 10%, and is usually a mild interstitial nephritis. Renal failure is rare.
+• Inflammation of the heart (myocarditis) or pericarditis causing chest pain, breathlessness, and lowered blood pressure
+• Lung involvement causes shortness of breath and cough (interstitial pneumonitis, pleuritis, pneumonia and acute respiratory distress syndrome)
+• Neurological involvement may lead to meningitis and encephalitis, polyneuritis, causing headache, seizures, coma, and palsies
+• Gastrointestinal symptoms: gastroenteritis, pancreatitis, bleeding and dehydration. In severe cases, acute colitis and pancreatitis can occur, and chronic enteropathy may follow.
+• Endocrine abnormalities: thyroiditis and diabetes
+• Myositis
+• Uveitis.

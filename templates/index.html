@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rashilience | Clinical Multimodal Decision Support System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css?v=6">
+</head>
+
+<body class="dark-theme medical-theme">
+
+    <!-- =================================================================== -->
+    <!-- SCREEN 1: CLINICAL SPLASH & ENGINE INITIALIZATION                    -->
+    <!-- =================================================================== -->
+    <div id="splashScreen" class="full-screen-overlay">
+        <div class="splash-card medical-glass-card">
+            <div class="medical-cross-header">
+                <div class="medical-pulse-ring">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+            </div>
+
+            <h1 class="splash-title">Rashilience</h1>
+            <div class="medical-subtitle-badge">
+                <i class="fa-solid fa-notes-medical"></i> Clinical Multimodal Decision Support System
+            </div>
+            <p class="splash-subtitle">Edge-Powered Raspberry Pi 4 • Computer Vision & Symptom Matcher Fusion</p>
+
+            <div class="splash-status-box">
+                <div class="status-indicator">
+                    <span class="pulse-dot green-dot"></span>
+                    <span id="splashStatusText">Booting TFLite Medical Engine & Clinical Rules DB...</span>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div id="splashProgressBar" class="progress-bar-fill"></div>
+                </div>
+
+                <div class="clinical-checklist">
+                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> 75 Dermatological
+                        Conditions Indexed</div>
+                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> 50/50 Vision +
+                        Clinical Matcher Online</div>
+                    <div class="check-item"><i class="fa-solid fa-user-shield text-info"></i> Zero-Cloud HIPAA-Aligned
+                        Edge Privacy</div>
+                </div>
+            </div>
+
+            <div id="splashActionArea" class="splash-actions hidden">
+                <button class="btn btn-primary btn-xl splash-btn pulse-hover" onclick="proceedFromSplash()">
+                    <i class="fa-solid fa-hospital-user"></i> Proceed to Clinician Portal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SCREEN 2: CLINICIAN PORTAL LOGIN                                    -->
+    <!-- =================================================================== -->
+    <div id="loginScreen" class="full-screen-overlay hidden" style="display: none;">
+        <div class="glass-login-card medical-glass-card">
+            <div class="login-header">
+                <div class="login-brand-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <h2>Clinician Portal Authentication</h2>
+                <p>Sign in to access patient records and AI diagnostic engine</p>
+            </div>
+
+            <form onsubmit="event.preventDefault(); performPortalLogin();">
+                <div class="form-group">
+                    <label for="portalUsername"><i class="fa-solid fa-id-badge"></i> Clinician Username</label>
+                    <input type="text" id="portalUsername" value="admin" required placeholder="admin">
+                </div>
+                <div class="form-group">
+                    <label for="portalPassword"><i class="fa-solid fa-key"></i> Security Password</label>
+                    <input type="password" id="portalPassword" value="admin123" required placeholder="admin123">
+                </div>
+
+                <div id="portalLoginAlert" class="alert-banner alert-danger hidden"></div>
+
+                <div class="login-actions">
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fa-solid fa-right-to-bracket"></i> Sign In as Authorized Clinician
+                    </button>
+                    <button type="button" class="btn btn-outline btn-block" onclick="bypassLoginAsGuest()">
+                        <i class="fa-solid fa-stethoscope"></i> Quick Access (Demo Clinician)
+                    </button>
+                </div>
+            </form>
+
+            <div class="login-disclaimer">
+                <i class="fa-solid fa-shield-halved"></i> <span>Local Edge Pi Security: Patient data remains encrypted
+                    in local SQLite DB.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SCREEN 3: CLINICAL MAIN HUB / CHOICE DASHBOARD                      -->
+    <!-- =================================================================== -->
+    <div id="hubScreen" class="full-screen-overlay hidden" style="display: none;">
+        <div class="hub-container">
+            <div class="hub-header">
+                <div class="hub-badge"><i class="fa-solid fa-house-medical"></i> Clinical Operations Hub</div>
+                <h1>Rashilience Portal</h1>
+                <p>Select a clinical workflow to begin decision support or manage patient charts</p>
+            </div>
+
+            <div class="hub-grid">
+                <!-- Choice 1: Patient Assessment -->
+                <div class="hub-card hub-card-primary" onclick="navigateToApp('assessment')">
+                    <div class="hub-card-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="hub-card-badge">5-Stage Workflow</div>
+                    <h3>New Patient Assessment</h3>
+                    <p>Guided 5-stage patient intake: Demographics ➔ Duration ➔ Symptoms & History ➔ Physical Inspection
+                        ➔ Image Acquisition & 50/50 AI Examination.</p>
+                    <div class="hub-card-action">
+                        <span>Launch 5-Stage Assessment <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Choice 2: Admin Panel / Dashboard -->
+                <div class="hub-card hub-card-accent" onclick="navigateToApp('dashboard')">
+                    <div class="hub-card-icon"><i class="fa-solid fa-user-nurse"></i></div>
+                    <div class="hub-card-badge">Record Database</div>
+                    <h3>Clinical Records & Analytics</h3>
+                    <p>Access saved patient assessment charts, review primary & differential diagnoses, export printable
+                        reports, and inspect model health.</p>
+                    <div class="hub-card-action">
+                        <span>Open Records Log <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hub-footer">
+                <button class="btn btn-sm btn-outline" onclick="logoutToLogin()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- MAIN CLINICAL APPLICATION CONTAINER                                 -->
+    <!-- =================================================================== -->
+    <div id="appContainer" class="app-layout hidden" style="display: none;">
+
+        <!-- Top Medical Compliance Bar -->
+        <div class="clinical-notice-bar">
+            <div class="notice-container">
+                <span><i class="fa-solid fa-circle-info"></i> <strong>Clinical Decision Support System (CDSS):</strong>
+                    AI output provides probabilistic ranking for clinician evaluation. Final diagnosis rests with the
+                    attending medical professional.</span>
+                <span class="hipaa-tag"><i class="fa-solid fa-shield-cat"></i> Edge Pi Local Storage</span>
+            </div>
+        </div>
+
+        <!-- App Header & Navigation -->
+        <header class="app-header">
+            <div class="header-container">
+                <div class="brand" onclick="returnToHub()" style="cursor: pointer;"
+                    title="Back to Clinical Operations Hub">
+                    <i class="fa-solid fa-house-medical brand-icon text-cyan"></i>
+                    <div class="brand-text">
+                        <h1>Rashilience</h1>
+                        <span class="badge badge-clinical"><i class="fa-solid fa-microchip"></i> Edge Pi 4 • 50/50
+                            Multimodal</span>
+                    </div>
+                </div>
+
+                <nav class="nav-links">
+                    <button class="nav-btn active" id="tabAssessmentBtn" onclick="switchTab('assessment')">
+                        <i class="fa-solid fa-stethoscope"></i> Patient Intake & Exam
+                    </button>
+                    <button class="nav-btn" id="tabDashboardBtn" onclick="switchTab('dashboard')">
+                        <i class="fa-solid fa-hospital-user"></i> Clinical Records Log
+                    </button>
+                </nav>
+
+                <div class="user-auth-status">
+                    <button class="btn-sm btn-outline" onclick="returnToHub()">
+                        <i class="fa-solid fa-house-chimney-medical"></i> Operations Hub
+                    </button>
+                    <button id="authBtn" class="btn-sm btn-outline" onclick="logoutToLogin()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-container">
+
+            <!-- =================================================================== -->
+            <!-- TAB 1: PATIENT CLINICAL ASSESSMENT (5-STAGE WIZARD WORKFLOW)       -->
+            <!-- =================================================================== -->
+            <section id="assessmentTab" class="tab-content active">
+                <div class="section-header clinical-section-header">
+                    <div>
+                        <h2><i class="fa-solid fa-clipboard-user text-cyan"></i> Guided Patient Assessment (5 Stages)
+                        </h2>
+                        <p>Complete each intake stage step-by-step. Stage 5 handles rash image acquisition and 50/50 AI
+                            analysis.</p>
+                    </div>
+                    <div class="header-status-pill">
+                        <i class="fa-solid fa-circle-check text-success"></i> TFLite Engine Active (75 Conditions)
+                    </div>
+                </div>
+
+                <!-- 5-Stage Stepper Header Navigation -->
+                <div class="wizard-stepper">
+                    <div class="step-item active" id="stepPill1" onclick="goToWizardStep(1)">
+                        <div class="step-icon-wrap"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="step-text">
+                            <span class="step-num">Stage 1</span>
+                            <span class="step-label">Demographics</span>
+                        </div>
+                    </div>
+                    <div class="step-item" id="stepPill2" onclick="goToWizardStep(2)">
+                        <div class="step-icon-wrap"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="step-text">
+                            <span class="step-num">Stage 2</span>
+                            <span class="step-label">Duration & Pattern</span>
+                        </div>
+                    </div>
+                    <div class="step-item" id="stepPill3" onclick="goToWizardStep(3)">
+                        <div class="step-icon-wrap"><i class="fa-solid fa-notes-medical"></i></div>
+                        <div class="step-text">
+                            <span class="step-num">Stage 3</span>
+                            <span class="step-label">Symptoms & History</span>
+                        </div>
+                    </div>
+                    <div class="step-item" id="stepPill4" onclick="goToWizardStep(4)">
+                        <div class="step-icon-wrap"><i class="fa-solid fa-eye"></i></div>
+                        <div class="step-text">
+                            <span class="step-num">Stage 4</span>
+                            <span class="step-label">Physical Inspection</span>
+                        </div>
+                    </div>
+                    <div class="step-item" id="stepPill5" onclick="goToWizardStep(5)">
+                        <div class="step-icon-wrap"><i class="fa-solid fa-camera-retro"></i></div>
+                        <div class="step-text">
+                            <span class="step-num">Stage 5</span>
+                            <span class="step-label">Image & AI Exam</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="assessmentForm" onsubmit="event.preventDefault(); savePatientRecord();">
+
+                    <!-- ======================================================= -->
+                    <!-- STAGE 1: Demographics & Administrative                  -->
+                    <!-- ======================================================= -->
+                    <div id="wizardStep1" class="wizard-step-content">
+                        <div class="glass-card medical-card">
+                            <div class="card-title"><i class="fa-solid fa-id-card text-cyan"></i> Stage 1:
+                                Administrative Metadata & Demographics</div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="date_of_assessment">Date of Assessment *</label>
+                                    <input type="date" id="date_of_assessment" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="assessed_by">Assessed by (Clinician Name/ID) *</label>
+                                    <input type="text" id="assessed_by"
+                                        placeholder="e.g. Dr. A. Smith, MD / Clinician #104" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patient_name">Patient Full Name *</label>
+                                <input type="text" id="patient_name" placeholder="John Doe" required>
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="age">Age (Years)</label>
+                                    <input type="number" id="age" min="0" max="120" placeholder="35">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sex">Biological Sex *</label>
+                                    <select id="sex">
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="background">Ethnicity / Background</label>
+                                    <input type="text" id="background" placeholder="e.g. Asian, Caucasian, African">
+                                </div>
+                                <div class="form-group">
+                                    <label for="current_residence">Current Residence / Climate</label>
+                                    <input type="text" id="current_residence" placeholder="e.g. Urban, Humid Tropical">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-actions">
+                            <div></div>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(2)">
+                                Next: Stage 2 (Duration & Pattern) <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- STAGE 2: Rash Duration & Behavior                       -->
+                    <!-- ======================================================= -->
+                    <div id="wizardStep2" class="wizard-step-content hidden" style="display: none;">
+                        <div class="glass-card medical-card">
+                            <div class="card-title"><i class="fa-solid fa-clock-rotate-left text-cyan"></i> Stage 2:
+                                Rash Onset, Pattern & Anatomical Location</div>
+
+                            <div class="grid-3col-gap">
+                                <div class="form-group">
+                                    <label for="onset">Onset Pattern</label>
+                                    <select id="onset">
+                                        <option value="Sudden/Acute">Sudden / Acute</option>
+                                        <option value="Gradual/Chronic">Gradual / Chronic</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pattern">Course Pattern</label>
+                                    <select id="pattern">
+                                        <option value="Constant">Constant</option>
+                                        <option value="Episodic/Recurrent">Episodic / Recurrent</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="progression">Progression</label>
+                                    <select id="progression">
+                                        <option value="Improving">Improving</option>
+                                        <option value="Worsening">Worsening</option>
+                                        <option value="Static">Static</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="location">Anatomical Location</label>
+                                <input type="text" id="location"
+                                    placeholder="e.g. Forearm, Trunk, Scalp, Lower Extremities">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="provoking_relieving_factors">Provoking / Relieving Factors</label>
+                                <input type="text" id="provoking_relieving_factors"
+                                    placeholder="e.g. Exacerbated by heat; relieved by cold compress">
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-actions">
+                            <button type="button" class="btn btn-outline btn-lg" onclick="goToWizardStep(1)">
+                                <i class="fa-solid fa-arrow-left"></i> Previous Stage
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(3)">
+                                Next: Stage 3 (Symptoms & History) <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- STAGE 3: Symptoms, History & Risk Factors               -->
+                    <!-- ======================================================= -->
+                    <div id="wizardStep3" class="wizard-step-content hidden" style="display: none;">
+                        <div class="glass-card medical-card highlight-card">
+                            <div class="card-title"><i class="fa-solid fa-notes-medical text-cyan"></i> Stage 3:
+                                Clinical Symptoms & Risk Factors</div>
+
+                            <div class="form-group">
+                                <label for="associated_symptoms">Associated Symptoms * (Keywords for AI Engine)</label>
+                                <input type="text" id="associated_symptoms"
+                                    placeholder="e.g. itchy, dry, scaly, circular rash, burning, red welts" required>
+                                <small class="help-text"><i class="fa-solid fa-lightbulb text-warning"></i> Type
+                                    clinical keywords (e.g. itchy, scaly, painful, fever, blister, scaling) to feed the
+                                    50% Clinical Matcher Engine.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="treatment_history">Prior Treatment History</label>
+                                <input type="text" id="treatment_history"
+                                    placeholder="e.g. Topical hydrocortisone cream (1 week)">
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="past_medical_history">Past Medical History</label>
+                                    <input type="text" id="past_medical_history"
+                                        placeholder="e.g. Asthma, Diabetes, Atopy">
+                                </div>
+                                <div class="form-group">
+                                    <label for="family_history">Family History</label>
+                                    <input type="text" id="family_history"
+                                        placeholder="e.g. Eczema or Psoriasis in parents">
+                                </div>
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="occupational_hobbies">Occupational / Exposure</label>
+                                    <input type="text" id="occupational_hobbies"
+                                        placeholder="e.g. Healthcare worker, Chemical exposure">
+                                </div>
+                                <div class="form-group">
+                                    <label for="travel">Recent Travel</label>
+                                    <input type="text" id="travel"
+                                        placeholder="e.g. Endemic tropical region last month">
+                                </div>
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="drug_history">Drug History</label>
+                                    <input type="text" id="drug_history" placeholder="e.g. Penicillin, NSAIDs">
+                                </div>
+                                <div class="form-group">
+                                    <label for="allergies">Known Allergies</label>
+                                    <input type="text" id="allergies" placeholder="e.g. Latex, Nickel, Antibiotics">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-actions">
+                            <button type="button" class="btn btn-outline btn-lg" onclick="goToWizardStep(2)">
+                                <i class="fa-solid fa-arrow-left"></i> Previous Stage
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(4)">
+                                Next: Stage 4 (Physical Inspection) <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- STAGE 4: Physical Inspection & Morphology               -->
+                    <!-- ======================================================= -->
+                    <div id="wizardStep4" class="wizard-step-content hidden" style="display: none;">
+                        <div class="glass-card medical-card">
+                            <div class="card-title"><i class="fa-solid fa-eye text-cyan"></i> Stage 4: Dermatological
+                                Physical Inspection</div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="distribution">Lesion Distribution</label>
+                                    <input type="text" id="distribution"
+                                        placeholder="e.g. Symmetrical, Localized, Dermatomal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="skin_color_discoloration">Color / Discoloration</label>
+                                    <input type="text" id="skin_color_discoloration"
+                                        placeholder="e.g. Erythematous, Hyperpigmented">
+                                </div>
+                            </div>
+
+                            <div class="grid-2col-gap">
+                                <div class="form-group">
+                                    <label for="morphology">Primary Morphology</label>
+                                    <input type="text" id="morphology"
+                                        placeholder="e.g. Macules, Papules, Vesicles, Plaques">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lymph_nodes">Palpable Regional Lymph Nodes?</label>
+                                    <select id="lymph_nodes">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes (Palpable)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-actions">
+                            <button type="button" class="btn btn-outline btn-lg" onclick="goToWizardStep(3)">
+                                <i class="fa-solid fa-arrow-left"></i> Previous Stage
+                            </button>
+                            <button type="button" class="btn btn-accent btn-lg pulse-hover" onclick="goToWizardStep(5)">
+                                Next: Stage 5 (Image Scan & AI Analysis) <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- STAGE 5: Image Acquisition & 50/50 AI Examination       -->
+                    <!-- ======================================================= -->
+                    <div id="wizardStep5" class="wizard-step-content hidden" style="display: none;">
+
+                        <div class="grid-2col">
+                            <!-- Image Acquisition Column -->
+                            <div>
+                                <div class="glass-card medical-card">
+                                    <div class="card-title"><i class="fa-solid fa-camera text-cyan"></i> Stage 5: Rash
+                                        Image Acquisition</div>
+
+                                    <!-- Capture Options Toggle -->
+                                    <div class="input-mode-toggle">
+                                        <button type="button" class="mode-btn active" id="modeUploadBtn"
+                                            onclick="setImageMode('upload')">
+                                            <i class="fa-solid fa-upload"></i> Upload Image File
+                                        </button>
+                                        <button type="button" class="mode-btn" id="modeCameraBtn"
+                                            onclick="setImageMode('camera')">
+                                            <i class="fa-solid fa-video"></i> Use Pi Camera Feed
+                                        </button>
+                                    </div>
+
+                                    <!-- Mode A: File Upload Dropzone -->
+                                    <div id="uploadContainer" class="media-container">
+                                        <div class="dropzone" id="imageDropzone"
+                                            onclick="document.getElementById('imageFileInput').click()">
+                                            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                                            <p>Click or Drag & Drop Rash Image Here</p>
+                                            <span class="file-format-text">High Resolution • JPG, PNG, WEBP
+                                                Supported</span>
+                                            <input type="file" id="imageFileInput" accept="image/*" class="hidden"
+                                                onchange="handleFileSelect(event)">
+                                        </div>
+                                        <div id="imagePreviewBox" class="image-preview-box hidden">
+                                            <img id="imagePreview" src="" alt="Selected Rash Image">
+                                            <button type="button" class="remove-img-btn"
+                                                onclick="clearImageSelection()">&times;</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mode B: Camera View -->
+                                    <div id="cameraContainer" class="media-container hidden">
+                                        <div class="video-wrapper">
+                                            <video id="webcamFeed" autoplay playsinline></video>
+                                            <canvas id="snapshotCanvas" class="hidden"></canvas>
+                                        </div>
+                                        <div class="camera-actions">
+                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                onclick="startCameraFeed()">
+                                                <i class="fa-solid fa-power-off"></i> Start Feed
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="captureSnapshot()">
+                                                <i class="fa-solid fa-camera-retro"></i> Capture Snapshot
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Run AI Examination Action Button -->
+                                    <div class="action-box">
+                                        <button type="button" class="btn btn-accent btn-block btn-lg pulse-hover"
+                                            onclick="executeAiAnalysis()">
+                                            <i class="fa-solid fa-brain"></i> Execute 50/50 AI Multimodal Fusion
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Results & Clinical Plan Column -->
+                            <div>
+                                <!-- Red Flag Emergency Warning Banner -->
+                                <div id="redFlagsBanner" class="alert-banner alert-warning hidden">
+                                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Clinical Red Flag Warning
+                                        Detected!</h4>
+                                    <ul id="redFlagsList"></ul>
+                                </div>
+
+                                <!-- Low Match / Inconclusive Warning Banner -->
+                                <div id="lowMatchBanner" class="alert-banner alert-info hidden"
+                                    style="border-left: 4px solid var(--warning-color); background: rgba(245, 158, 11, 0.1); margin-bottom: 15px; padding: 12px 16px; border-radius: 8px;">
+                                    <h4 style="color: #fbbf24; margin: 0 0 4px 0;"><i
+                                            class="fa-solid fa-triangle-exclamation"></i> Low AI Match Confidence
+                                        (Inconclusive Scan)</h4>
+                                    <p style="margin: 0; font-size: 0.9rem; color: #f3f4f6;">The highest match score is
+                                        below 20%. The scanned image or symptoms do not strongly match any of the 75
+                                        indexed dermatological conditions. Verify image clarity/lighting or refine
+                                        clinical keywords.</p>
+                                </div>
+
+                                <!-- AI Diagnostic Ranking Results Table -->
+                                <div id="aiResultsCard" class="glass-card medical-card hidden">
+                                    <div class="card-title">
+                                        <i class="fa-solid fa-list-ol text-cyan"></i> Top 10 Differential Diagnoses
+                                        <span class="badge badge-clinical">50% Vision + 50% Symptom</span>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="results-table clinical-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Condition</th>
+                                                    <th>Match %</th>
+                                                    <th>Vision %</th>
+                                                    <th>Symptom %</th>
+                                                    <th>Transmission</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="resultsTbody">
+                                                <!-- Dynamic Rows loaded via JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Assessment & Diagnostic Plan -->
+                                <div class="glass-card medical-card">
+                                    <div class="card-title"><i class="fa-solid fa-user-doctor text-cyan"></i> Clinician
+                                        Assessment & Management Plan</div>
+                                    <div class="form-group">
+                                        <label for="primary_diagnosis">Primary Suspected Diagnosis *</label>
+                                        <input type="text" id="primary_diagnosis"
+                                            placeholder="Auto-fills from Top #1 AI Condition" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Differential Diagnoses (DDx Top 3)</label>
+                                        <div class="grid-3col-gap">
+                                            <input type="text" id="ddx_1" placeholder="DDx #1">
+                                            <input type="text" id="ddx_2" placeholder="DDx #2">
+                                            <input type="text" id="ddx_3" placeholder="DDx #3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="plan">Clinical Plan & Patient Management</label>
+                                        <textarea id="plan" rows="3"
+                                            placeholder="e.g. Apply topical hydrocortisone 1% bid x 10 days; avoid contact irritants; re-evaluate if lesions spread or fever develops."></textarea>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success btn-block btn-lg">
+                                            <i class="fa-solid fa-floppy-disk"></i> Save Patient Clinical Record
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-actions" style="margin-top: 1.5rem;">
+                            <button type="button" class="btn btn-outline btn-lg" onclick="goToWizardStep(4)">
+                                <i class="fa-solid fa-arrow-left"></i> Previous Stage (Physical Inspection)
+                            </button>
+                            <div></div>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- =================================================================== -->
+            <!-- TAB 2: CLINICAL RECORDS DATABASE & ANALYTICS DASHBOARD              -->
+            <!-- =================================================================== -->
+            <section id="dashboardTab" class="tab-content">
+                <div class="section-header clinical-section-header">
+                    <div>
+                        <h2><i class="fa-solid fa-hospital-user text-cyan"></i> Clinical Records Log & Database</h2>
+                        <p>Review saved patient charts, AI diagnostic history, and model analytics.</p>
+                    </div>
+                </div>
+
+                <div class="grid-3col-gap dashboard-stats">
+                    <div class="stat-card medical-card">
+                        <div class="stat-icon"><i class="fa-solid fa-users-medical text-cyan"></i></div>
+                        <div class="stat-info">
+                            <h3 id="statTotalPatients">0</h3>
+                            <span>Total Clinical Charts</span>
+                        </div>
+                    </div>
+                    <div class="stat-card medical-card">
+                        <div class="stat-icon"><i class="fa-solid fa-microchip text-success"></i></div>
+                        <div class="stat-info">
+                            <h3>MobileNetV2</h3>
+                            <span>TFLite Quantized Engine</span>
+                        </div>
+                    </div>
+                    <div class="stat-card medical-card">
+                        <div class="stat-icon"><i class="fa-solid fa-shield-virus text-warning"></i></div>
+                        <div class="stat-info">
+                            <h3>75 Conditions</h3>
+                            <span>50/50 Multimodal Fusion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card medical-card">
+                    <div class="card-title-bar">
+                        <h3><i class="fa-solid fa-database text-cyan"></i> Clinical Assessment Database</h3>
+                        <button class="btn btn-sm btn-outline" onclick="loadPatientsDashboard()">
+                            <i class="fa-solid fa-rotate-right"></i> Refresh Log
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="results-table clinical-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Demographics</th>
+                                    <th>Primary Diagnosis</th>
+                                    <th>Clinician</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientsTbody">
+                                <!-- Dynamic Rows loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="app-footer">
+            <p><i class="fa-solid fa-hospital"></i> Rashilience • Edge Raspberry Pi 4 Solution • Medical Multimodal
+                Clinical Decision Support System</p>
+        </footer>
+
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- MODAL: DETAILED CLINICAL REPORT VIEW                                -->
+    <!-- =================================================================== -->
+    <div id="patientReportModal" class="modal-backdrop hidden">
+        <div class="modal-card modal-large medical-glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-invoice text-cyan"></i> Patient Clinical Diagnostic Report</h3>
+                <button class="close-modal-btn" onclick="closeReportModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="patientReportContent">
+                <!-- Dynamically populated report content -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print
+                    Chart</button>
+                <button class="btn btn-outline" onclick="closeReportModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Application Logic -->
+    <script src="/static/js/main.js?v=5"></script>
+</body>
+
+</html>
