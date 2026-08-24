@@ -495,23 +495,68 @@ def reset_battery():
         "percentage": 100,
         "hours_remaining": round(TOTAL_RUNTIME_MINUTES / 60, 1)
     })
+@app.route("/api/system/kill-kiosk", methods=["POST"])
 @app.route("/api/system/exit-kiosk", methods=["POST"])
-def exit_kiosk():
-    """Kills Chromium kiosk process so the Pi returns to the desktop for maintenance."""
+def kill_kiosk():
+    """Kills browser kiosk and terminates the Python host server process completely."""
     import subprocess
+    import sys
+    import threading
+    import time
+    import signal
+
+    def stop_server_and_browser():
+        time.sleep(0.4)
+        if sys.platform.startswith("win"):
+            try:
+                subprocess.Popen("taskkill /F /IM chrome.exe /IM msedge.exe /IM chromium.exe /IM firefox.exe", shell=True)
+            except Exception:
+                pass
+        else:
+            try:
+                subprocess.Popen("pkill -9 -f chromium; pkill -9 -f chromium-browser; pkill -9 -f chrome; killall -9 chromium-browser 2>/dev/null; killall -9 chromium 2>/dev/null", shell=True)
+            except Exception:
+                pass
+        time.sleep(0.2)
+        print("\n[System] Kill command received. Shutting down host Python server...")
+        try:
+            os.kill(os.getpid(), signal.SIGTERM)
+        except Exception:
+            pass
+        os._exit(0)
+
     try:
-        subprocess.Popen(["pkill", "-f", "chromium"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return jsonify({"success": True, "message": "Kiosk exited. Chromium closed. You can now access the Pi desktop."})
+        threading.Thread(target=stop_server_and_browser, daemon=True).start()
+        return jsonify({"success": True, "message": "Kiosk and Python server terminated. Returning to desktop."})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
-@app.route("/api/system/restart-kiosk", methods=["POST"])
-def restart_kiosk():
-    """Restarts the kiosk by re-launching start_kiosk.sh (or just reboot)."""
+@app.route("/api/system/shutdown", methods=["POST"])
+def shutdown_system():
+    """Safely powers off / shuts down the Raspberry Pi or host system."""
     import subprocess
+    import sys
     try:
-        subprocess.Popen(["sudo", "reboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return jsonify({"success": True, "message": "Rebooting Pi to restart kiosk..."})
+        if sys.platform.startswith("win"):
+            subprocess.Popen(["shutdown", "/s", "/t", "1"])
+        else:
+            subprocess.Popen(["sudo", "shutdown", "-h", "now"])
+        return jsonify({"success": True, "message": "System powering off..."})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@app.route("/api/system/reboot", methods=["POST"])
+@app.route("/api/system/restart-kiosk", methods=["POST"])
+def reboot_system():
+    """Safely reboots the Raspberry Pi or host system."""
+    import subprocess
+    import sys
+    try:
+        if sys.platform.startswith("win"):
+            subprocess.Popen(["shutdown", "/r", "/t", "1"])
+        else:
+            subprocess.Popen(["sudo", "reboot"])
+        return jsonify({"success": True, "message": "Rebooting system..."})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 

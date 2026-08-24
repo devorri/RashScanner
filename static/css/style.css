@@ -1488,3 +1488,141 @@ input:focus, select:focus, textarea:focus {
     color: #fff;
 }
 
+/* ==========================================================================
+   System Power & Kill Button Controls
+   ========================================================================== */
+.power-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    border-radius: 20px;
+    padding: 6px 13px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fca5a5;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.power-pill-btn:hover, .power-pill-btn:active {
+    background: rgba(239, 68, 68, 0.85);
+    color: #ffffff;
+    border-color: #ef4444;
+    transform: scale(0.96);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+}
+
+.power-corner-btn {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fca5a5;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+}
+
+.power-corner-btn:hover, .power-corner-btn:active {
+    background: #ef4444;
+    color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
+}
+
+.power-action-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0 10px;
+}
+
+.power-option-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 23, 42, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    touch-action: manipulation;
+}
+
+.power-option-card:active {
+    transform: scale(0.98);
+}
+
+.power-option-card.kill-card {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.power-option-card.kill-card:hover, .power-option-card.kill-card:active {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+}
+
+.power-option-card.shutdown-card {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.power-option-card.shutdown-card:hover, .power-option-card.shutdown-card:active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+}
+
+.power-option-card.reboot-card {
+    border-color: rgba(14, 165, 233, 0.4);
+    background: rgba(14, 165, 233, 0.08);
+}
+
+.power-option-card.reboot-card:hover, .power-option-card.reboot-card:active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #0ea5e9;
+}
+
+.power-option-icon {
+    font-size: 1.6rem;
+    min-width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.power-option-info h4 {
+    margin: 0 0 3px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.power-option-info p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+

@@ -242,14 +242,78 @@ async function authenticateMaintenance() {
     }
 }
 
-async function exitKioskMode() {
-    if (!confirm('Exit Kiosk Mode?\n\nChromium will close and you will see the Pi desktop.\nThe Flask server keeps running. Re-open Chromium or reboot to restart the kiosk.')) return;
-
-    try {
-        await fetch('/api/system/exit-kiosk', { method: 'POST' });
-    } catch (e) {
-        // Expected — the browser itself is being killed
+function openPowerModal() {
+    const modal = document.getElementById('powerModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
     }
+}
+
+function closePowerModal() {
+    const modal = document.getElementById('powerModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
+}
+
+async function executeSystemAction(action) {
+    if (action === 'kill') {
+        if (!confirm('Kill App & Exit Kiosk?\n\nThis will terminate the fullscreen browser and stop the server, returning to the desktop.')) return;
+        closePowerModal();
+        
+        // Show exiting screen immediately
+        document.body.innerHTML = `
+            <div style="position:fixed;inset:0;background:#030712;color:#ef4444;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
+                <i class="fa-solid fa-power-off" style="font-size:3rem;margin-bottom:15px;animation:pulse 1s infinite;"></i>
+                <h2 style="color:#f87171;font-size:1.6rem;margin:0 0 8px 0;">Stopping Application...</h2>
+                <p style="color:#94a3b8;font-size:1rem;margin:0;">Terminating server and returning to desktop.</p>
+            </div>
+        `;
+
+        try {
+            await fetch('/api/system/kill-kiosk', { method: 'POST' });
+        } catch (e) {}
+
+        setTimeout(() => {
+            try { window.close(); } catch (e) {}
+        }, 500);
+    } else if (action === 'shutdown') {
+        if (!confirm('Safely Shut Down Raspberry Pi?\n\nThe system will power off.')) return;
+        closePowerModal();
+        
+        document.body.innerHTML = `
+            <div style="position:fixed;inset:0;background:#030712;color:#f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
+                <i class="fa-solid fa-power-off" style="font-size:3rem;margin-bottom:15px;"></i>
+                <h2 style="color:#fbbf24;font-size:1.6rem;margin:0 0 8px 0;">Shutting Down Raspberry Pi...</h2>
+                <p style="color:#94a3b8;font-size:1rem;margin:0;">Powering off device hardware safely.</p>
+            </div>
+        `;
+
+        try {
+            await fetch('/api/system/shutdown', { method: 'POST' });
+        } catch (e) {}
+    } else if (action === 'reboot') {
+        if (!confirm('Reboot Raspberry Pi?\n\nThe system will restart in about 30 seconds.')) return;
+        closePowerModal();
+        
+        document.body.innerHTML = `
+            <div style="position:fixed;inset:0;background:#030712;color:#0ea5e9;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
+                <i class="fa-solid fa-arrows-rotate" style="font-size:3rem;margin-bottom:15px;"></i>
+                <h2 style="color:#38bdf8;font-size:1.6rem;margin:0 0 8px 0;">Rebooting Raspberry Pi...</h2>
+                <p style="color:#94a3b8;font-size:1rem;margin:0;">Please wait while the system restarts.</p>
+            </div>
+        `;
+
+        try {
+            await fetch('/api/system/reboot', { method: 'POST' });
+        } catch (e) {}
+    }
+}
+
+async function exitKioskMode() {
+    executeSystemAction('kill');
 }
 
 function minimizeKiosk() {
@@ -270,11 +334,7 @@ function minimizeKiosk() {
 }
 
 async function rebootKiosk() {
-    if (!confirm('Reboot the Raspberry Pi?\n\nThe system will shut down and restart. This takes about 30 seconds.')) return;
-
-    try {
-        await fetch('/api/system/restart-kiosk', { method: 'POST' });
-    } catch (e) {}
+    executeSystemAction('reboot');
 }
 
 function proceedFromSplash() {
