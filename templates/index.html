@@ -11,10 +11,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Icons (100% Offline Local) -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/style.css?v=6">
+    <link rel="stylesheet" href="/static/css/style.css?v=9">
+    <!-- Touch On-Screen Virtual Keyboard CSS -->
+    <link rel="stylesheet" href="/static/css/virtual-keyboard.css?v=1">
 </head>
 
 <body class="dark-theme medical-theme">
@@ -94,6 +96,9 @@
                     <button type="button" class="btn btn-outline btn-block" onclick="bypassLoginAsGuest()">
                         <i class="fa-solid fa-stethoscope"></i> Quick Access (Demo Clinician)
                     </button>
+                    <button type="button" class="btn btn-outline btn-block" onclick="showScreen('splashScreen')" style="border-color: rgba(255,255,255,0.15);">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Welcome Screen
+                    </button>
                 </div>
             </form>
 
@@ -110,7 +115,15 @@
     <div id="hubScreen" class="full-screen-overlay hidden" style="display: none;">
         <div class="hub-container">
             <div class="hub-header">
-                <div class="hub-badge"><i class="fa-solid fa-house-medical"></i> Clinical Operations Hub</div>
+                <div class="hub-top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div class="hub-badge"><i class="fa-solid fa-house-medical"></i> Clinical Operations Hub</div>
+                    <!-- Battery Status Widget (10,000mAh Power Bank) -->
+                    <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status (Tap to Manage)">
+                        <i class="fa-solid fa-battery-full text-success kiosk-battery-icon"></i>
+                        <span class="kiosk-battery-percent">100%</span>
+                        <span class="kiosk-battery-hours battery-hours">(~6.0h)</span>
+                    </div>
+                </div>
                 <h1>Rashilience Portal</h1>
                 <p>Select a clinical workflow to begin decision support or manage patient charts</p>
             </div>
@@ -141,9 +154,12 @@
                 </div>
             </div>
 
-            <div class="hub-footer">
+            <div class="hub-footer" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
                 <button class="btn btn-sm btn-outline" onclick="logoutToLogin()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    <i class="fa-solid fa-arrow-left"></i> Sign Out / Back to Login
+                </button>
+                <button class="btn btn-sm btn-outline" onclick="openMaintenanceModal()" style="border-color: rgba(148,163,184,0.3); color: var(--text-dim);" title="Kiosk Maintenance Mode (Admin Only)">
+                    <i class="fa-solid fa-gear"></i> Maintenance
                 </button>
             </div>
         </div>
@@ -186,13 +202,22 @@
                     </button>
                 </nav>
 
-                <div class="user-auth-status">
-                    <button class="btn-sm btn-outline" onclick="returnToHub()">
-                        <i class="fa-solid fa-house-chimney-medical"></i> Operations Hub
-                    </button>
-                    <button id="authBtn" class="btn-sm btn-outline" onclick="logoutToLogin()">
-                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
-                    </button>
+                <div class="header-right-group" style="display: flex; align-items: center; gap: 10px;">
+                    <!-- 10,000mAh Power Bank Battery Widget -->
+                    <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status (Tap to Manage / Reset)">
+                        <i class="fa-solid fa-battery-full text-success kiosk-battery-icon"></i>
+                        <span class="kiosk-battery-percent">100%</span>
+                        <span class="kiosk-battery-hours battery-hours">(~6.0h)</span>
+                    </div>
+
+                    <div class="user-auth-status">
+                        <button class="btn-sm btn-outline header-hub-btn" onclick="returnToHub()" title="Back to Operations Hub">
+                            <i class="fa-solid fa-house-chimney-medical"></i> Operations Hub
+                        </button>
+                        <button id="authBtn" class="btn-sm btn-outline" onclick="logoutToLogin()">
+                            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -308,7 +333,9 @@
                         </div>
 
                         <div class="wizard-nav-actions">
-                            <div></div>
+                            <button type="button" class="btn btn-outline btn-lg" onclick="returnToHub()">
+                                <i class="fa-solid fa-arrow-left"></i> Back to Operations Hub
+                            </button>
                             <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(2)">
                                 Next: Stage 2 (Duration & Pattern) <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -561,6 +588,26 @@
 
                             <!-- Results & Clinical Plan Column -->
                             <div>
+                                <!-- Image Quality Rejection Alert Banner -->
+                                <div id="noSkinBanner" class="alert-banner alert-danger hidden"
+                                    style="border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.15); margin-bottom: 15px; padding: 14px 18px; border-radius: 8px;">
+                                    <h4 style="color: #f87171; margin: 0 0 6px 0;">
+                                        <i class="fa-solid fa-circle-exclamation"></i> Image Quality Check Failed
+                                    </h4>
+                                    <p id="noSkinMessage" style="margin: 0; font-size: 0.9rem; color: #f3f4f6;">
+                                        The image did not pass quality requirements. Please retake.
+                                    </p>
+                                </div>
+
+                                <!-- Image Quality & Blur Warnings Banner -->
+                                <div id="qualityWarningBanner" class="alert-banner alert-warning hidden"
+                                    style="border-left: 4px solid #f59e0b; background: rgba(245, 158, 11, 0.12); margin-bottom: 15px; padding: 12px 16px; border-radius: 8px;">
+                                    <h4 style="color: #fbbf24; margin: 0 0 4px 0;">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Image Quality Advisory
+                                    </h4>
+                                    <ul id="qualityWarningsList" style="margin: 0; padding-left: 1.2rem; font-size: 0.88rem; color: #f3f4f6;"></ul>
+                                </div>
+
                                 <!-- Red Flag Emergency Warning Banner -->
                                 <div id="redFlagsBanner" class="alert-banner alert-warning hidden">
                                     <h4><i class="fa-solid fa-triangle-exclamation"></i> Clinical Red Flag Warning
@@ -575,7 +622,7 @@
                                             class="fa-solid fa-triangle-exclamation"></i> Low AI Match Confidence
                                         (Inconclusive Scan)</h4>
                                     <p style="margin: 0; font-size: 0.9rem; color: #f3f4f6;">The highest match score is
-                                        below 20%. The scanned image or symptoms do not strongly match any of the 75
+                                        below 25%. The scanned image or symptoms do not strongly match any of the 75
                                         indexed dermatological conditions. Verify image clarity/lighting or refine
                                         clinical keywords.</p>
                                 </div>
@@ -653,11 +700,14 @@
             <!-- TAB 2: CLINICAL RECORDS DATABASE & ANALYTICS DASHBOARD              -->
             <!-- =================================================================== -->
             <section id="dashboardTab" class="tab-content">
-                <div class="section-header clinical-section-header">
+                <div class="section-header clinical-section-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <h2><i class="fa-solid fa-hospital-user text-cyan"></i> Clinical Records Log & Database</h2>
                         <p>Review saved patient charts, AI diagnostic history, and model analytics.</p>
                     </div>
+                    <button class="btn btn-outline" onclick="returnToHub()">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Operations Hub
+                    </button>
                 </div>
 
                 <div class="grid-3col-gap dashboard-stats">
@@ -742,8 +792,89 @@
         </div>
     </div>
 
+    <!-- =================================================================== -->
+    <!-- MODAL: 10,000mAh POWER BANK BATTERY MANAGER                         -->
+    <!-- =================================================================== -->
+    <div id="batteryModal" class="modal-backdrop hidden" style="display: none;">
+        <div class="modal-card medical-glass-card" style="max-width: 460px; text-align: center;">
+            <div class="modal-header" style="justify-content: space-between; display: flex; align-items: center;">
+                <h3 style="font-size: 1.15rem; margin: 0;"><i class="fa-solid fa-battery-charging text-cyan"></i> Power Bank Manager</h3>
+                <button class="close-modal-btn" onclick="closeBatteryModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px 10px;">
+                <div id="modalBatteryIconWrap" style="font-size: 3.5rem; margin-bottom: 10px;">
+                    <i id="modalBatteryIcon" class="fa-solid fa-battery-full text-success"></i>
+                </div>
+                <h2 id="modalBatteryPercent" style="font-size: 2.5rem; font-weight: 700; margin: 0; color: var(--text-primary);">100%</h2>
+                <p id="modalBatterySubtext" style="color: var(--text-muted); margin-top: 6px; font-size: 1.05rem;">Estimated Runtime Remaining: ~6.0 Hours</p>
+
+                <div class="alert-banner alert-info" style="font-size: 0.88rem; margin: 18px 0 10px; text-align: left;">
+                    <i class="fa-solid fa-circle-info"></i> Calibrated for <strong>10,000mAh Power Bank</strong>. Tracks runtime and alerts on low-voltage warning.
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; gap: 10px; flex-direction: column;">
+                <button type="button" class="btn btn-primary btn-block btn-lg" onclick="resetPowerBankTracker()">
+                    <i class="fa-solid fa-arrows-rotate"></i> Reset to 100% (Recharged / Swapped)
+                </button>
+                <button type="button" class="btn btn-outline btn-block" onclick="closeBatteryModal()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- MODAL: KIOSK MAINTENANCE MODE (PASSWORD PROTECTED)                  -->
+    <!-- =================================================================== -->
+    <div id="maintenanceModal" class="modal-backdrop hidden" style="display: none;">
+        <div class="modal-card medical-glass-card" style="max-width: 500px; text-align: center;">
+            <div class="modal-header" style="justify-content: space-between; display: flex; align-items: center;">
+                <h3 style="font-size: 1.15rem; margin: 0;"><i class="fa-solid fa-gear text-warning"></i> Kiosk Maintenance Mode</h3>
+                <button class="close-modal-btn" onclick="closeMaintenanceModal()">&times;</button>
+            </div>
+
+            <!-- Step 1: Password Gate -->
+            <div id="maintenanceAuth" class="modal-body" style="padding: 20px 15px;">
+                <p style="color: var(--text-muted); margin-bottom: 16px;">Enter admin password to access maintenance tools.</p>
+                <div class="form-group" style="text-align: left;">
+                    <label for="maintenancePassword"><i class="fa-solid fa-key"></i> Admin Password</label>
+                    <input type="password" id="maintenancePassword" placeholder="Enter admin password">
+                </div>
+                <div id="maintenanceAuthError" class="alert-banner alert-danger hidden" style="margin-top: 10px;"></div>
+                <button type="button" class="btn btn-primary btn-block btn-lg" onclick="authenticateMaintenance()" style="margin-top: 12px;">
+                    <i class="fa-solid fa-lock-open"></i> Unlock Maintenance Tools
+                </button>
+            </div>
+
+            <!-- Step 2: Maintenance Actions (Hidden until authenticated) -->
+            <div id="maintenanceActions" class="modal-body hidden" style="padding: 20px 15px; display: none;">
+                <div class="alert-banner alert-info" style="font-size: 0.88rem; margin-bottom: 18px; text-align: left;">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Maintenance Mode:</strong> Use these tools to exit or manage the kiosk. The Flask server will continue running in the background.
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="exitKioskMode()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Exit Kiosk (Close Chromium)
+                    </button>
+                    <button type="button" class="btn btn-outline btn-block btn-lg" onclick="minimizeKiosk()">
+                        <i class="fa-solid fa-window-minimize"></i> Minimize / Exit Fullscreen
+                    </button>
+                    <button type="button" class="btn btn-outline btn-block" onclick="rebootKiosk()" style="border-color: rgba(239,68,68,0.4); color: #fca5a5;">
+                        <i class="fa-solid fa-power-off"></i> Reboot Raspberry Pi
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline btn-block" onclick="closeMaintenanceModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JS Application Logic -->
-    <script src="/static/js/main.js?v=5"></script>
+    <script src="/static/js/main.js?v=8"></script>
+    <!-- Touch On-Screen Virtual Keyboard Logic -->
+    <script src="/static/js/virtual-keyboard.js?v=2"></script>
 </body>
 
 </html>

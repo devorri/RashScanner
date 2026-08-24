@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startSplashAnimation();
 
+    // Start 10,000mAh Power Bank Battery Monitor
+    updateBatteryStatus();
+    if (!batteryPollInterval) {
+        batteryPollInterval = setInterval(updateBatteryStatus, 15000);
+    }
+
     // --- Drag & Drop event wiring for Stage 5 dropzone ---
     const dropzone = document.getElementById('imageDropzone');
     if (dropzone) {
@@ -81,6 +87,194 @@ function showScreen(screenId) {
         target.classList.remove('hidden');
         target.style.display = (screenId === 'appContainer') ? 'block' : 'flex';
     }
+}
+
+// -----------------------------------------------------------------------------
+// 10,000mAh Power Bank Battery Manager Logic
+// -----------------------------------------------------------------------------
+let batteryPollInterval = null;
+
+async function updateBatteryStatus() {
+    try {
+        const res = await fetch('/api/system/status');
+        const data = await res.json();
+        if (data && data.success) {
+            applyBatteryUI(data.percentage, data.hours_remaining, data.low_voltage_warning);
+        }
+    } catch (e) {
+        console.log('[Battery] Using local tracker');
+    }
+}
+
+function applyBatteryUI(percentage, hoursLeft, isLowVoltage) {
+    const percentEls = document.querySelectorAll('.kiosk-battery-percent');
+    const hoursEls = document.querySelectorAll('.kiosk-battery-hours');
+    const iconEls = document.querySelectorAll('.kiosk-battery-icon');
+    const pills = document.querySelectorAll('.battery-pill');
+
+    percentEls.forEach(el => el.textContent = `${percentage}%`);
+    hoursEls.forEach(el => el.textContent = `(~${hoursLeft}h)`);
+
+    let iconClass = 'fa-solid fa-battery-full text-success';
+    if (percentage <= 15 || isLowVoltage) {
+        iconClass = 'fa-solid fa-battery-empty text-danger';
+        pills.forEach(p => p.classList.add('battery-low-alert'));
+    } else if (percentage <= 35) {
+        iconClass = 'fa-solid fa-battery-quarter text-warning';
+        pills.forEach(p => p.classList.remove('battery-low-alert'));
+    } else if (percentage <= 65) {
+        iconClass = 'fa-solid fa-battery-half text-warning';
+        pills.forEach(p => p.classList.remove('battery-low-alert'));
+    } else if (percentage <= 85) {
+        iconClass = 'fa-solid fa-battery-three-quarters text-success';
+        pills.forEach(p => p.classList.remove('battery-low-alert'));
+    } else {
+        iconClass = 'fa-solid fa-battery-full text-success';
+        pills.forEach(p => p.classList.remove('battery-low-alert'));
+    }
+
+    iconEls.forEach(icon => {
+        icon.className = `${iconClass} kiosk-battery-icon`;
+    });
+
+    const modalPercent = document.getElementById('modalBatteryPercent');
+    const modalSubtext = document.getElementById('modalBatterySubtext');
+    const modalIcon = document.getElementById('modalBatteryIcon');
+
+    if (modalPercent) modalPercent.textContent = `${percentage}%`;
+    if (modalSubtext) modalSubtext.textContent = isLowVoltage ? 
+        `⚠️ LOW VOLTAGE DETECTED! Connect Power Bank / Charger immediately.` : 
+        `Estimated Runtime Remaining: ~${hoursLeft} Hours`;
+    if (modalIcon) modalIcon.className = `${iconClass}`;
+}
+
+function openBatteryModal() {
+    const modal = document.getElementById('batteryModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+        updateBatteryStatus();
+    }
+}
+
+function closeBatteryModal() {
+    const modal = document.getElementById('batteryModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
+}
+
+async function resetPowerBankTracker() {
+    try {
+        const res = await fetch('/api/system/battery/reset', { method: 'POST' });
+        const data = await res.json();
+        if (data && data.success) {
+            applyBatteryUI(100, data.hours_remaining, false);
+            alert("Power bank battery tracker reset to 100% (~6.0 hours remaining)!");
+            closeBatteryModal();
+        }
+    } catch (e) {
+        applyBatteryUI(100, 6.0, false);
+        closeBatteryModal();
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Kiosk Maintenance Mode (Password-Protected Exit/Minimize/Reboot)
+// -----------------------------------------------------------------------------
+function openMaintenanceModal() {
+    const modal = document.getElementById('maintenanceModal');
+    const authPanel = document.getElementById('maintenanceAuth');
+    const actionsPanel = document.getElementById('maintenanceActions');
+    const errBox = document.getElementById('maintenanceAuthError');
+    const pwInput = document.getElementById('maintenancePassword');
+
+    if (modal) {
+        // Reset to password step
+        if (authPanel) { authPanel.classList.remove('hidden'); authPanel.style.display = ''; }
+        if (actionsPanel) { actionsPanel.classList.add('hidden'); actionsPanel.style.display = 'none'; }
+        if (errBox) { errBox.classList.add('hidden'); errBox.textContent = ''; }
+        if (pwInput) pwInput.value = '';
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+    }
+}
+
+function closeMaintenanceModal() {
+    const modal = document.getElementById('maintenanceModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
+}
+
+async function authenticateMaintenance() {
+    const pw = (document.getElementById('maintenancePassword').value || '').trim();
+    const errBox = document.getElementById('maintenanceAuthError');
+
+    try {
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: pw })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            // Show maintenance actions
+            const authPanel = document.getElementById('maintenanceAuth');
+            const actionsPanel = document.getElementById('maintenanceActions');
+            if (authPanel) { authPanel.classList.add('hidden'); authPanel.style.display = 'none'; }
+            if (actionsPanel) { actionsPanel.classList.remove('hidden'); actionsPanel.style.display = ''; }
+            if (errBox) errBox.classList.add('hidden');
+        } else {
+            if (errBox) {
+                errBox.textContent = 'Incorrect admin password. Access denied.';
+                errBox.classList.remove('hidden');
+            }
+        }
+    } catch (e) {
+        if (errBox) {
+            errBox.textContent = 'Server connection error.';
+            errBox.classList.remove('hidden');
+        }
+    }
+}
+
+async function exitKioskMode() {
+    if (!confirm('Exit Kiosk Mode?\n\nChromium will close and you will see the Pi desktop.\nThe Flask server keeps running. Re-open Chromium or reboot to restart the kiosk.')) return;
+
+    try {
+        await fetch('/api/system/exit-kiosk', { method: 'POST' });
+    } catch (e) {
+        // Expected — the browser itself is being killed
+    }
+}
+
+function minimizeKiosk() {
+    // Try exiting fullscreen via Fullscreen API
+    if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+    } else if (document.webkitFullscreenElement) {
+        document.webkitExitFullscreen();
+    }
+
+    // Try to make window not full-size (works on some kiosk configs)
+    try {
+        window.resizeTo(800, 480);
+        window.moveTo(50, 50);
+    } catch (e) {}
+
+    alert('Exited fullscreen mode. You may need to press F11 or Alt+Tab to access the desktop.');
+}
+
+async function rebootKiosk() {
+    if (!confirm('Reboot the Raspberry Pi?\n\nThe system will shut down and restart. This takes about 30 seconds.')) return;
+
+    try {
+        await fetch('/api/system/restart-kiosk', { method: 'POST' });
+    } catch (e) {}
 }
 
 function proceedFromSplash() {
@@ -382,7 +576,37 @@ async function executeAiAnalysis() {
 
     try {
         const formData = new FormData();
-        if (symptomsText) formData.append('associated_symptoms', symptomsText);
+
+        // Auto-extract clinical keywords from ALL wizard stages for richer symptom fusion
+        const fieldsToPull = [
+            'associated_symptoms',       // Stage 3: explicit symptoms
+            'onset',                     // Stage 2: Sudden/Acute vs Gradual/Chronic
+            'pattern',                   // Stage 2: Constant vs Episodic
+            'progression',               // Stage 2: Improving/Worsening/Static
+            'location',                  // Stage 2: Anatomical location
+            'provoking_relieving_factors',// Stage 2: Triggers
+            'treatment_history',         // Stage 3: Prior treatments
+            'past_medical_history',      // Stage 3: PMH
+            'family_history',            // Stage 3: Family
+            'drug_history',              // Stage 3: Drugs
+            'allergies',                 // Stage 3: Allergies
+            'distribution',              // Stage 4: Lesion distribution
+            'skin_color_discoloration',  // Stage 4: Color
+            'morphology',                // Stage 4: Primary morphology
+            'lymph_nodes'                // Stage 4: Lymph nodes
+        ];
+
+        const allKeywords = [];
+        fieldsToPull.forEach(fieldId => {
+            const el = document.getElementById(fieldId);
+            if (el) {
+                const val = (el.value || '').trim();
+                if (val && val !== 'No') allKeywords.push(val);
+            }
+        });
+
+        const combinedSymptoms = allKeywords.join(', ');
+        if (combinedSymptoms) formData.append('associated_symptoms', combinedSymptoms);
 
         if (selectedImageFile) {
             formData.append('image_file', selectedImageFile);
@@ -395,13 +619,46 @@ async function executeAiAnalysis() {
         const response = await fetch('/api/examine', { method: 'POST', body: formData });
         const data = await response.json();
 
+        const noSkinBanner = document.getElementById('noSkinBanner');
+        const qualityBanner = document.getElementById('qualityWarningBanner');
+        const qualityList = document.getElementById('qualityWarningsList');
+        const redFlagsBanner = document.getElementById('redFlagsBanner');
+        const redFlagsList = document.getElementById('redFlagsList');
+        const lowMatchBanner = document.getElementById('lowMatchBanner');
+        const aiResultsCard = document.getElementById('aiResultsCard');
+
+        // Handle Rejection: Quality Gate (No Skin / Blurry / Bad Lighting)
+        if (!data.success && data.error_type === "quality_rejection") {
+            if (noSkinBanner) {
+                const msgEl = document.getElementById('noSkinMessage');
+                if (msgEl) msgEl.innerText = data.message;
+                noSkinBanner.classList.remove('hidden');
+            }
+            if (qualityBanner) qualityBanner.classList.add('hidden');
+            if (redFlagsBanner) redFlagsBanner.classList.add('hidden');
+            if (lowMatchBanner) lowMatchBanner.classList.add('hidden');
+            if (aiResultsCard) aiResultsCard.classList.add('hidden');
+
+            alert('🛑 ' + data.message);
+            return;
+        }
+
         if (data.success) {
+            if (noSkinBanner) noSkinBanner.classList.add('hidden');
             currentImageFilename = data.image_filename;
             currentAiResults = data.top_matches;
 
-            // Red flags banner (new wizard IDs)
-            const redFlagsBanner = document.getElementById('redFlagsBanner');
-            const redFlagsList = document.getElementById('redFlagsList');
+            // Quality / Blur Warnings
+            if (data.quality && data.quality.warnings && data.quality.warnings.length > 0) {
+                if (qualityList) {
+                    qualityList.innerHTML = data.quality.warnings.map(w => `<li>${w}</li>`).join('');
+                }
+                if (qualityBanner) qualityBanner.classList.remove('hidden');
+            } else {
+                if (qualityBanner) qualityBanner.classList.add('hidden');
+            }
+
+            // Red flags banner
             if (data.red_flags && data.red_flags.length > 0) {
                 if (redFlagsList) {
                     redFlagsList.innerHTML = data.red_flags.map(f => `<li>${f}</li>`).join('');
@@ -411,7 +668,25 @@ async function executeAiAnalysis() {
                 if (redFlagsBanner) redFlagsBanner.classList.add('hidden');
             }
 
-            // Top 10 results table (new wizard IDs: resultsTbody, aiResultsCard)
+            // Low Match / Inconclusive Banner
+            if (lowMatchBanner) {
+                if (data.is_low_confidence) {
+                    lowMatchBanner.innerHTML = `
+                        <h4 style="color: #fbbf24; margin: 0 0 6px 0;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Inconclusive Scan (Max Match: ${data.top_score}%)
+                        </h4>
+                        <p style="margin: 0 0 8px 0; font-size: 0.9rem; color: #f3f4f6;">
+                            The AI visual score is too low (${data.top_score}% < 25% threshold) to identify a specific rash pattern. This is normal when scanning normal/healthy skin, an unindexed rash, or when no symptoms are provided in Stages 2–4.
+                        </p>
+                        <small style="color: #67e8f9;"><i class="fa-solid fa-lightbulb"></i> Tip: Enter clinical keywords (e.g. "itchy, scaly, red bumps") in Stage 3 to guide the AI match.</small>
+                    `;
+                    lowMatchBanner.classList.remove('hidden');
+                } else {
+                    lowMatchBanner.classList.add('hidden');
+                }
+            }
+
+            // Top 10 results table
             const tbody = document.getElementById('resultsTbody');
             if (tbody) {
                 tbody.innerHTML = '';
@@ -421,6 +696,7 @@ async function executeAiAnalysis() {
                     const vPct = (match.visual_score * 100).toFixed(1);
                     const sPct = (match.symptom_score * 100).toFixed(1);
                     const contagious = match.contagious || 'Unknown';
+                    const isConfident = match.final_score >= 0.25;
                     const badge = contagious === 'Contact'
                         ? `<span class="badge-contact">⚠ Contact</span>`
                         : contagious === 'Non-Contact'
@@ -428,10 +704,15 @@ async function executeAiAnalysis() {
                             : `<span class="badge-unknown">? Unknown</span>`;
 
                     const tr = document.createElement('tr');
+                    tr.style.opacity = isConfident ? '1' : '0.65';
                     tr.innerHTML = `
                         <td>#${idx + 1}</td>
-                        <td><strong>${condName}</strong><br><small class="text-muted">${match.severity}</small></td>
-                        <td><span class="badge">${matchPct}%</span></td>
+                        <td>
+                            <strong>${condName}</strong>
+                            ${isConfident ? '' : '<span style="color:#fbbf24; font-size:0.75rem; margin-left:4px;">(Low Match)</span>'}<br>
+                            <small class="text-muted">${match.severity}</small>
+                        </td>
+                        <td><span class="badge ${isConfident ? '' : 'badge-low'}">${matchPct}%</span></td>
                         <td>${vPct}%</td>
                         <td>${sPct}%</td>
                         <td>${badge}</td>`;
@@ -439,7 +720,6 @@ async function executeAiAnalysis() {
                 });
             }
 
-            const aiResultsCard = document.getElementById('aiResultsCard');
             if (aiResultsCard) aiResultsCard.classList.remove('hidden');
 
             // Auto-populate diagnosis fields
@@ -451,7 +731,11 @@ async function executeAiAnalysis() {
                 set('ddx_3', data.suggestions.ddx_3);
             }
 
-            alert(`✅ AI Analysis complete in ${data.inference_time_ms} ms! Top diagnoses auto-populated.`);
+            if (data.is_low_confidence) {
+                alert(`⚠️ Inconclusive Scan (Top match only ${data.top_score}%).\n\nThe AI does not recognize a clear rash in this photo alone. Enter symptoms in Stage 3 for an accurate diagnosis!`);
+            } else {
+                alert(`✅ AI Analysis complete in ${data.inference_time_ms} ms! Top diagnoses auto-populated.`);
+            }
         } else {
             alert('AI Examination Error: ' + (data.message || 'Unknown error'));
         }

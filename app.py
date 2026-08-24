@@ -16,7 +16,7 @@ import numpy as np
 from flask import Flask, render_template, request, jsonify, session, send_from_directory
 
 # Import AI Engine components
-from pi_scanner import TFLiteClassifier, run_multimodal_fusion, EdgeCamera
+from pi_scanner import TFLiteClassifier, run_multimodal_fusion, EdgeCamera, detect_skin_and_quality
 from symptoms_db import check_red_flags, get_condition_info
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -239,28 +239,54 @@ def examine_rash():
         if frame_bgr is None or frame_bgr.size == 0:
             return jsonify({"success": False, "message": "Please upload an image or capture a camera frame for analysis."}), 400
 
-        # Run TFLite Computer Vision Model
+        # Step 1: Intelligent Quality & Strict Sharpness Gate
+        quality = detect_skin_and_quality(frame_bgr)
+        if not quality["is_valid"]:
+            return jsonify({
+                "success": False,
+                "error_type": "quality_rejection",
+                "message": quality["error"],
+                "quality": quality,
+                "image_filename": filename,
+                "image_url": f"/uploads/{filename}"
+            }), 422
+
+        # Step 2: Run TFLite Computer Vision Model
         t0 = datetime.datetime.now()
         visual_probs = clf.predict(frame_bgr)
         elapsed_ms = (datetime.datetime.now() - t0).total_seconds() * 1000
 
-        # Run 50/50 Multimodal Fusion Engine
+        # Step 3: Run 50/50 Multimodal Fusion Engine
         top_matches = run_multimodal_fusion(visual_probs, symptoms_text, top_k=10)
         red_flags = check_red_flags(symptoms_text)
 
-        # Primary & Differential Diagnosis Auto-suggestions
-        primary_diag = top_matches[0]["condition"].replace("_", " ") if top_matches else "Inconclusive"
-        ddx_1 = top_matches[1]["condition"].replace("_", " ") if len(top_matches) > 1 else ""
-        ddx_2 = top_matches[2]["condition"].replace("_", " ") if len(top_matches) > 2 else ""
-        ddx_3 = top_matches[3]["condition"].replace("_", " ") if len(top_matches) > 3 else ""
+        # Primary & Differential Diagnosis Auto-suggestions with Confidence Threshold
+        CONFIDENCE_THRESHOLD = 0.25  # 25% clinical threshold
+        top_score = float(top_matches[0]["final_score"]) if top_matches else 0.0
+        is_low_confidence = bool(top_score < CONFIDENCE_THRESHOLD)
+
+        if is_low_confidence:
+            primary_diag = "Inconclusive (Low AI Confidence)"
+            ddx_1 = f"Possible: {top_matches[0]['condition'].replace('_', ' ')} ({(top_score*100):.1f}%)" if top_matches else ""
+            ddx_2 = f"Possible: {top_matches[1]['condition'].replace('_', ' ')} ({(top_matches[1]['final_score']*100):.1f}%)" if len(top_matches) > 1 else ""
+            ddx_3 = f"Possible: {top_matches[2]['condition'].replace('_', ' ')} ({(top_matches[2]['final_score']*100):.1f}%)" if len(top_matches) > 2 else ""
+        else:
+            primary_diag = top_matches[0]["condition"].replace("_", " ") if top_matches else "Inconclusive"
+            ddx_1 = top_matches[1]["condition"].replace("_", " ") if len(top_matches) > 1 else ""
+            ddx_2 = top_matches[2]["condition"].replace("_", " ") if len(top_matches) > 2 else ""
+            ddx_3 = top_matches[3]["condition"].replace("_", " ") if len(top_matches) > 3 else ""
 
         return jsonify({
             "success": True,
             "image_filename": filename,
             "image_url": f"/uploads/{filename}",
             "inference_time_ms": round(elapsed_ms, 1),
+            "quality": quality,
             "top_matches": top_matches,
             "red_flags": red_flags,
+            "is_low_confidence": is_low_confidence,
+            "top_score": round(top_score * 100, 1),
+            "confidence_threshold": round(CONFIDENCE_THRESHOLD * 100, 1),
             "suggestions": {
                 "primary_diagnosis": primary_diag,
                 "ddx_1": ddx_1,
@@ -269,6 +295,8 @@ def examine_rash():
             }
         })
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({"success": False, "message": str(e)}), 500
 
 @app.route("/api/patients", methods=["GET", "POST"])
@@ -373,6 +401,119 @@ def patient_detail(patient_id):
             return jsonify({"success": True, "patient": patient_data})
         else:
             return jsonify({"success": False, "message": "Patient record not found."}), 404
+
+# ------------------------------------------------------------------------------
+# Smart 10,000mAh Power Bank & System Battery Manager
+# ------------------------------------------------------------------------------
+POWER_STATE_FILE = os.path.join(os.path.dirname(__file__), "power_state.json")
+TOTAL_RUNTIME_MINUTES = 360  # ~6.0 Hours runtime on 10,000mAh Power Bank
+
+def get_or_update_power_state(reset=False):
+    now_ts = datetime.datetime.now().timestamp()
+    state = {
+        "capacity_mah": 10000,
+        "reset_timestamp": now_ts,
+        "active_seconds": 0,
+        "last_seen_ts": now_ts
+    }
+    if reset:
+        state["reset_timestamp"] = now_ts
+        state["active_seconds"] = 0
+        state["last_seen_ts"] = now_ts
+        try:
+            with open(POWER_STATE_FILE, "w") as f:
+                json.dump(state, f)
+        except Exception:
+            pass
+        return state
+
+    if os.path.exists(POWER_STATE_FILE):
+        try:
+            with open(POWER_STATE_FILE, "r") as f:
+                saved = json.load(f)
+                state.update(saved)
+                elapsed = max(0, now_ts - state.get("last_seen_ts", now_ts))
+                if elapsed < 3600:
+                    state["active_seconds"] = state.get("active_seconds", 0) + elapsed
+                state["last_seen_ts"] = now_ts
+        except Exception:
+            pass
+
+    try:
+        with open(POWER_STATE_FILE, "w") as f:
+            json.dump(state, f)
+    except Exception:
+        pass
+
+    return state
+
+@app.route("/api/system/status", methods=["GET"])
+def system_status():
+    """Returns battery percentage, estimated hours remaining, and low-voltage warning."""
+    state = get_or_update_power_state()
+    total_seconds = TOTAL_RUNTIME_MINUTES * 60
+    used_seconds = state.get("active_seconds", 0)
+    remaining_seconds = max(0, total_seconds - used_seconds)
+
+    percentage = max(2, min(100, int((remaining_seconds / total_seconds) * 100)))
+    hours_left = round(remaining_seconds / 3600, 1)
+
+    # Check for Raspberry Pi Under-Voltage (Low Power Bank Warning)
+    low_voltage_detected = False
+    try:
+        import subprocess
+        out = subprocess.check_output(["vcgencmd", "get_throttled"], timeout=1).decode("utf-8")
+        if "throttled=0x" in out:
+            hex_val = int(out.strip().split("=")[1], 16)
+            # Bit 0 (0x1) or Bit 16 (0x50000) indicates under-voltage active
+            if hex_val & 0x1 or hex_val & 0x10000:
+                low_voltage_detected = True
+    except Exception:
+        pass
+
+    # If low voltage detected, drop percentage to alert level
+    if low_voltage_detected:
+        percentage = min(percentage, 12)
+
+    return jsonify({
+        "success": True,
+        "power_mode": "10,000mAh Power Bank",
+        "capacity_mah": 10000,
+        "percentage": percentage,
+        "hours_remaining": hours_left,
+        "low_voltage_warning": low_voltage_detected,
+        "active_minutes": round(used_seconds / 60, 1)
+    })
+
+@app.route("/api/system/battery/reset", methods=["POST"])
+def reset_battery():
+    """Resets the power bank runtime tracker to 100% when recharged or battery swapped."""
+    state = get_or_update_power_state(reset=True)
+    return jsonify({
+        "success": True,
+        "message": "Power bank tracker reset to 100% (10,000mAh calibrated).",
+        "percentage": 100,
+        "hours_remaining": round(TOTAL_RUNTIME_MINUTES / 60, 1)
+    })
+@app.route("/api/system/exit-kiosk", methods=["POST"])
+def exit_kiosk():
+    """Kills Chromium kiosk process so the Pi returns to the desktop for maintenance."""
+    import subprocess
+    try:
+        subprocess.Popen(["pkill", "-f", "chromium"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return jsonify({"success": True, "message": "Kiosk exited. Chromium closed. You can now access the Pi desktop."})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@app.route("/api/system/restart-kiosk", methods=["POST"])
+def restart_kiosk():
+    """Restarts the kiosk by re-launching start_kiosk.sh (or just reboot)."""
+    import subprocess
+    try:
+        subprocess.Popen(["sudo", "reboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return jsonify({"success": True, "message": "Rebooting Pi to restart kiosk..."})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 if __name__ == "__main__":
     import argparse

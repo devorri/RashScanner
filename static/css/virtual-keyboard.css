@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Rashilience Kiosk Virtual Touch Keyboard
+   Optimized for 7" - 10" Touchscreens & Chromium Kiosk Mode
+   ========================================================================== */
+
+.vk-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999999;
+    background: rgba(10, 15, 29, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 2px solid rgba(14, 165, 233, 0.5);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(14, 165, 233, 0.2);
+    transform: translateY(105%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 6px 12px 10px;
+    box-sizing: border-box;
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.vk-wrapper.vk-visible {
+    transform: translateY(0);
+}
+
+/* Keyboard Header Bar */
+.vk-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.vk-field-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #38bdf8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40%;
+}
+
+.vk-preview-text {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.95rem;
+    color: #f8fafc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 28px;
+    line-height: 28px;
+}
+
+.vk-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vk-action-btn {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f8fafc;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+}
+
+.vk-action-btn:active {
+    background: #0ea5e9;
+    color: #fff;
+    transform: scale(0.96);
+}
+
+.vk-close-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}
+
+.vk-close-btn:active {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* Keyboard Layout Grid */
+.vk-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.vk-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    touch-action: manipulation;
+}
+
+/* Individual Keys */
+.vk-key {
+    flex: 1;
+    min-width: 28px;
+    max-width: 72px;
+    height: 48px;
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #f8fafc;
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4);
+    transition: background 0.1s, transform 0.08s, box-shadow 0.08s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.vk-key:active, .vk-key.vk-active {
+    background: #0ea5e9 !important;
+    color: #ffffff !important;
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    border-color: #38bdf8;
+}
+
+/* Special Keys */
+.vk-key-special {
+    background: rgba(51, 65, 85, 0.9);
+    border-color: rgba(148, 163, 184, 0.25);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.vk-key-shift {
+    flex: 1.4;
+    max-width: 85px;
+}
+
+.vk-key-shift.vk-shift-active {
+    background: #0ea5e9;
+    color: #fff;
+    border-color: #38bdf8;
+}
+
+.vk-key-shift.vk-caps-locked {
+    background: #14b8a6;
+    color: #fff;
+    border-color: #2dd4bf;
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+}
+
+.vk-key-backspace {
+    flex: 1.4;
+    max-width: 85px;
+    background: rgba(71, 85, 105, 0.85);
+}
+
+.vk-key-mode {
+    flex: 1.3;
+    max-width: 80px;
+}
+
+.vk-key-space {
+    flex: 4;
+    max-width: 320px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: #94a3b8;
+}
+
+.vk-key-enter {
+    flex: 1.6;
+    max-width: 100px;
+    background: #0284c7;
+    border-color: #38bdf8;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.vk-key-enter:active {
+    background: #0369a1 !important;
+}
+
+.vk-key-tab {
+    flex: 1.2;
+    max-width: 75px;
+}
+
+/* Numpad Layout Specifics */
+.vk-numpad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.vk-numpad-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.vk-numpad-key {
+    flex: 1;
+    height: 56px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    max-width: 90px;
+}
+
+/* Floating Open Keyboard Trigger Button */
+.vk-floating-toggle {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4), 0 2px 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 999990;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    touch-action: manipulation;
+}
+
+.vk-floating-toggle:active {
+    transform: scale(0.92);
+}
+
+.vk-floating-toggle.vk-hidden-toggle {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+/* Responsive Tweaks for Smaller Kiosk Resolutions */
+@media (max-height: 600px) {
+    .vk-wrapper {
+        padding: 4px 8px 6px;
+    }
+    .vk-header {
+        padding: 2px 6px 4px;
+        margin-bottom: 4px;
+    }
+    .vk-key {
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+    .vk-numpad-key {
+        height: 46px;
+        font-size: 1.2rem;
+    }
+}

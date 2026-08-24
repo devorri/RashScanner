@@ -17,6 +17,100 @@ from symptoms_db import calculate_symptom_score, check_red_flags, get_condition_
 import importlib
 
 # ------------------------------------------------------------------------------
+# Robust Image Quality & Skin Presence Detector
+# ------------------------------------------------------------------------------
+def detect_skin_and_quality(bgr_image):
+    """
+    Validates image before neural network inference:
+    1. Skin Color Distribution: Multi-space (YCrCb + HSV) detector supporting diverse Fitzpatrick skin tones (I-VI).
+    2. Blur / Focus Clarity: Laplacian variance check.
+    3. Lighting / Exposure: Brightness level analysis.
+    """
+    if bgr_image is None or bgr_image.size == 0:
+        return {
+            "is_valid": False,
+            "skin_detected": False,
+            "skin_ratio": 0.0,
+            "is_blurry": True,
+            "blur_score": 0.0,
+            "brightness": 0.0,
+            "error": "Empty or invalid image frame"
+        }
+
+    h, w = bgr_image.shape[:2]
+    total_pixels = h * w
+
+    # 1. Skin Detection via HSV & YCrCb Color Spaces
+    hsv = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
+    ycrcb = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2YCrCb)
+
+    # HSV Skin Range (Covers light to deep skin tones)
+    lower_hsv1 = np.array([0, 20, 40], dtype=np.uint8)
+    upper_hsv1 = np.array([30, 255, 255], dtype=np.uint8)
+    lower_hsv2 = np.array([165, 20, 40], dtype=np.uint8)
+    upper_hsv2 = np.array([180, 255, 255], dtype=np.uint8)
+    mask_hsv = cv2.bitwise_or(cv2.inRange(hsv, lower_hsv1, upper_hsv1), cv2.inRange(hsv, lower_hsv2, upper_hsv2))
+
+    # YCrCb Skin Range (Standard dermatological threshold)
+    lower_ycrcb = np.array([0, 133, 77], dtype=np.uint8)
+    upper_ycrcb = np.array([255, 175, 130], dtype=np.uint8)
+    mask_ycrcb = cv2.inRange(ycrcb, lower_ycrcb, upper_ycrcb)
+
+    # Combined Skin Mask
+    skin_mask = cv2.bitwise_or(mask_hsv, mask_ycrcb)
+    skin_pixels = cv2.countNonZero(skin_mask)
+    skin_ratio = skin_pixels / total_pixels
+
+    # 2. Blur / Sharpness check via Laplacian Variance
+    gray = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2GRAY)
+    blur_score = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+
+    # 3. Brightness level check
+    brightness = float(np.mean(gray))
+
+    # Minimum thresholds
+    MIN_SKIN_RATIO = 0.12     # At least 12% skin coverage in frame
+    MIN_BLUR_SCORE = 45.0     # Strict sharpness threshold (rejects out-of-focus or motion blur)
+    MIN_BRIGHTNESS = 25.0     # Not pitch black
+    MAX_BRIGHTNESS = 240.0    # Not completely washed out
+
+    skin_ratio = float(skin_pixels) / float(total_pixels)
+    skin_detected = bool(skin_ratio >= MIN_SKIN_RATIO)
+    is_sharp = bool(blur_score >= MIN_BLUR_SCORE)
+    is_blurry = not is_sharp
+    is_poor_lighting = bool(brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS)
+
+    is_valid = bool(skin_detected and is_sharp and not is_poor_lighting)
+
+    error_msg = None
+    if not skin_detected:
+        error_msg = f"No human skin detected (Skin coverage: {skin_ratio*100:.1f}%). Please position the camera directly on the affected skin area."
+    elif not is_sharp:
+        error_msg = f"Image is not sharp enough (Sharpness: {blur_score:.1f} / 45.0 required). Please hold the camera steady and refocus before scanning."
+    elif is_poor_lighting:
+        if brightness < MIN_BRIGHTNESS:
+            error_msg = "Image is too dark to extract rash morphology. Please increase illumination."
+        else:
+            error_msg = "Image is over-exposed or glaring. Please avoid direct light reflection."
+
+    warnings = []
+    if blur_score < 60.0 and is_sharp:
+        warnings.append(f"Moderate sharpness ({blur_score:.1f}). Higher clarity provides better diagnosis.")
+
+    return {
+        "is_valid": is_valid,
+        "skin_detected": skin_detected,
+        "skin_ratio": round(float(skin_ratio * 100), 1),
+        "is_sharp": is_sharp,
+        "is_blurry": is_blurry,
+        "blur_score": round(float(blur_score), 1),
+        "min_sharpness_required": MIN_BLUR_SCORE,
+        "brightness": round(float(brightness), 1),
+        "warnings": warnings,
+        "error": error_msg
+    }
+
+# ------------------------------------------------------------------------------
 # Robust TFLite Interpreter Import (tflite_runtime on Pi, tensorflow on PC)
 # ------------------------------------------------------------------------------
 def get_tflite_interpreter_class():
@@ -167,21 +261,35 @@ class TFLiteClassifier:
 # ------------------------------------------------------------------------------
 def run_multimodal_fusion(visual_probs: dict, user_symptoms: str, top_k=10) -> list:
     """
-    Computes a 50/50 Multimodal Fusion score:
-      Final Score = 0.50 * (Visual Model Prob) + 0.50 * (Symptom Match Score)
+    Computes an Adaptive Multimodal Fusion score:
+      - When the visual model is confident (top class > 15%), uses 50/50 balance.
+      - When the visual model has low confidence (max class ≤ 15%), dampens visual bias
+        so the symptom engine leads the ranking (30% visual / 70% symptoms).
     
     Returns sorted list of Top K matching condition dictionaries.
     """
     fusion_results = []
     
+    # Detect visual model confidence level
+    max_visual = max(visual_probs.values()) if visual_probs else 0.0
+    VISUAL_CONFIDENCE_FLOOR = 0.15  # 15% threshold
+
+    # Adaptive weighting: dampen visual bias when model is uncertain
+    if max_visual > VISUAL_CONFIDENCE_FLOOR:
+        v_weight = 0.50
+        s_weight = 0.50
+    else:
+        v_weight = 0.30  # Reduce visual influence when model is guessing
+        s_weight = 0.70  # Let symptoms lead the ranking
+
     # Collect all known conditions (from model labels + symptoms DB)
     all_conditions = set(visual_probs.keys()).union(set(SYMPTOM_DB.keys()))
 
     for condition in all_conditions:
-        v_score = visual_probs.get(condition, 0.0)
-        s_score = calculate_symptom_score(user_symptoms, condition)
+        v_score = float(visual_probs.get(condition, 0.0))
+        s_score = float(calculate_symptom_score(user_symptoms, condition))
         
-        final_score = (0.50 * v_score) + (0.50 * s_score)
+        final_score = float((v_weight * v_score) + (s_weight * s_score))
         
         info = get_condition_info(condition)
         fusion_results.append({
