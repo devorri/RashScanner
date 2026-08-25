@@ -1,10 +1,12 @@
-Acne_Vulgaris
-Chickenpox_Varicella
+Acne
+Chickenpox
 Eczema
-Hives
-Impetigo
-Melanoma
+Monkeypox
+Pimple
 Psoriasis
 Ringworm
-Scabies
-Warts
+basal cell carcinoma
+melanoma
+tinea-versicolor
+vitiligo
+warts

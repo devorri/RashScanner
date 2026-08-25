@@ -30,13 +30,15 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Configuration
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 DB_PATH = os.path.join(os.path.dirname(__file__), "patients.db")
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "rash_model.tflite")
+MODEL_PT = os.path.join(os.path.dirname(__file__), "best.pt")
+MODEL_TFLITE = os.path.join(os.path.dirname(__file__), "rash_model.tflite")
 LABELS_PATH = os.path.join(os.path.dirname(__file__), "labels.txt")
+MODEL_PATH = MODEL_PT if os.path.exists(MODEL_PT) else MODEL_TFLITE
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Lazy-loaded TFLite Classifier & Realtime Analyzer Instances
+# Lazy-loaded YOLOv11 / TFLite Classifier & Realtime Analyzer Instances
 classifier = None
 realtime_analyzer = None
 active_camera = None
@@ -44,15 +46,16 @@ active_camera = None
 def get_classifier():
     global classifier, realtime_analyzer
     if classifier is None:
-        if os.path.exists(MODEL_PATH) and os.path.exists(LABELS_PATH):
+        target_model = MODEL_PT if os.path.exists(MODEL_PT) else MODEL_TFLITE
+        if os.path.exists(target_model) and os.path.exists(LABELS_PATH):
             try:
-                classifier = TFLiteClassifier(model_path=MODEL_PATH, labels_path=LABELS_PATH)
+                classifier = TFLiteClassifier(model_path=target_model, labels_path=LABELS_PATH)
                 realtime_analyzer = RealtimeAnalyzer(classifier)
-                print("[App] 100% AI TFLite Classifier & Real-Time Analyzer initialized successfully.")
+                print(f"[App] 100% AI YOLOv11 Detector & Real-Time Analyzer initialized successfully ({target_model}).")
             except Exception as e:
-                print(f"[App Warning] Failed to initialize TFLite classifier: {e}")
+                print(f"[App Warning] Failed to initialize AI classifier: {e}")
         else:
-            print("[App Warning] rash_model.tflite or labels.txt not found.")
+            print("[App Warning] Model weights or labels.txt not found.")
     return classifier
 
 def get_camera():
@@ -377,8 +380,9 @@ def examine_rash():
                 "image_url": f"/uploads/{filename}"
             }), 422
 
-        # Step 2: Run 100% AI Computer Vision Inference
+        # Step 2: Run 100% AI Computer Vision Inference & Object Detection
         t0 = time.time()
+        detections = clf.detect_objects(frame_bgr, conf_threshold=0.20) if hasattr(clf, "detect_objects") else []
         probs = clf.predict(frame_bgr)
         elapsed_ms = (time.time() - t0) * 1000
 
@@ -406,6 +410,7 @@ def examine_rash():
             "image_url": f"/uploads/{filename}",
             "inference_time_ms": round(elapsed_ms, 1),
             "quality": quality,
+            "detections": detections,
             "top_matches": ranked_matches,
             "red_flags": red_flags,
             "is_low_confidence": is_low_confidence,

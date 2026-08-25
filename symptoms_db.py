@@ -1,51 +1,43 @@
 """
-symptoms_db.py - Clinical Information & Safety Database for 10 Skin Conditions
+symptoms_db.py - Clinical Information & Safety Database for 12 Skin Conditions
 Provides clinical descriptions, transmission classification (Contact vs Non-Contact),
 and critical emergency Red-Flag safety checks.
-Note: AI diagnosis is 100% Computer Vision-driven. Symptoms in this module are used for
-clinician reference notes and red-flag emergency detection.
+Note: AI diagnosis is 100% Computer Vision-driven with YOLOv11 Object Detection.
 """
 
-import re
 from typing import Dict, List, Any
 
-# Clinical Reference Information for the 10 Selected Visually-Distinct Conditions
+# Clinical Reference Information for the 12 Visually-Distinct Conditions
 SYMPTOM_DB: Dict[str, Dict[str, Any]] = {
-    "Acne_Vulgaris": {
+    "Acne": {
         "symptoms": ["pimples", "blackheads", "whiteheads", "oily", "red bumps", "pustules", "nodules", "tender", "cysts"],
         "severity": "Mild to Moderate",
         "description": "Clogged hair follicles with oil and dead skin cells causing inflammatory papules, pustules, or cysts.",
         "red_flags": ["deep painful cysts", "scarring", "fever", "sudden explosive onset"]
     },
-    "Chickenpox_Varicella": {
+    "Pimple": {
+        "symptoms": ["single red bump", "pus-filled head", "inflamed pore", "localized tenderness"],
+        "severity": "Mild (Benign)",
+        "description": "Localized inflammatory pustule or comedone caused by sebum and bacterial buildup in pores.",
+        "red_flags": ["facial cellulitis", "rapidly spreading redness"]
+    },
+    "Chickenpox": {
         "symptoms": ["itchy blisters", "red spots", "dewdrops on rose petal", "fever", "fatigue", "crusting", "widespread"],
         "severity": "Moderate",
         "description": "Highly contagious varicella-zoster viral infection causing itchy fluid-filled vesicles and crusts.",
         "red_flags": ["difficulty breathing", "high fever", "neurological symptoms", "secondary skin infection"]
+    },
+    "Monkeypox": {
+        "symptoms": ["umbilicated pustules", "firm lesions", "swollen lymph nodes", "fever", "body aches", "rash on palms/soles"],
+        "severity": "Moderate to High",
+        "description": "Orthopoxvirus infection presenting with characteristic deep-seated, well-circumscribed lesions with central umbilication.",
+        "red_flags": ["ocular involvement / eye pain", "difficulty breathing", "encephalitis signs", "severe secondary infection"]
     },
     "Eczema": {
         "symptoms": ["itchy", "dry", "red", "inflamed", "cracked", "rough", "scaling", "sensitive", "leathery"],
         "severity": "Mild to Moderate",
         "description": "Atopic Dermatitis causing dry, intensely itchy, inflamed, and scaling skin patches.",
         "red_flags": ["pus", "yellow crust", "fever", "severe pain", "spreading redness"]
-    },
-    "Hives": {
-        "symptoms": ["itchy", "welts", "wheals", "red", "swollen", "raised", "stinging", "burning", "transient"],
-        "severity": "Mild to Severe",
-        "description": "Urticaria presenting as sudden, raised, itchy red or pink welts with smooth surface.",
-        "red_flags": ["difficulty breathing", "swallowing difficulty", "swollen lips", "swollen tongue", "anaphylaxis"]
-    },
-    "Impetigo": {
-        "symptoms": ["honey-colored crusts", "red sores", "blisters", "face", "around nose", "itchy", "contagious"],
-        "severity": "Mild to Moderate",
-        "description": "Contagious superficial bacterial skin infection forming characteristic golden honey-colored crusts.",
-        "red_flags": ["dark kidney-colored urine", "swelling around eyes", "high fever"]
-    },
-    "Melanoma": {
-        "symptoms": ["asymmetrical mole", "irregular border", "color variation", "diameter > 6mm", "evolving mole", "dark spot"],
-        "severity": "Emergency (Malignancy)",
-        "description": "High-risk skin malignancy arising from melanocytes showing asymmetry, irregular borders, and color variation.",
-        "red_flags": ["bleeding mole", "rapid evolution", "new black lesion", "itching or pain in mole"]
     },
     "Psoriasis": {
         "symptoms": ["silvery scales", "thickened", "red patches", "dry", "cracked", "itching", "burning", "plaque", "stiff joints"],
@@ -59,13 +51,31 @@ SYMPTOM_DB: Dict[str, Dict[str, Any]] = {
         "description": "Tinea Corporis fungal infection producing distinct circular ring-shaped scaly red patches with clear centers.",
         "red_flags": ["spreading to face", "scalp involvement", "pus", "secondary bacterial infection"]
     },
-    "Scabies": {
-        "symptoms": ["intense night itching", "burrow lines", "webbing of fingers", "wrists", "waist", "small red papules"],
-        "severity": "Moderate",
-        "description": "Infestation by microscopic Sarcoptes scabiei mites causing intense nocturnal itch and burrow tracks.",
-        "red_flags": ["crusted scabies (Norwegian scabies)", "widespread secondary bacterial infection"]
+    "tinea-versicolor": {
+        "symptoms": ["discolored patches", "lighter or darker skin patches", "mild scaling", "trunk", "back", "chest", "sweating"],
+        "severity": "Mild (Benign)",
+        "description": "Fungal skin infection (Pityrosporum) causing small, discolored, scaly patches on upper trunk and arms.",
+        "red_flags": ["secondary infection", "severe burning sensation"]
     },
-    "Warts": {
+    "vitiligo": {
+        "symptoms": ["depigmented white patches", "loss of skin color", "symmetrical white spots", "premature grey hair"],
+        "severity": "Chronic / Cosmetic",
+        "description": "Autoimmune disorder where melanocytes are destroyed, causing smooth milky-white patches of depigmentation.",
+        "red_flags": ["rapid spread", "co-occurring thyroid/autoimmune crisis"]
+    },
+    "basal cell carcinoma": {
+        "symptoms": ["pearly translucent bump", "visible blood vessels", "rolled border", "non-healing sore", "sun-exposed skin"],
+        "severity": "High (Malignant)",
+        "description": "Most common form of skin cancer arising in basal cells; presents as pearly papules or bleeding non-healing ulcers.",
+        "red_flags": ["rapid growth", "frequent ulceration and bleeding", "proximity to eyes or nose"]
+    },
+    "melanoma": {
+        "symptoms": ["asymmetrical mole", "irregular border", "color variation", "diameter > 6mm", "evolving mole", "dark spot"],
+        "severity": "Emergency (Malignancy)",
+        "description": "High-risk aggressive skin malignancy arising from melanocytes; exhibits ABCDE criteria.",
+        "red_flags": ["bleeding mole", "rapid evolution", "new black lesion", "itching or pain in mole"]
+    },
+    "warts": {
         "symptoms": ["rough bump", "verrucous surface", "black pinpoint dots", "hands", "feet", "plantar", "verruca"],
         "severity": "Mild (Benign)",
         "description": "HPV viral skin growth creating rough, raised, cauliflower-textured bumps with black pinpoint capillaries.",
@@ -76,18 +86,20 @@ SYMPTOM_DB: Dict[str, Dict[str, Any]] = {
 # Transmission Classification
 CONTAGIOUS_MAP: Dict[str, str] = {
     # Contact (Contagious)
-    "Chickenpox_Varicella": "Contact",
-    "Impetigo":             "Contact",
+    "Chickenpox":           "Contact",
+    "Monkeypox":            "Contact",
     "Ringworm":             "Contact",
-    "Scabies":              "Contact",
-    "Warts":                "Contact",
+    "warts":                "Contact",
+    "tinea-versicolor":     "Contact",
 
     # Non-Contact (Non-contagious / Autoimmune / Inflammatory / Neoplastic)
-    "Acne_Vulgaris":        "Non-Contact",
+    "Acne":                 "Non-Contact",
+    "Pimple":               "Non-Contact",
     "Eczema":               "Non-Contact",
-    "Hives":                "Non-Contact",
-    "Melanoma":             "Non-Contact",
-    "Psoriasis":            "Non-Contact"
+    "Psoriasis":            "Non-Contact",
+    "vitiligo":             "Non-Contact",
+    "basal cell carcinoma": "Non-Contact",
+    "melanoma":             "Non-Contact"
 }
 
 # Critical Red Flag Emergency Keywords
@@ -112,31 +124,26 @@ def check_red_flags(user_input: str) -> List[str]:
 
 def get_contagious_status(condition_key: str) -> str:
     """Returns 'Contact', 'Non-Contact', or 'Unknown'."""
-    if condition_key in CONTAGIOUS_MAP:
-        return CONTAGIOUS_MAP[condition_key]
-    clean_key = condition_key.replace(" ", "_")
+    clean_key = condition_key.lower().replace("_", " ").strip()
     for k, v in CONTAGIOUS_MAP.items():
-        if k.lower() == condition_key.lower() or k.lower() == clean_key.lower():
+        if k.lower().replace("_", " ").strip() == clean_key:
             return v
     return "Non-Contact"
 
 def get_condition_info(condition_key: str) -> Dict[str, Any]:
     """Fetch complete metadata record for a condition."""
+    clean_key = condition_key.lower().replace("_", " ").strip()
     result = None
-    if condition_key in SYMPTOM_DB:
-        result = dict(SYMPTOM_DB[condition_key])
-    else:
-        clean_key = condition_key.replace(" ", "_")
-        for k, v in SYMPTOM_DB.items():
-            if k.lower() == condition_key.lower() or k.lower() == clean_key.lower():
-                result = dict(v)
-                break
+    for k, v in SYMPTOM_DB.items():
+        if k.lower().replace("_", " ").strip() == clean_key:
+            result = dict(v)
+            break
 
     if result is None:
         result = {
             "symptoms": [],
             "severity": "Informational",
-            "description": "Clinical condition identified by Edge AI Vision Engine.",
+            "description": "Clinical skin lesion identified by YOLOv11 Edge AI Vision Engine.",
             "red_flags": []
         }
 
