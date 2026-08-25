@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rashilience | Clinical Multimodal Decision Support System</title>
+    <title>Rashilience | 100% AI Real-Time Skin Disease Decision Support</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <!-- FontAwesome Icons (100% Offline Local) -->
+    <!-- FontAwesome Icons (Offline Local) -->
     <link rel="stylesheet" href="/static/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/style.css?v=9">
+    <link rel="stylesheet" href="/static/css/style.css?v=11">
     <!-- Touch On-Screen Virtual Keyboard CSS -->
     <link rel="stylesheet" href="/static/css/virtual-keyboard.css?v=1">
 </head>
@@ -38,14 +38,14 @@
 
             <h1 class="splash-title">Rashilience</h1>
             <div class="medical-subtitle-badge">
-                <i class="fa-solid fa-notes-medical"></i> Clinical Multimodal Decision Support System
+                <i class="fa-solid fa-brain"></i> 100% AI Real-Time Skin Disease Diagnostic System
             </div>
-            <p class="splash-subtitle">Edge-Powered Raspberry Pi 4 • Computer Vision & Symptom Matcher Fusion</p>
+            <p class="splash-subtitle">Edge Raspberry Pi 4 • Real-Time Object & Lesion Detection • 10 Unique Conditions</p>
 
             <div class="splash-status-box">
                 <div class="status-indicator">
                     <span class="pulse-dot green-dot"></span>
-                    <span id="splashStatusText">Booting TFLite Medical Engine & Clinical Rules DB...</span>
+                    <span id="splashStatusText">Booting 100% AI Edge Neural Model & Real-Time Engine...</span>
                 </div>
 
                 <div class="progress-bar-container">
@@ -53,12 +53,9 @@
                 </div>
 
                 <div class="clinical-checklist">
-                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> 75 Dermatological
-                        Conditions Indexed</div>
-                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> 50/50 Vision +
-                        Clinical Matcher Online</div>
-                    <div class="check-item"><i class="fa-solid fa-user-shield text-info"></i> Zero-Cloud HIPAA-Aligned
-                        Edge Privacy</div>
+                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> 10 Visually-Distinct Skin Conditions</div>
+                    <div class="check-item"><i class="fa-solid fa-check-double text-success"></i> Real-Time Live Camera AI Object Detection</div>
+                    <div class="check-item"><i class="fa-solid fa-user-shield text-info"></i> 100% Computer Vision-Driven Edge Privacy</div>
                 </div>
             </div>
 
@@ -82,7 +79,7 @@
             <div class="login-header">
                 <div class="login-brand-icon"><i class="fa-solid fa-user-doctor"></i></div>
                 <h2>Clinician Portal Authentication</h2>
-                <p>Sign in to access patient records and AI diagnostic engine</p>
+                <p>Sign in to access patient charts and live AI camera scanner</p>
             </div>
 
             <form onsubmit="event.preventDefault(); performPortalLogin();">
@@ -111,8 +108,7 @@
             </form>
 
             <div class="login-disclaimer">
-                <i class="fa-solid fa-shield-halved"></i> <span>Local Edge Pi Security: Patient data remains encrypted
-                    in local SQLite DB.</span>
+                <i class="fa-solid fa-shield-halved"></i> <span>Local Edge Pi Security: Patient data remains encrypted in local SQLite DB.</span>
             </div>
         </div>
     </div>
@@ -126,8 +122,8 @@
                 <div class="hub-top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <div class="hub-badge"><i class="fa-solid fa-house-medical"></i> Clinical Operations Hub</div>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <!-- Battery Status Widget (10,000mAh Power Bank) -->
-                        <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status (Tap to Manage)">
+                        <!-- Battery Status Widget -->
+                        <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status">
                             <i class="fa-solid fa-battery-full text-success kiosk-battery-icon"></i>
                             <span class="kiosk-battery-percent">100%</span>
                             <span class="kiosk-battery-hours battery-hours">(~6.0h)</span>
@@ -139,17 +135,16 @@
                     </div>
                 </div>
                 <h1>Rashilience Portal</h1>
-                <p>Select a clinical workflow to begin decision support or manage patient charts</p>
+                <p>Select a clinical workflow: Real-Time AI Camera Assessment or Patient Records Log</p>
             </div>
 
             <div class="hub-grid">
                 <!-- Choice 1: Patient Assessment -->
                 <div class="hub-card hub-card-primary" onclick="navigateToApp('assessment')">
-                    <div class="hub-card-icon"><i class="fa-solid fa-stethoscope"></i></div>
-                    <div class="hub-card-badge">5-Stage Workflow</div>
+                    <div class="hub-card-icon"><i class="fa-solid fa-camera-viewfinder"></i></div>
+                    <div class="hub-card-badge">Real-Time AI Camera</div>
                     <h3>New Patient Assessment</h3>
-                    <p>Guided 5-stage patient intake: Demographics ➔ Duration ➔ Symptoms & History ➔ Physical Inspection
-                        ➔ Image Acquisition & 50/50 AI Examination.</p>
+                    <p>5-stage clinical intake with full-screen Real-Time AI Camera Scanner for instant live lesion identification.</p>
                     <div class="hub-card-action">
                         <span>Launch 5-Stage Assessment <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
@@ -160,8 +155,7 @@
                     <div class="hub-card-icon"><i class="fa-solid fa-user-nurse"></i></div>
                     <div class="hub-card-badge">Record Database</div>
                     <h3>Clinical Records & Analytics</h3>
-                    <p>Access saved patient assessment charts, review primary & differential diagnoses, export printable
-                        reports, and inspect model health.</p>
+                    <p>Access saved patient assessment charts, review primary & differential diagnoses, export printable reports.</p>
                     <div class="hub-card-action">
                         <span>Open Records Log <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
@@ -172,7 +166,7 @@
                 <button class="btn btn-sm btn-outline" onclick="logoutToLogin()">
                     <i class="fa-solid fa-arrow-left"></i> Sign Out / Back to Login
                 </button>
-                <button class="btn btn-sm btn-outline" onclick="openMaintenanceModal()" style="border-color: rgba(148,163,184,0.3); color: var(--text-dim);" title="Kiosk Maintenance Mode (Admin Only)">
+                <button class="btn btn-sm btn-outline" onclick="openMaintenanceModal()" style="border-color: rgba(148,163,184,0.3); color: var(--text-dim);" title="Kiosk Maintenance Mode">
                     <i class="fa-solid fa-gear"></i> Maintenance
                 </button>
             </div>
@@ -187,9 +181,8 @@
         <!-- Top Medical Compliance Bar -->
         <div class="clinical-notice-bar">
             <div class="notice-container">
-                <span><i class="fa-solid fa-circle-info"></i> <strong>Clinical Decision Support System (CDSS):</strong>
-                    AI output provides probabilistic ranking for clinician evaluation. Final diagnosis rests with the
-                    attending medical professional.</span>
+                <span><i class="fa-solid fa-circle-info"></i> <strong>100% AI Decision Support System:</strong>
+                    Real-time AI camera detection provides instant probability rankings across 10 unique conditions.</span>
                 <span class="hipaa-tag"><i class="fa-solid fa-shield-cat"></i> Edge Pi Local Storage</span>
             </div>
         </div>
@@ -197,13 +190,11 @@
         <!-- App Header & Navigation -->
         <header class="app-header">
             <div class="header-container">
-                <div class="brand" onclick="returnToHub()" style="cursor: pointer;"
-                    title="Back to Clinical Operations Hub">
+                <div class="brand" onclick="returnToHub()" style="cursor: pointer;" title="Back to Hub">
                     <i class="fa-solid fa-house-medical brand-icon text-cyan"></i>
                     <div class="brand-text">
                         <h1>Rashilience</h1>
-                        <span class="badge badge-clinical"><i class="fa-solid fa-microchip"></i> Edge Pi 4 • 50/50
-                            Multimodal</span>
+                        <span class="badge badge-clinical"><i class="fa-solid fa-microchip"></i> 100% AI Vision • Real-Time</span>
                     </div>
                 </div>
 
@@ -217,8 +208,8 @@
                 </nav>
 
                 <div class="header-right-group" style="display: flex; align-items: center; gap: 8px;">
-                    <!-- 10,000mAh Power Bank Battery Widget -->
-                    <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status (Tap to Manage / Reset)">
+                    <!-- Power Bank Battery Widget -->
+                    <div class="battery-pill" onclick="openBatteryModal()" title="10,000mAh Power Bank Status">
                         <i class="fa-solid fa-battery-full text-success kiosk-battery-icon"></i>
                         <span class="kiosk-battery-percent">100%</span>
                         <span class="kiosk-battery-hours battery-hours">(~6.0h)</span>
@@ -249,13 +240,11 @@
             <section id="assessmentTab" class="tab-content active">
                 <div class="section-header clinical-section-header">
                     <div>
-                        <h2><i class="fa-solid fa-clipboard-user text-cyan"></i> Guided Patient Assessment (5 Stages)
-                        </h2>
-                        <p>Complete each intake stage step-by-step. Stage 5 handles rash image acquisition and 50/50 AI
-                            analysis.</p>
+                        <h2><i class="fa-solid fa-clipboard-user text-cyan"></i> Guided Patient Assessment (5 Stages)</h2>
+                        <p>Complete clinical intake. Stage 5 features full-screen Real-Time AI Camera live detection.</p>
                     </div>
                     <div class="header-status-pill">
-                        <i class="fa-solid fa-circle-check text-success"></i> TFLite Engine Active (75 Conditions)
+                        <i class="fa-solid fa-circle-check text-success"></i> 100% AI Vision Engine (10 Unique Conditions)
                     </div>
                 </div>
 
@@ -279,7 +268,7 @@
                         <div class="step-icon-wrap"><i class="fa-solid fa-notes-medical"></i></div>
                         <div class="step-text">
                             <span class="step-num">Stage 3</span>
-                            <span class="step-label">Symptoms & History</span>
+                            <span class="step-label">Symptoms & Notes</span>
                         </div>
                     </div>
                     <div class="step-item" id="stepPill4" onclick="goToWizardStep(4)">
@@ -290,10 +279,10 @@
                         </div>
                     </div>
                     <div class="step-item" id="stepPill5" onclick="goToWizardStep(5)">
-                        <div class="step-icon-wrap"><i class="fa-solid fa-camera-retro"></i></div>
+                        <div class="step-icon-wrap"><i class="fa-solid fa-camera"></i></div>
                         <div class="step-text">
                             <span class="step-num">Stage 5</span>
-                            <span class="step-label">Image & AI Exam</span>
+                            <span class="step-label">Real-Time AI Exam</span>
                         </div>
                     </div>
                 </div>
@@ -305,8 +294,7 @@
                     <!-- ======================================================= -->
                     <div id="wizardStep1" class="wizard-step-content">
                         <div class="glass-card medical-card">
-                            <div class="card-title"><i class="fa-solid fa-id-card text-cyan"></i> Stage 1:
-                                Administrative Metadata & Demographics</div>
+                            <div class="card-title"><i class="fa-solid fa-id-card text-cyan"></i> Stage 1: Administrative Metadata & Demographics</div>
 
                             <div class="grid-2col-gap">
                                 <div class="form-group">
@@ -315,8 +303,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="assessed_by">Assessed by (Clinician Name/ID) *</label>
-                                    <input type="text" id="assessed_by"
-                                        placeholder="e.g. Dr. A. Smith, MD / Clinician #104" required>
+                                    <input type="text" id="assessed_by" placeholder="e.g. Dr. A. Smith, MD / Clinician #104" required>
                                 </div>
                             </div>
 
@@ -331,11 +318,19 @@
                                     <input type="number" id="age" min="0" max="120" placeholder="35">
                                 </div>
                                 <div class="form-group">
-                                    <label for="sex">Biological Sex *</label>
-                                    <select id="sex">
-                                        <option value="female">Female</option>
-                                        <option value="male">Male</option>
-                                    </select>
+                                    <label>Biological Sex *</label>
+                                    <!-- Radio Options -->
+                                    <div class="radio-pill-group">
+                                        <label class="radio-card active">
+                                            <input type="radio" name="sex_radio" value="female" checked onchange="handleSexChange(this)">
+                                            <span><i class="fa-solid fa-venus"></i> Female</span>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="sex_radio" value="male" onchange="handleSexChange(this)">
+                                            <span><i class="fa-solid fa-mars"></i> Male</span>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" id="sex" value="female">
                                 </div>
                             </div>
 
@@ -362,48 +357,78 @@
                     </div>
 
                     <!-- ======================================================= -->
-                    <!-- STAGE 2: Rash Duration & Behavior                       -->
+                    <!-- STAGE 2: Rash Duration & Behavior (CHECKBOX GROUPS)     -->
                     <!-- ======================================================= -->
                     <div id="wizardStep2" class="wizard-step-content hidden" style="display: none;">
                         <div class="glass-card medical-card">
-                            <div class="card-title"><i class="fa-solid fa-clock-rotate-left text-cyan"></i> Stage 2:
-                                Rash Onset, Pattern & Anatomical Location</div>
+                            <div class="card-title"><i class="fa-solid fa-clock-rotate-left text-cyan"></i> Stage 2: Rash Onset, Pattern & Anatomical Location</div>
 
                             <div class="grid-3col-gap">
+                                <!-- Onset Checkbox Group -->
                                 <div class="form-group">
-                                    <label for="onset">Onset Pattern</label>
-                                    <select id="onset">
-                                        <option value="Sudden/Acute">Sudden / Acute</option>
-                                        <option value="Gradual/Chronic">Gradual / Chronic</option>
-                                    </select>
+                                    <label><i class="fa-solid fa-stopwatch"></i> Onset Characteristics</label>
+                                    <div class="checkbox-pill-group" id="onsetGroup">
+                                        <label class="checkbox-card active">
+                                            <input type="checkbox" value="Sudden/Acute" checked onchange="togglePillActive(this)">
+                                            <span>Sudden / Acute</span>
+                                        </label>
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" value="Gradual/Chronic" onchange="togglePillActive(this)">
+                                            <span>Gradual / Chronic</span>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" id="onset" value="Sudden/Acute">
                                 </div>
+
+                                <!-- Course Pattern Checkbox Group -->
                                 <div class="form-group">
-                                    <label for="pattern">Course Pattern</label>
-                                    <select id="pattern">
-                                        <option value="Constant">Constant</option>
-                                        <option value="Episodic/Recurrent">Episodic / Recurrent</option>
-                                    </select>
+                                    <label><i class="fa-solid fa-chart-line"></i> Course Pattern</label>
+                                    <div class="checkbox-pill-group" id="patternGroup">
+                                        <label class="checkbox-card active">
+                                            <input type="checkbox" value="Constant" checked onchange="togglePillActive(this)">
+                                            <span>Constant</span>
+                                        </label>
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" value="Episodic/Recurrent" onchange="togglePillActive(this)">
+                                            <span>Episodic / Recurrent</span>
+                                        </label>
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" value="Flaring with Triggers" onchange="togglePillActive(this)">
+                                            <span>Flaring with Triggers</span>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" id="pattern" value="Constant">
                                 </div>
+
+                                <!-- Progression Checkbox Group -->
                                 <div class="form-group">
-                                    <label for="progression">Progression</label>
-                                    <select id="progression">
-                                        <option value="Improving">Improving</option>
-                                        <option value="Worsening">Worsening</option>
-                                        <option value="Static">Static</option>
-                                    </select>
+                                    <label><i class="fa-solid fa-arrows-split-up-and-left"></i> Progression</label>
+                                    <div class="checkbox-pill-group" id="progressionGroup">
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" value="Improving" onchange="togglePillActive(this)">
+                                            <span>Improving</span>
+                                        </label>
+                                        <label class="checkbox-card">
+                                            <input type="checkbox" value="Worsening" onchange="togglePillActive(this)">
+                                            <span>Worsening</span>
+                                        </label>
+                                        <label class="checkbox-card active">
+                                            <input type="checkbox" value="Static" checked onchange="togglePillActive(this)">
+                                            <span>Static</span>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" id="progression" value="Static">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="location">Anatomical Location</label>
-                                <input type="text" id="location"
-                                    placeholder="e.g. Forearm, Trunk, Scalp, Lower Extremities">
+                                <input type="text" id="location" placeholder="e.g. Forearm, Trunk, Scalp, Lower Extremities">
                             </div>
 
                             <div class="form-group">
                                 <label for="provoking_relieving_factors">Provoking / Relieving Factors</label>
-                                <input type="text" id="provoking_relieving_factors"
-                                    placeholder="e.g. Exacerbated by heat; relieved by cold compress">
+                                <input type="text" id="provoking_relieving_factors" placeholder="e.g. Exacerbated by heat; relieved by cold compress">
                             </div>
                         </div>
 
@@ -412,64 +437,65 @@
                                 <i class="fa-solid fa-arrow-left"></i> Previous Stage
                             </button>
                             <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(3)">
-                                Next: Stage 3 (Symptoms & History) <i class="fa-solid fa-arrow-right"></i>
+                                Next: Stage 3 (Symptoms & Notes) <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
 
                     <!-- ======================================================= -->
-                    <!-- STAGE 3: Symptoms, History & Risk Factors               -->
+                    <!-- STAGE 3: Symptoms, History & Clinician Notes            -->
                     <!-- ======================================================= -->
                     <div id="wizardStep3" class="wizard-step-content hidden" style="display: none;">
-                        <div class="glass-card medical-card highlight-card">
-                            <div class="card-title"><i class="fa-solid fa-notes-medical text-cyan"></i> Stage 3:
-                                Clinical Symptoms & Risk Factors</div>
+                        <div class="glass-card medical-card">
+                            <div class="card-title"><i class="fa-solid fa-notes-medical text-cyan"></i> Stage 3: Clinical Symptoms & History Notes</div>
+                            <div class="alert-banner alert-info" style="margin-bottom: 1rem; font-size: 0.88rem;">
+                                <i class="fa-solid fa-info-circle"></i> <strong>Clinician Notes:</strong> Symptoms are recorded for medical documentation and emergency red-flag checks. AI diagnosis is 100% Computer Vision-driven.
+                            </div>
+
+                            <!-- Quick Symptom Tags / Checkboxes -->
+                            <div class="form-group">
+                                <label>Quick Symptom Checkboxes</label>
+                                <div class="checkbox-chip-grid">
+                                    <label class="chip-checkbox"><input type="checkbox" value="itchy" onchange="toggleSymptomChip(this)"><span>Itchy</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="dry" onchange="toggleSymptomChip(this)"><span>Dry</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="scaly" onchange="toggleSymptomChip(this)"><span>Scaly</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="blisters" onchange="toggleSymptomChip(this)"><span>Blisters / Vesicles</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="crusty" onchange="toggleSymptomChip(this)"><span>Honey Crusts</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="pimples" onchange="toggleSymptomChip(this)"><span>Pimples / Pustules</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="circular" onchange="toggleSymptomChip(this)"><span>Circular Ring</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="raised welts" onchange="toggleSymptomChip(this)"><span>Raised Welts</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="rough bump" onchange="toggleSymptomChip(this)"><span>Rough Warty Bump</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="dark mole" onchange="toggleSymptomChip(this)"><span>Dark Asymmetric Mole</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="burning pain" onchange="toggleSymptomChip(this)"><span>Burning Pain</span></label>
+                                    <label class="chip-checkbox"><input type="checkbox" value="fever" onchange="toggleSymptomChip(this)"><span>Fever</span></label>
+                                </div>
+                            </div>
 
                             <div class="form-group">
-                                <label for="associated_symptoms">Associated Symptoms * (Keywords for AI Engine)</label>
-                                <input type="text" id="associated_symptoms"
-                                    placeholder="e.g. itchy, dry, scaly, circular rash, burning, red welts" required>
-                                <small class="help-text"><i class="fa-solid fa-lightbulb text-warning"></i> Type
-                                    clinical keywords (e.g. itchy, scaly, painful, fever, blister, scaling) to feed the
-                                    50% Clinical Matcher Engine.</small>
+                                <label for="associated_symptoms">Associated Symptoms (Clinical Notes)</label>
+                                <input type="text" id="associated_symptoms" placeholder="e.g. intensely itchy at night, dry scaly patches on elbows">
                             </div>
 
                             <div class="form-group">
                                 <label for="treatment_history">Prior Treatment History</label>
-                                <input type="text" id="treatment_history"
-                                    placeholder="e.g. Topical hydrocortisone cream (1 week)">
+                                <input type="text" id="treatment_history" placeholder="e.g. Topical hydrocortisone cream (1 week)">
                             </div>
 
                             <div class="grid-2col-gap">
                                 <div class="form-group">
                                     <label for="past_medical_history">Past Medical History</label>
-                                    <input type="text" id="past_medical_history"
-                                        placeholder="e.g. Asthma, Diabetes, Atopy">
+                                    <input type="text" id="past_medical_history" placeholder="e.g. Asthma, Diabetes, Atopy">
                                 </div>
                                 <div class="form-group">
                                     <label for="family_history">Family History</label>
-                                    <input type="text" id="family_history"
-                                        placeholder="e.g. Eczema or Psoriasis in parents">
+                                    <input type="text" id="family_history" placeholder="e.g. Eczema or Psoriasis in parents">
                                 </div>
                             </div>
 
                             <div class="grid-2col-gap">
                                 <div class="form-group">
                                     <label for="occupational_hobbies">Occupational / Exposure</label>
-                                    <input type="text" id="occupational_hobbies"
-                                        placeholder="e.g. Healthcare worker, Chemical exposure">
-                                </div>
-                                <div class="form-group">
-                                    <label for="travel">Recent Travel</label>
-                                    <input type="text" id="travel"
-                                        placeholder="e.g. Endemic tropical region last month">
-                                </div>
-                            </div>
-
-                            <div class="grid-2col-gap">
-                                <div class="form-group">
-                                    <label for="drug_history">Drug History</label>
-                                    <input type="text" id="drug_history" placeholder="e.g. Penicillin, NSAIDs">
+                                    <input type="text" id="occupational_hobbies" placeholder="e.g. Healthcare worker, Chemical exposure">
                                 </div>
                                 <div class="form-group">
                                     <label for="allergies">Known Allergies</label>
@@ -493,34 +519,37 @@
                     <!-- ======================================================= -->
                     <div id="wizardStep4" class="wizard-step-content hidden" style="display: none;">
                         <div class="glass-card medical-card">
-                            <div class="card-title"><i class="fa-solid fa-eye text-cyan"></i> Stage 4: Dermatological
-                                Physical Inspection</div>
+                            <div class="card-title"><i class="fa-solid fa-eye text-cyan"></i> Stage 4: Dermatological Physical Inspection</div>
 
                             <div class="grid-2col-gap">
                                 <div class="form-group">
                                     <label for="distribution">Lesion Distribution</label>
-                                    <input type="text" id="distribution"
-                                        placeholder="e.g. Symmetrical, Localized, Dermatomal">
+                                    <input type="text" id="distribution" placeholder="e.g. Symmetrical, Localized, Dermatomal">
                                 </div>
                                 <div class="form-group">
                                     <label for="skin_color_discoloration">Color / Discoloration</label>
-                                    <input type="text" id="skin_color_discoloration"
-                                        placeholder="e.g. Erythematous, Hyperpigmented">
+                                    <input type="text" id="skin_color_discoloration" placeholder="e.g. Erythematous, Hyperpigmented, Silvery">
                                 </div>
                             </div>
 
                             <div class="grid-2col-gap">
                                 <div class="form-group">
                                     <label for="morphology">Primary Morphology</label>
-                                    <input type="text" id="morphology"
-                                        placeholder="e.g. Macules, Papules, Vesicles, Plaques">
+                                    <input type="text" id="morphology" placeholder="e.g. Macules, Papules, Vesicles, Plaques, Wheals">
                                 </div>
                                 <div class="form-group">
-                                    <label for="lymph_nodes">Palpable Regional Lymph Nodes?</label>
-                                    <select id="lymph_nodes">
-                                        <option value="No">No</option>
-                                        <option value="Yes">Yes (Palpable)</option>
-                                    </select>
+                                    <label>Palpable Regional Lymph Nodes?</label>
+                                    <div class="radio-pill-group">
+                                        <label class="radio-card active">
+                                            <input type="radio" name="lymph_radio" value="No" checked onchange="handleLymphChange(this)">
+                                            <span><i class="fa-solid fa-circle-xmark"></i> No</span>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="lymph_radio" value="Yes" onchange="handleLymphChange(this)">
+                                            <span><i class="fa-solid fa-circle-check text-warning"></i> Yes (Palpable)</span>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" id="regional_lymph_nodes" value="No">
                                 </div>
                             </div>
                         </div>
@@ -530,13 +559,13 @@
                                 <i class="fa-solid fa-arrow-left"></i> Previous Stage
                             </button>
                             <button type="button" class="btn btn-accent btn-lg pulse-hover" onclick="goToWizardStep(5)">
-                                Next: Stage 5 (Image Scan & AI Analysis) <i class="fa-solid fa-arrow-right"></i>
+                                Next: Stage 5 (Real-Time AI Camera Exam) <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
 
                     <!-- ======================================================= -->
-                    <!-- STAGE 5: Image Acquisition & 50/50 AI Examination       -->
+                    <!-- STAGE 5: Real-Time AI Camera Examination & Capture      -->
                     <!-- ======================================================= -->
                     <div id="wizardStep5" class="wizard-step-content hidden" style="display: none;">
 
@@ -544,62 +573,42 @@
                             <!-- Image Acquisition Column -->
                             <div>
                                 <div class="glass-card medical-card">
-                                    <div class="card-title"><i class="fa-solid fa-camera text-cyan"></i> Stage 5: Rash
-                                        Image Acquisition</div>
+                                    <div class="card-title"><i class="fa-solid fa-camera-viewfinder text-cyan"></i> Stage 5: 100% AI Vision Examination</div>
 
-                                    <!-- Capture Options Toggle -->
-                                    <div class="input-mode-toggle">
-                                        <button type="button" class="mode-btn active" id="modeUploadBtn"
-                                            onclick="setImageMode('upload')">
-                                            <i class="fa-solid fa-upload"></i> Upload Image File
+                                    <!-- Real-Time Camera Launch Card -->
+                                    <div class="camera-hero-card" onclick="openCameraFullscreen()">
+                                        <div class="camera-hero-icon">
+                                            <i class="fa-solid fa-camera-retro"></i>
+                                        </div>
+                                        <h3>Launch Real-Time AI Camera Scanner</h3>
+                                        <p>Open full-screen camera with live lesion detection, real-time bounding box target reticle, and one-tap capture.</p>
+                                        <button type="button" class="btn btn-primary btn-lg pulse-hover" style="margin-top: 8px;">
+                                            <i class="fa-solid fa-expand"></i> Open Full-Screen AI Camera
                                         </button>
-                                        <button type="button" class="mode-btn" id="modeCameraBtn"
-                                            onclick="setImageMode('camera')">
-                                            <i class="fa-solid fa-video"></i> Use Pi Camera Feed
-                                        </button>
+                                    </div>
+
+                                    <div style="text-align: center; margin: 15px 0; color: var(--text-muted); font-size: 0.85rem;">
+                                        <span>— OR UPLOAD IMAGE FILE —</span>
                                     </div>
 
                                     <!-- Mode A: File Upload Dropzone -->
                                     <div id="uploadContainer" class="media-container">
-                                        <div class="dropzone" id="imageDropzone"
-                                            onclick="document.getElementById('imageFileInput').click()">
+                                        <div class="dropzone" id="imageDropzone" onclick="document.getElementById('imageFileInput').click()">
                                             <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
-                                            <p>Click or Drag & Drop Rash Image Here</p>
-                                            <span class="file-format-text">High Resolution • JPG, PNG, WEBP
-                                                Supported</span>
-                                            <input type="file" id="imageFileInput" accept="image/*" class="hidden"
-                                                onchange="handleFileSelect(event)">
+                                            <p>Click or Drag & Drop Skin Lesion Image</p>
+                                            <span class="file-format-text">JPG, PNG, WEBP Supported</span>
+                                            <input type="file" id="imageFileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
                                         </div>
                                         <div id="imagePreviewBox" class="image-preview-box hidden">
                                             <img id="imagePreview" src="" alt="Selected Rash Image">
-                                            <button type="button" class="remove-img-btn"
-                                                onclick="clearImageSelection()">&times;</button>
+                                            <button type="button" class="remove-img-btn" onclick="clearImageSelection()">&times;</button>
                                         </div>
                                     </div>
 
-                                    <!-- Mode B: Camera View -->
-                                    <div id="cameraContainer" class="media-container hidden">
-                                        <div class="video-wrapper">
-                                            <video id="webcamFeed" autoplay playsinline></video>
-                                            <canvas id="snapshotCanvas" class="hidden"></canvas>
-                                        </div>
-                                        <div class="camera-actions">
-                                            <button type="button" class="btn btn-secondary btn-sm"
-                                                onclick="startCameraFeed()">
-                                                <i class="fa-solid fa-power-off"></i> Start Feed
-                                            </button>
-                                            <button type="button" class="btn btn-primary btn-sm"
-                                                onclick="captureSnapshot()">
-                                                <i class="fa-solid fa-camera-retro"></i> Capture Snapshot
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Run AI Examination Action Button -->
-                                    <div class="action-box">
-                                        <button type="button" class="btn btn-accent btn-block btn-lg pulse-hover"
-                                            onclick="executeAiAnalysis()">
-                                            <i class="fa-solid fa-brain"></i> Execute 50/50 AI Multimodal Fusion
+                                    <!-- Run AI Analysis on Uploaded Image -->
+                                    <div class="action-box" style="margin-top: 15px;">
+                                        <button type="button" class="btn btn-accent btn-block btn-lg pulse-hover" onclick="executeAiAnalysis()">
+                                            <i class="fa-solid fa-brain"></i> Execute 100% AI Vision Analysis
                                         </button>
                                     </div>
                                 </div>
@@ -607,50 +616,29 @@
 
                             <!-- Results & Clinical Plan Column -->
                             <div>
-                                <!-- Image Quality Rejection Alert Banner -->
-                                <div id="noSkinBanner" class="alert-banner alert-danger hidden"
-                                    style="border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.15); margin-bottom: 15px; padding: 14px 18px; border-radius: 8px;">
-                                    <h4 style="color: #f87171; margin: 0 0 6px 0;">
-                                        <i class="fa-solid fa-circle-exclamation"></i> Image Quality Check Failed
-                                    </h4>
-                                    <p id="noSkinMessage" style="margin: 0; font-size: 0.9rem; color: #f3f4f6;">
-                                        The image did not pass quality requirements. Please retake.
-                                    </p>
-                                </div>
-
-                                <!-- Image Quality & Blur Warnings Banner -->
-                                <div id="qualityWarningBanner" class="alert-banner alert-warning hidden"
-                                    style="border-left: 4px solid #f59e0b; background: rgba(245, 158, 11, 0.12); margin-bottom: 15px; padding: 12px 16px; border-radius: 8px;">
-                                    <h4 style="color: #fbbf24; margin: 0 0 4px 0;">
-                                        <i class="fa-solid fa-triangle-exclamation"></i> Image Quality Advisory
-                                    </h4>
-                                    <ul id="qualityWarningsList" style="margin: 0; padding-left: 1.2rem; font-size: 0.88rem; color: #f3f4f6;"></ul>
+                                <!-- Image Quality Rejection Banner -->
+                                <div id="noSkinBanner" class="alert-banner alert-danger hidden" style="margin-bottom: 15px;">
+                                    <h4><i class="fa-solid fa-circle-exclamation"></i> Image Quality Advisory</h4>
+                                    <p id="noSkinMessage">The image did not pass sharpness/skin requirements. Please retake.</p>
                                 </div>
 
                                 <!-- Red Flag Emergency Warning Banner -->
-                                <div id="redFlagsBanner" class="alert-banner alert-warning hidden">
-                                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Clinical Red Flag Warning
-                                        Detected!</h4>
+                                <div id="redFlagsBanner" class="alert-banner alert-warning hidden" style="margin-bottom: 15px;">
+                                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Clinical Red Flag Warning Detected!</h4>
                                     <ul id="redFlagsList"></ul>
                                 </div>
 
-                                <!-- Low Match / Inconclusive Warning Banner -->
-                                <div id="lowMatchBanner" class="alert-banner alert-info hidden"
-                                    style="border-left: 4px solid var(--warning-color); background: rgba(245, 158, 11, 0.1); margin-bottom: 15px; padding: 12px 16px; border-radius: 8px;">
-                                    <h4 style="color: #fbbf24; margin: 0 0 4px 0;"><i
-                                            class="fa-solid fa-triangle-exclamation"></i> Low AI Match Confidence
-                                        (Inconclusive Scan)</h4>
-                                    <p style="margin: 0; font-size: 0.9rem; color: #f3f4f6;">The highest match score is
-                                        below 25%. The scanned image or symptoms do not strongly match any of the 75
-                                        indexed dermatological conditions. Verify image clarity/lighting or refine
-                                        clinical keywords.</p>
+                                <!-- Low Match Banner -->
+                                <div id="lowMatchBanner" class="alert-banner alert-info hidden" style="margin-bottom: 15px;">
+                                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Inconclusive AI Scan</h4>
+                                    <p>The top AI visual confidence is low. Ensure good lighting, hold steady, and position camera directly on the skin lesion.</p>
                                 </div>
 
                                 <!-- AI Diagnostic Ranking Results Table -->
                                 <div id="aiResultsCard" class="glass-card medical-card hidden">
                                     <div class="card-title">
-                                        <i class="fa-solid fa-list-ol text-cyan"></i> Top 10 Differential Diagnoses
-                                        <span class="badge badge-clinical">50% Vision + 50% Symptom</span>
+                                        <i class="fa-solid fa-list-ol text-cyan"></i> Top 100% AI Differential Diagnoses
+                                        <span class="badge badge-clinical">100% Computer Vision</span>
                                     </div>
 
                                     <div class="table-responsive">
@@ -659,10 +647,9 @@
                                                 <tr>
                                                     <th>Rank</th>
                                                     <th>Condition</th>
-                                                    <th>Match %</th>
-                                                    <th>Vision %</th>
-                                                    <th>Symptom %</th>
+                                                    <th>AI Confidence</th>
                                                     <th>Transmission</th>
+                                                    <th>Severity</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="resultsTbody">
@@ -674,12 +661,10 @@
 
                                 <!-- Assessment & Diagnostic Plan -->
                                 <div class="glass-card medical-card">
-                                    <div class="card-title"><i class="fa-solid fa-user-doctor text-cyan"></i> Clinician
-                                        Assessment & Management Plan</div>
+                                    <div class="card-title"><i class="fa-solid fa-user-doctor text-cyan"></i> Clinician Assessment & Management Plan</div>
                                     <div class="form-group">
                                         <label for="primary_diagnosis">Primary Suspected Diagnosis *</label>
-                                        <input type="text" id="primary_diagnosis"
-                                            placeholder="Auto-fills from Top #1 AI Condition" required>
+                                        <input type="text" id="primary_diagnosis" placeholder="Auto-fills from Top #1 AI Condition" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Differential Diagnoses (DDx Top 3)</label>
@@ -690,9 +675,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="plan">Clinical Plan & Patient Management</label>
-                                        <textarea id="plan" rows="3"
-                                            placeholder="e.g. Apply topical hydrocortisone 1% bid x 10 days; avoid contact irritants; re-evaluate if lesions spread or fever develops."></textarea>
+                                        <label for="plan_management">Clinical Plan & Management Strategy</label>
+                                        <textarea id="plan_management" rows="3" placeholder="e.g. Topical treatment, patient education, avoid contact triggers."></textarea>
                                     </div>
 
                                     <div class="form-actions">
@@ -722,7 +706,7 @@
                 <div class="section-header clinical-section-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <h2><i class="fa-solid fa-hospital-user text-cyan"></i> Clinical Records Log & Database</h2>
-                        <p>Review saved patient charts, AI diagnostic history, and model analytics.</p>
+                        <p>Review saved patient charts and 100% AI diagnostic history.</p>
                     </div>
                     <button class="btn btn-outline" onclick="returnToHub()">
                         <i class="fa-solid fa-arrow-left"></i> Back to Operations Hub
@@ -741,14 +725,14 @@
                         <div class="stat-icon"><i class="fa-solid fa-microchip text-success"></i></div>
                         <div class="stat-info">
                             <h3>MobileNetV2</h3>
-                            <span>TFLite Quantized Engine</span>
+                            <span>100% AI Vision Engine</span>
                         </div>
                     </div>
                     <div class="stat-card medical-card">
                         <div class="stat-icon"><i class="fa-solid fa-shield-virus text-warning"></i></div>
                         <div class="stat-info">
-                            <h3>75 Conditions</h3>
-                            <span>50/50 Multimodal Fusion</span>
+                            <h3>10 Conditions</h3>
+                            <span>Visually-Distinct Classes</span>
                         </div>
                     </div>
                 </div>
@@ -785,16 +769,60 @@
         </main>
 
         <footer class="app-footer">
-            <p><i class="fa-solid fa-hospital"></i> Rashilience • Edge Raspberry Pi 4 Solution • Medical Multimodal
-                Clinical Decision Support System</p>
+            <p><i class="fa-solid fa-hospital"></i> Rashilience • Edge Raspberry Pi 4 Solution • 100% AI Real-Time Skin Disease Decision Support</p>
         </footer>
 
     </div>
 
     <!-- =================================================================== -->
+    <!-- MODAL: FULL-SCREEN REAL-TIME AI CAMERA SCANNER                     -->
+    <!-- =================================================================== -->
+    <div id="cameraFullscreenModal" class="fullscreen-camera-modal hidden" style="display: none;">
+        <!-- Top Control Bar -->
+        <div class="fullscreen-cam-header">
+            <div class="cam-title-badge">
+                <span class="live-pulse-dot"></span>
+                <span>REAL-TIME 100% AI VISION SCANNER</span>
+            </div>
+            <!-- Exit Camera Button -->
+            <button class="btn-exit-camera" onclick="closeCameraFullscreen()" title="Exit Full-Screen Camera">
+                <i class="fa-solid fa-xmark"></i> EXIT CAMERA
+            </button>
+        </div>
+
+        <!-- Video Stream Viewport -->
+        <div class="fullscreen-cam-viewport">
+            <img id="liveMjpegStream" src="" alt="Real-Time Camera Feed">
+            <div id="cameraShutterFlash" class="shutter-flash hidden"></div>
+        </div>
+
+        <!-- Real-Time Telemetry HUD Overlay (Floating Bottom Card) -->
+        <div class="live-telemetry-hud">
+            <div class="hud-top-row">
+                <div class="hud-disease-name" id="hudTopCondition">Position camera on skin lesion...</div>
+                <div class="hud-confidence-badge" id="hudTopConfidence">--%</div>
+            </div>
+            <div class="hud-progress-wrap">
+                <div class="hud-progress-fill" id="hudProgressBar" style="width: 0%;"></div>
+            </div>
+            <div class="hud-sub-info" id="hudSubInfo">10 Unique Conditions Indexed • Edge Neural Network Active</div>
+        </div>
+
+        <!-- Bottom Shutter Action Bar -->
+        <div class="fullscreen-cam-footer">
+            <button type="button" class="btn-capture-shutter" onclick="captureRealtimeSnapshot()" title="Capture Frame for Diagnosis">
+                <div class="shutter-inner-ring">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </button>
+            <div class="shutter-caption">Tap to Capture & Diagnose</div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
     <!-- MODAL: DETAILED CLINICAL REPORT VIEW                                -->
     <!-- =================================================================== -->
-    <div id="patientReportModal" class="modal-backdrop hidden">
+    <div id="patientReportModal" class="modal-backdrop hidden" style="display: none;">
         <div class="modal-card modal-large medical-glass-card">
             <div class="modal-header">
                 <h3><i class="fa-solid fa-file-invoice text-cyan"></i> Patient Clinical Diagnostic Report</h3>
@@ -804,8 +832,7 @@
                 <!-- Dynamically populated report content -->
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print
-                    Chart</button>
+                <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Chart</button>
                 <button class="btn btn-outline" onclick="closeReportModal()">Close</button>
             </div>
         </div>
@@ -835,15 +862,13 @@
                 <button type="button" class="btn btn-primary btn-block btn-lg" onclick="resetPowerBankTracker()">
                     <i class="fa-solid fa-arrows-rotate"></i> Reset to 100% (Recharged / Swapped)
                 </button>
-                <button type="button" class="btn btn-outline btn-block" onclick="closeBatteryModal()">
-                    Close
-                </button>
+                <button type="button" class="btn btn-outline btn-block" onclick="closeBatteryModal()">Close</button>
             </div>
         </div>
     </div>
 
     <!-- =================================================================== -->
-    <!-- MODAL: KIOSK MAINTENANCE MODE (PASSWORD PROTECTED)                  -->
+    <!-- MODAL: KIOSK MAINTENANCE MODE                                      -->
     <!-- =================================================================== -->
     <div id="maintenanceModal" class="modal-backdrop hidden" style="display: none;">
         <div class="modal-card medical-glass-card" style="max-width: 500px; text-align: center;">
@@ -852,7 +877,6 @@
                 <button class="close-modal-btn" onclick="closeMaintenanceModal()">&times;</button>
             </div>
 
-            <!-- Step 1: Password Gate -->
             <div id="maintenanceAuth" class="modal-body" style="padding: 20px 15px;">
                 <p style="color: var(--text-muted); margin-bottom: 16px;">Enter admin password to access maintenance tools.</p>
                 <div class="form-group" style="text-align: left;">
@@ -865,12 +889,10 @@
                 </button>
             </div>
 
-            <!-- Step 2: Maintenance Actions (Hidden until authenticated) -->
             <div id="maintenanceActions" class="modal-body hidden" style="padding: 20px 15px; display: none;">
                 <div class="alert-banner alert-info" style="font-size: 0.88rem; margin-bottom: 18px; text-align: left;">
-                    <i class="fa-solid fa-circle-info"></i> <strong>Maintenance Mode:</strong> Use these tools to exit or manage the kiosk. The Flask server will continue running in the background.
+                    <i class="fa-solid fa-circle-info"></i> <strong>Maintenance Mode:</strong> Use these tools to exit or manage the kiosk.
                 </div>
-
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <button type="button" class="btn btn-primary btn-block btn-lg" onclick="exitKioskMode()">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i> Exit Kiosk (Close Chromium)
@@ -878,7 +900,7 @@
                     <button type="button" class="btn btn-outline btn-block btn-lg" onclick="minimizeKiosk()">
                         <i class="fa-solid fa-window-minimize"></i> Minimize / Exit Fullscreen
                     </button>
-                    <button type="button" class="btn btn-outline btn-block" onclick="rebootKiosk()" style="border-color: rgba(239,68,68,0.4); color: #fca5a5;">
+                    <button type="button" class="btn btn-outline btn-block btn-lg" onclick="rebootKiosk()" style="border-color: rgba(239,68,68,0.4); color: #fca5a5;">
                         <i class="fa-solid fa-power-off"></i> Reboot Raspberry Pi
                     </button>
                 </div>
@@ -905,50 +927,39 @@
                 </p>
 
                 <div class="power-action-grid">
-                    <!-- Option 1: Kill Kiosk & Return to Desktop -->
                     <div class="power-option-card kill-card" onclick="executeSystemAction('kill')">
-                        <div class="power-option-icon" style="color: #ef4444;">
-                            <i class="fa-solid fa-rectangle-xmark"></i>
-                        </div>
+                        <div class="power-option-icon" style="color: #ef4444;"><i class="fa-solid fa-rectangle-xmark"></i></div>
                         <div class="power-option-info">
                             <h4 style="color: #fca5a5;">Kill App & Exit to Desktop</h4>
-                            <p>Closes Chromium and stops background server. Immediately returns to Raspberry Pi OS desktop / terminal.</p>
+                            <p>Closes Chromium and stops background server.</p>
                         </div>
                     </div>
 
-                    <!-- Option 2: Safely Shutdown Raspberry Pi -->
                     <div class="power-option-card shutdown-card" onclick="executeSystemAction('shutdown')">
-                        <div class="power-option-icon" style="color: #f59e0b;">
-                            <i class="fa-solid fa-power-off"></i>
-                        </div>
+                        <div class="power-option-icon" style="color: #f59e0b;"><i class="fa-solid fa-power-off"></i></div>
                         <div class="power-option-info">
                             <h4 style="color: #fcd34d;">Shut Down Raspberry Pi</h4>
-                            <p>Safely stops all services and powers off the Pi device.</p>
+                            <p>Safely powers off Pi hardware.</p>
                         </div>
                     </div>
 
-                    <!-- Option 3: Reboot Raspberry Pi -->
                     <div class="power-option-card reboot-card" onclick="executeSystemAction('reboot')">
-                        <div class="power-option-icon" style="color: #0ea5e9;">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </div>
+                        <div class="power-option-icon" style="color: #0ea5e9;"><i class="fa-solid fa-arrows-rotate"></i></div>
                         <div class="power-option-info">
                             <h4 style="color: #7dd3fc;">Restart / Reboot Pi</h4>
-                            <p>Reboots the Raspberry Pi operating system and reloads the kiosk.</p>
+                            <p>Reboots operating system and reloads kiosk.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="display: flex; justify-content: center;">
-                <button type="button" class="btn btn-outline btn-block" onclick="closePowerModal()">
-                    Cancel / Return
-                </button>
+                <button type="button" class="btn btn-outline btn-block" onclick="closePowerModal()">Cancel / Return</button>
             </div>
         </div>
     </div>
 
     <!-- JS Application Logic -->
-    <script src="/static/js/main.js?v=9"></script>
+    <script src="/static/js/main.js?v=11"></script>
     <!-- Touch On-Screen Virtual Keyboard Logic -->
     <script src="/static/js/virtual-keyboard.js?v=2"></script>
 </body>

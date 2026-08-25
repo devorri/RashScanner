@@ -1,5 +1,10 @@
 /**
- * main.js - Client-side Application Logic for Local Multimodal Rash Scanner
+ * main.js - Client-side Application Logic for 100% AI Real-Time Skin Disease Scanner
+ * Features:
+ * - Full-Screen Real-Time AI Camera with live bounding boxes, HUD telemetry, and capture
+ * - 100% AI Computer Vision classification across 10 unique conditions
+ * - Modern interactive checkbox/radio forms
+ * - Clinical patient charts database & reporting
  */
 
 let currentImageSource = 'upload';
@@ -7,10 +12,10 @@ let selectedImageFile = null;
 let currentImageBase64 = null;
 let currentImageFilename = null;
 let currentAiResults = [];
+let realtimePollInterval = null;
 
 // Initialize Page Defaults & Splash Loading Animation
 document.addEventListener('DOMContentLoaded', () => {
-    // Set default assessment date to today
     const dateInput = document.getElementById('date_of_assessment');
     if (dateInput) {
         dateInput.value = new Date().toISOString().split('T')[0];
@@ -24,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         batteryPollInterval = setInterval(updateBatteryStatus, 15000);
     }
 
-    // --- Drag & Drop event wiring for Stage 5 dropzone ---
+    // Drag & Drop event wiring for Stage 5 dropzone
     const dropzone = document.getElementById('imageDropzone');
     if (dropzone) {
         dropzone.addEventListener('dragover', (e) => {
@@ -34,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         dropzone.addEventListener('dragleave', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             dropzone.classList.remove('dropzone-hover');
         });
         dropzone.addEventListener('drop', (e) => {
@@ -62,15 +68,15 @@ function startSplashAnimation() {
         progressBar.style.width = `${progress}%`;
 
         if (progress === 40) {
-            statusText.innerText = "Loading 50/50 Multimodal Vision & Clinical Matcher Engine...";
+            statusText.innerText = "Loading 100% AI Real-Time Neural Model & 10 Conditions...";
         } else if (progress === 80) {
-            statusText.innerText = "Edge Neural Model Ready • System Operational.";
+            statusText.innerText = "Edge Computer Vision Model Ready • Real-Time Engine Active.";
         } else if (progress >= 100) {
             clearInterval(interval);
-            statusText.innerHTML = "<strong style='color: var(--success-color);'><i class='fa-solid fa-circle-check'></i> Edge Rashilience Engine Ready!</strong>";
-            actionArea.classList.remove('hidden');
+            statusText.innerHTML = "<strong style='color: var(--success-color);'><i class='fa-solid fa-circle-check'></i> 100% AI Vision Engine Ready!</strong>";
+            if (actionArea) actionArea.classList.remove('hidden');
         }
-    }, 150);
+    }, 120);
 }
 
 // Screen Transitions
@@ -102,7 +108,7 @@ async function updateBatteryStatus() {
             applyBatteryUI(data.percentage, data.hours_remaining, data.low_voltage_warning);
         }
     } catch (e) {
-        console.log('[Battery] Using local tracker');
+        console.log('[Battery] Local tracker active');
     }
 }
 
@@ -171,7 +177,7 @@ async function resetPowerBankTracker() {
         const data = await res.json();
         if (data && data.success) {
             applyBatteryUI(100, data.hours_remaining, false);
-            alert("Power bank battery tracker reset to 100% (~6.0 hours remaining)!");
+            alert("Power bank tracker reset to 100% (~6.0 hours remaining)!");
             closeBatteryModal();
         }
     } catch (e) {
@@ -181,7 +187,7 @@ async function resetPowerBankTracker() {
 }
 
 // -----------------------------------------------------------------------------
-// Kiosk Maintenance Mode (Password-Protected Exit/Minimize/Reboot)
+// System Maintenance & Power Controls
 // -----------------------------------------------------------------------------
 function openMaintenanceModal() {
     const modal = document.getElementById('maintenanceModal');
@@ -191,7 +197,6 @@ function openMaintenanceModal() {
     const pwInput = document.getElementById('maintenancePassword');
 
     if (modal) {
-        // Reset to password step
         if (authPanel) { authPanel.classList.remove('hidden'); authPanel.style.display = ''; }
         if (actionsPanel) { actionsPanel.classList.add('hidden'); actionsPanel.style.display = 'none'; }
         if (errBox) { errBox.classList.add('hidden'); errBox.textContent = ''; }
@@ -222,7 +227,6 @@ async function authenticateMaintenance() {
         const data = await res.json();
 
         if (data.success) {
-            // Show maintenance actions
             const authPanel = document.getElementById('maintenanceAuth');
             const actionsPanel = document.getElementById('maintenanceActions');
             if (authPanel) { authPanel.classList.add('hidden'); authPanel.style.display = 'none'; }
@@ -230,7 +234,7 @@ async function authenticateMaintenance() {
             if (errBox) errBox.classList.add('hidden');
         } else {
             if (errBox) {
-                errBox.textContent = 'Incorrect admin password. Access denied.';
+                errBox.textContent = 'Incorrect admin password.';
                 errBox.classList.remove('hidden');
             }
         }
@@ -260,86 +264,29 @@ function closePowerModal() {
 
 async function executeSystemAction(action) {
     if (action === 'kill') {
-        if (!confirm('Kill App & Exit Kiosk?\n\nThis will terminate the fullscreen browser and stop the server, returning to the desktop.')) return;
+        if (!confirm('Kill App & Exit Kiosk?\n\nThis will close the fullscreen browser and stop the server.')) return;
         closePowerModal();
-        
-        // Show exiting screen immediately
-        document.body.innerHTML = `
-            <div style="position:fixed;inset:0;background:#030712;color:#ef4444;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
-                <i class="fa-solid fa-power-off" style="font-size:3rem;margin-bottom:15px;animation:pulse 1s infinite;"></i>
-                <h2 style="color:#f87171;font-size:1.6rem;margin:0 0 8px 0;">Stopping Application...</h2>
-                <p style="color:#94a3b8;font-size:1rem;margin:0;">Terminating server and returning to desktop.</p>
-            </div>
-        `;
-
-        try {
-            await fetch('/api/system/kill-kiosk', { method: 'POST' });
-        } catch (e) {}
-
-        setTimeout(() => {
-            try { window.close(); } catch (e) {}
-        }, 500);
+        try { await fetch('/api/system/kill-kiosk', { method: 'POST' }); } catch (e) {}
+        setTimeout(() => { try { window.close(); } catch (e) {} }, 500);
     } else if (action === 'shutdown') {
-        if (!confirm('Safely Shut Down Raspberry Pi?\n\nThe system will power off.')) return;
+        if (!confirm('Safely Shut Down Raspberry Pi?')) return;
         closePowerModal();
-        
-        document.body.innerHTML = `
-            <div style="position:fixed;inset:0;background:#030712;color:#f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
-                <i class="fa-solid fa-power-off" style="font-size:3rem;margin-bottom:15px;"></i>
-                <h2 style="color:#fbbf24;font-size:1.6rem;margin:0 0 8px 0;">Shutting Down Raspberry Pi...</h2>
-                <p style="color:#94a3b8;font-size:1rem;margin:0;">Powering off device hardware safely.</p>
-            </div>
-        `;
-
-        try {
-            await fetch('/api/system/shutdown', { method: 'POST' });
-        } catch (e) {}
+        try { await fetch('/api/system/shutdown', { method: 'POST' }); } catch (e) {}
     } else if (action === 'reboot') {
-        if (!confirm('Reboot Raspberry Pi?\n\nThe system will restart in about 30 seconds.')) return;
+        if (!confirm('Reboot Raspberry Pi?')) return;
         closePowerModal();
-        
-        document.body.innerHTML = `
-            <div style="position:fixed;inset:0;background:#030712;color:#0ea5e9;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;z-index:999999;">
-                <i class="fa-solid fa-arrows-rotate" style="font-size:3rem;margin-bottom:15px;"></i>
-                <h2 style="color:#38bdf8;font-size:1.6rem;margin:0 0 8px 0;">Rebooting Raspberry Pi...</h2>
-                <p style="color:#94a3b8;font-size:1rem;margin:0;">Please wait while the system restarts.</p>
-            </div>
-        `;
-
-        try {
-            await fetch('/api/system/reboot', { method: 'POST' });
-        } catch (e) {}
+        try { await fetch('/api/system/reboot', { method: 'POST' }); } catch (e) {}
     }
 }
 
-async function exitKioskMode() {
-    executeSystemAction('kill');
-}
-
+function exitKioskMode() { executeSystemAction('kill'); }
 function minimizeKiosk() {
-    // Try exiting fullscreen via Fullscreen API
-    if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-    } else if (document.webkitFullscreenElement) {
-        document.webkitExitFullscreen();
-    }
-
-    // Try to make window not full-size (works on some kiosk configs)
-    try {
-        window.resizeTo(800, 480);
-        window.moveTo(50, 50);
-    } catch (e) {}
-
-    alert('Exited fullscreen mode. You may need to press F11 or Alt+Tab to access the desktop.');
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    alert('Exited fullscreen mode.');
 }
+function rebootKiosk() { executeSystemAction('reboot'); }
 
-async function rebootKiosk() {
-    executeSystemAction('reboot');
-}
-
-function proceedFromSplash() {
-    showScreen('loginScreen');
-}
+function proceedFromSplash() { showScreen('loginScreen'); }
 
 async function performPortalLogin() {
     const u = document.getElementById('portalUsername').value;
@@ -357,18 +304,16 @@ async function performPortalLogin() {
             alertBox.classList.add('hidden');
             showScreen('hubScreen');
         } else {
-            alertBox.innerText = data.error || "Invalid username or password";
+            alertBox.innerText = data.message || "Invalid username or password";
             alertBox.classList.remove('hidden');
         }
     } catch (err) {
-        alertBox.innerText = "Connection error. Login as Guest to test.";
+        alertBox.innerText = "Connection error. Login as Demo Clinician to test.";
         alertBox.classList.remove('hidden');
     }
 }
 
-function bypassLoginAsGuest() {
-    showScreen('hubScreen');
-}
+function bypassLoginAsGuest() { showScreen('hubScreen'); }
 
 function navigateToApp(tabName) {
     showScreen('appContainer');
@@ -378,15 +323,12 @@ function navigateToApp(tabName) {
     }
 }
 
-function returnToHub() {
-    showScreen('hubScreen');
-}
+function returnToHub() { showScreen('hubScreen'); }
+function logoutToLogin() { showScreen('loginScreen'); }
 
-function logoutToLogin() {
-    showScreen('loginScreen');
-}
-
+// -----------------------------------------------------------------------------
 // 5-Stage Stepper Wizard Navigation
+// -----------------------------------------------------------------------------
 let currentWizardStep = 1;
 
 function goToWizardStep(stepNum) {
@@ -420,8 +362,6 @@ function goToWizardStep(stepNum) {
     window.scrollTo({ top: 150, behavior: 'smooth' });
 }
 
-
-// Tab Switching inside App Container
 function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -436,75 +376,207 @@ function switchTab(tabName) {
     }
 }
 
-// Authentication Modal
-function toggleAuthModal() {
-    const modal = document.getElementById('loginModal');
-    modal.classList.toggle('hidden');
+// -----------------------------------------------------------------------------
+// Form Interactive Checkboxes / Radio Handlers
+// -----------------------------------------------------------------------------
+function handleSexChange(radioInput) {
+    document.querySelectorAll('input[name="sex_radio"]').forEach(r => {
+        r.closest('.radio-card').classList.remove('active');
+    });
+    radioInput.closest('.radio-card').classList.add('active');
+    const hiddenField = document.getElementById('sex');
+    if (hiddenField) hiddenField.value = radioInput.value;
 }
 
-async function performAdminLogin() {
-    const usernameInput = document.getElementById('loginUsername').value;
-    const passwordInput = document.getElementById('loginPassword').value;
-    const alertBox = document.getElementById('loginAlert');
+function handleLymphChange(radioInput) {
+    document.querySelectorAll('input[name="lymph_radio"]').forEach(r => {
+        r.closest('.radio-card').classList.remove('active');
+    });
+    radioInput.closest('.radio-card').classList.add('active');
+    const hiddenField = document.getElementById('regional_lymph_nodes');
+    if (hiddenField) hiddenField.value = radioInput.value;
+}
+
+function togglePillActive(checkbox) {
+    const card = checkbox.closest('.checkbox-card');
+    const group = checkbox.closest('.checkbox-pill-group');
+    const isChecked = checkbox.checked;
+    
+    if (isChecked) {
+        card.classList.add('active');
+    } else {
+        card.classList.remove('active');
+    }
+
+    // Update hidden field value with comma-separated selected values
+    const checkedValues = [];
+    group.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        checkedValues.push(cb.value);
+    });
+
+    if (group.id === 'onsetGroup') {
+        document.getElementById('onset').value = checkedValues.join(', ') || 'Sudden/Acute';
+    } else if (group.id === 'patternGroup') {
+        document.getElementById('pattern').value = checkedValues.join(', ') || 'Constant';
+    } else if (group.id === 'progressionGroup') {
+        document.getElementById('progression').value = checkedValues.join(', ') || 'Static';
+    }
+}
+
+function toggleSymptomChip(checkbox) {
+    const label = checkbox.closest('.chip-checkbox');
+    if (checkbox.checked) {
+        label.classList.add('active');
+    } else {
+        label.classList.remove('active');
+    }
+
+    // Sync selected chips into associated_symptoms note field
+    const selectedChips = [];
+    document.querySelectorAll('.checkbox-chip-grid input[type="checkbox"]:checked').forEach(cb => {
+        selectedChips.push(cb.value);
+    });
+
+    const symptomsInput = document.getElementById('associated_symptoms');
+    if (symptomsInput) {
+        const existingText = symptomsInput.value.trim();
+        // Append or update text
+        symptomsInput.value = selectedChips.join(', ');
+    }
+}
+
+// -----------------------------------------------------------------------------
+// FULL-SCREEN REAL-TIME AI CAMERA SCANNER LOGIC
+// -----------------------------------------------------------------------------
+function openCameraFullscreen() {
+    const modal = document.getElementById('cameraFullscreenModal');
+    const streamImg = document.getElementById('liveMjpegStream');
+
+    if (modal && streamImg) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+
+        // Connect live MJPEG video stream with cache-busting timestamp
+        streamImg.src = `/api/video_feed?t=${Date.now()}`;
+
+        // Start live telemetry polling for the floating HUD
+        if (realtimePollInterval) clearInterval(realtimePollInterval);
+        realtimePollInterval = setInterval(pollRealtimeStatus, 300);
+    }
+}
+
+function closeCameraFullscreen() {
+    const modal = document.getElementById('cameraFullscreenModal');
+    const streamImg = document.getElementById('liveMjpegStream');
+
+    if (modal && streamImg) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+
+        // Stop stream
+        streamImg.src = '';
+        if (realtimePollInterval) {
+            clearInterval(realtimePollInterval);
+            realtimePollInterval = null;
+        }
+    }
+}
+
+async function pollRealtimeStatus() {
+    try {
+        const res = await fetch('/api/realtime/status');
+        const data = await res.json();
+
+        if (data.success && data.telemetry) {
+            const tel = data.telemetry;
+            const topCondEl = document.getElementById('hudTopCondition');
+            const topConfEl = document.getElementById('hudTopConfidence');
+            const progressEl = document.getElementById('hudProgressBar');
+            const subInfoEl = document.getElementById('hudSubInfo');
+
+            if (tel.predictions && tel.predictions.length > 0) {
+                const top = tel.predictions[0];
+                const condClean = top.condition.replace(/_/g, ' ');
+                const confPct = top.ai_confidence_pct;
+
+                if (topCondEl) topCondEl.textContent = condClean;
+                if (topConfEl) topConfEl.textContent = `${confPct}%`;
+                if (progressEl) progressEl.style.width = `${Math.min(100, confPct)}%`;
+                if (subInfoEl) subInfoEl.innerHTML = `<span style="color:#34d399;"><i class="fa-solid fa-circle-check"></i> Skin In Focus</span> • ${top.contagious} • ${top.severity}`;
+            } else {
+                if (topCondEl) topCondEl.textContent = tel.status || "Scanning skin lesion...";
+                if (topConfEl) topConfEl.textContent = "--%";
+                if (progressEl) progressEl.style.width = '0%';
+                if (subInfoEl) subInfoEl.textContent = "Hold camera 4-8 inches from affected skin area";
+            }
+        }
+    } catch (e) {}
+}
+
+async function captureRealtimeSnapshot() {
+    // 1. Shutter Flash Effect
+    const flashEl = document.getElementById('cameraShutterFlash');
+    if (flashEl) {
+        flashEl.classList.remove('hidden');
+        flashEl.classList.add('flash-active');
+        setTimeout(() => {
+            flashEl.classList.remove('flash-active');
+            flashEl.classList.add('hidden');
+        }, 120);
+    }
 
     try {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: usernameInput, password: passwordInput })
-        });
+        // 2. Call backend snapshot API
+        const res = await fetch('/api/realtime/capture', { method: 'POST' });
+        const data = await res.json();
 
-        const data = await response.json();
-        if (data.success) {
-            document.getElementById('adminBadge').classList.remove('hidden');
-            document.getElementById('authBtn').innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Logout';
-            document.getElementById('authBtn').onclick = performLogout;
-            toggleAuthModal();
-            alert('Admin login successful!');
-        } else {
-            alertBox.innerText = data.message;
-            alertBox.classList.remove('hidden');
+        if (!data.success && data.error_type === 'quality_rejection') {
+            alert('⚠️ ' + data.message);
+            return;
         }
-    } catch (err) {
-        alertBox.innerText = 'Login server connection failed.';
-        alertBox.classList.remove('hidden');
+
+        if (data.success) {
+            // Close fullscreen camera
+            closeCameraFullscreen();
+
+            // Set image preview in Stage 5
+            currentImageFilename = data.filename;
+            currentImageBase64 = null;
+            selectedImageFile = null;
+            currentAiResults = data.top_matches;
+
+            const preview = document.getElementById('imagePreview');
+            const previewBox = document.getElementById('imagePreviewBox');
+            const dropzone = document.getElementById('imageDropzone');
+
+            if (preview) preview.src = data.image_url;
+            if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
+            if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
+
+            // Render 100% AI Results
+            renderAiResultsTable(data.top_matches);
+
+            // Auto-fill diagnosis
+            if (data.suggestions) {
+                const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+                set('primary_diagnosis', data.suggestions.primary_diagnosis);
+                set('ddx_1', data.suggestions.ddx_1);
+                set('ddx_2', data.suggestions.ddx_2);
+                set('ddx_3', data.suggestions.ddx_3);
+            }
+
+            alert(`✅ Snapshot captured & diagnosed in ${data.inference_time_ms} ms!\nTop AI Match: ${data.suggestions.primary_diagnosis} (${data.top_score}%)`);
+        } else {
+            alert('Capture Error: ' + (data.message || 'Unknown error'));
+        }
+    } catch (e) {
+        alert('Real-Time Capture Failed: ' + e);
     }
 }
 
-async function performLogout() {
-    await fetch('/api/logout', { method: 'POST' });
-    document.getElementById('adminBadge').classList.add('hidden');
-    document.getElementById('authBtn').innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Admin Login';
-    document.getElementById('authBtn').onclick = toggleAuthModal;
-    alert('Logged out.');
-}
-
-// ============================================================
-// Stage 5: Image Mode Toggle (Upload vs Pi Camera)
-// ============================================================
-function setImageMode(mode) {
-    currentImageSource = mode;
-    document.getElementById('modeUploadBtn').classList.toggle('active', mode === 'upload');
-    document.getElementById('modeCameraBtn').classList.toggle('active', mode === 'camera');
-
-    const uploadContainer = document.getElementById('uploadContainer');
-    const cameraContainer = document.getElementById('cameraContainer');
-
-    if (mode === 'upload') {
-        uploadContainer.classList.remove('hidden');
-        uploadContainer.style.display = '';
-        cameraContainer.classList.add('hidden');
-        cameraContainer.style.display = 'none';
-    } else {
-        cameraContainer.classList.remove('hidden');
-        cameraContainer.style.display = '';
-        uploadContainer.classList.add('hidden');
-        uploadContainer.style.display = 'none';
-        startCameraFeed();
-    }
-}
-
-// Core image loader — shared by file input onchange AND drag-drop
+// -----------------------------------------------------------------------------
+// Image File Loader & Stage 5 Analysis
+// -----------------------------------------------------------------------------
 function loadImageFile(file) {
     if (!file || !file.type.startsWith('image/')) {
         alert('Please select a valid image file (JPG, PNG, WEBP).');
@@ -512,6 +584,7 @@ function loadImageFile(file) {
     }
     selectedImageFile = file;
     currentImageBase64 = null;
+    currentImageFilename = null;
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -531,13 +604,11 @@ function loadImageFile(file) {
     reader.readAsDataURL(file);
 }
 
-// Called by <input type="file" onchange="handleFileSelect(event)">
 function handleFileSelect(event) {
     const file = event.target.files && event.target.files[0];
     if (file) loadImageFile(file);
 }
 
-// Clear selected image — show dropzone again
 function clearImageSelection() {
     selectedImageFile = null;
     currentImageBase64 = null;
@@ -554,119 +625,26 @@ function clearImageSelection() {
     if (fileInput) fileInput.value = '';
 }
 
-// Start webcam / Pi camera feed
-let cameraStream = null;
-async function startCameraFeed() {
-    const video = document.getElementById('webcamFeed');
-    if (!video) return;
-    try {
-        if (cameraStream) {
-            cameraStream.getTracks().forEach(t => t.stop());
-        }
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = cameraStream;
-    } catch (err) {
-        // Fallback to Pi Camera API
-        try {
-            const res = await fetch('/api/camera/snap');
-            const data = await res.json();
-            if (data.success) {
-                currentImageBase64 = data.base64;
-                currentImageFilename = data.filename;
-                selectedImageFile = null;
-                const preview = document.getElementById('imagePreview');
-                const previewBox = document.getElementById('imagePreviewBox');
-                const dropzone = document.getElementById('imageDropzone');
-                if (preview) preview.src = data.base64;
-                if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
-                if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
-                alert('Pi Camera snapshot captured!');
-            } else {
-                alert('Camera Error: ' + data.message);
-            }
-        } catch (e) {
-            alert('Could not access camera. Error: ' + e);
-        }
-    }
-}
-
-// Capture snapshot from webcam video element
-function captureSnapshot() {
-    const video = document.getElementById('webcamFeed');
-    const canvas = document.getElementById('snapshotCanvas');
-    if (!video || !canvas) return;
-
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-    currentImageBase64 = dataUrl;
-    selectedImageFile = null;
-
-    const preview = document.getElementById('imagePreview');
-    const previewBox = document.getElementById('imagePreviewBox');
-    const dropzone = document.getElementById('imageDropzone');
-    if (preview) preview.src = dataUrl;
-    if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
-    if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
-
-    // Stop camera after capture
-    if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
-    alert('Snapshot captured! Ready for AI analysis.');
-}
-
-// ============================================================
-// Execute 50/50 AI Multimodal Fusion Examination
-// ============================================================
+// -----------------------------------------------------------------------------
+// 100% AI Vision Execution
+// -----------------------------------------------------------------------------
 async function executeAiAnalysis() {
-    const symptomsText = document.getElementById('associated_symptoms') ?
-        document.getElementById('associated_symptoms').value.trim() : '';
-
     if (!selectedImageFile && !currentImageBase64 && !currentImageFilename) {
-        alert('Please upload or capture a rash image before running the AI analysis.');
+        alert('Please capture a camera frame or upload an image file first.');
         return;
     }
 
     const runBtn = document.querySelector('#wizardStep5 .btn-accent');
     if (runBtn) {
-        runBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Running Multimodal Fusion Engine...';
+        runBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Running 100% AI Computer Vision...';
         runBtn.disabled = true;
     }
 
     try {
         const formData = new FormData();
-
-        // Auto-extract clinical keywords from ALL wizard stages for richer symptom fusion
-        const fieldsToPull = [
-            'associated_symptoms',       // Stage 3: explicit symptoms
-            'onset',                     // Stage 2: Sudden/Acute vs Gradual/Chronic
-            'pattern',                   // Stage 2: Constant vs Episodic
-            'progression',               // Stage 2: Improving/Worsening/Static
-            'location',                  // Stage 2: Anatomical location
-            'provoking_relieving_factors',// Stage 2: Triggers
-            'treatment_history',         // Stage 3: Prior treatments
-            'past_medical_history',      // Stage 3: PMH
-            'family_history',            // Stage 3: Family
-            'drug_history',              // Stage 3: Drugs
-            'allergies',                 // Stage 3: Allergies
-            'distribution',              // Stage 4: Lesion distribution
-            'skin_color_discoloration',  // Stage 4: Color
-            'morphology',                // Stage 4: Primary morphology
-            'lymph_nodes'                // Stage 4: Lymph nodes
-        ];
-
-        const allKeywords = [];
-        fieldsToPull.forEach(fieldId => {
-            const el = document.getElementById(fieldId);
-            if (el) {
-                const val = (el.value || '').trim();
-                if (val && val !== 'No') allKeywords.push(val);
-            }
-        });
-
-        const combinedSymptoms = allKeywords.join(', ');
-        if (combinedSymptoms) formData.append('associated_symptoms', combinedSymptoms);
+        const symptomsText = document.getElementById('associated_symptoms') ? 
+            document.getElementById('associated_symptoms').value.trim() : '';
+        formData.append('associated_symptoms', symptomsText);
 
         if (selectedImageFile) {
             formData.append('image_file', selectedImageFile);
@@ -676,29 +654,20 @@ async function executeAiAnalysis() {
             formData.append('image_filename', currentImageFilename);
         }
 
-        const response = await fetch('/api/examine', { method: 'POST', body: formData });
-        const data = await response.json();
+        const res = await fetch('/api/examine', { method: 'POST', body: formData });
+        const data = await res.json();
 
         const noSkinBanner = document.getElementById('noSkinBanner');
-        const qualityBanner = document.getElementById('qualityWarningBanner');
-        const qualityList = document.getElementById('qualityWarningsList');
         const redFlagsBanner = document.getElementById('redFlagsBanner');
         const redFlagsList = document.getElementById('redFlagsList');
         const lowMatchBanner = document.getElementById('lowMatchBanner');
-        const aiResultsCard = document.getElementById('aiResultsCard');
 
-        // Handle Rejection: Quality Gate (No Skin / Blurry / Bad Lighting)
         if (!data.success && data.error_type === "quality_rejection") {
             if (noSkinBanner) {
                 const msgEl = document.getElementById('noSkinMessage');
                 if (msgEl) msgEl.innerText = data.message;
                 noSkinBanner.classList.remove('hidden');
             }
-            if (qualityBanner) qualityBanner.classList.add('hidden');
-            if (redFlagsBanner) redFlagsBanner.classList.add('hidden');
-            if (lowMatchBanner) lowMatchBanner.classList.add('hidden');
-            if (aiResultsCard) aiResultsCard.classList.add('hidden');
-
             alert('🛑 ' + data.message);
             return;
         }
@@ -708,81 +677,24 @@ async function executeAiAnalysis() {
             currentImageFilename = data.image_filename;
             currentAiResults = data.top_matches;
 
-            // Quality / Blur Warnings
-            if (data.quality && data.quality.warnings && data.quality.warnings.length > 0) {
-                if (qualityList) {
-                    qualityList.innerHTML = data.quality.warnings.map(w => `<li>${w}</li>`).join('');
-                }
-                if (qualityBanner) qualityBanner.classList.remove('hidden');
-            } else {
-                if (qualityBanner) qualityBanner.classList.add('hidden');
-            }
-
-            // Red flags banner
+            // Red flags
             if (data.red_flags && data.red_flags.length > 0) {
-                if (redFlagsList) {
-                    redFlagsList.innerHTML = data.red_flags.map(f => `<li>${f}</li>`).join('');
-                }
+                if (redFlagsList) redFlagsList.innerHTML = data.red_flags.map(f => `<li>${f}</li>`).join('');
                 if (redFlagsBanner) redFlagsBanner.classList.remove('hidden');
             } else {
                 if (redFlagsBanner) redFlagsBanner.classList.add('hidden');
             }
 
-            // Low Match / Inconclusive Banner
+            // Low confidence banner
             if (lowMatchBanner) {
-                if (data.is_low_confidence) {
-                    lowMatchBanner.innerHTML = `
-                        <h4 style="color: #fbbf24; margin: 0 0 6px 0;">
-                            <i class="fa-solid fa-triangle-exclamation"></i> Inconclusive Scan (Max Match: ${data.top_score}%)
-                        </h4>
-                        <p style="margin: 0 0 8px 0; font-size: 0.9rem; color: #f3f4f6;">
-                            The AI visual score is too low (${data.top_score}% < 25% threshold) to identify a specific rash pattern. This is normal when scanning normal/healthy skin, an unindexed rash, or when no symptoms are provided in Stages 2–4.
-                        </p>
-                        <small style="color: #67e8f9;"><i class="fa-solid fa-lightbulb"></i> Tip: Enter clinical keywords (e.g. "itchy, scaly, red bumps") in Stage 3 to guide the AI match.</small>
-                    `;
-                    lowMatchBanner.classList.remove('hidden');
-                } else {
-                    lowMatchBanner.classList.add('hidden');
-                }
+                if (data.is_low_confidence) lowMatchBanner.classList.remove('hidden');
+                else lowMatchBanner.classList.add('hidden');
             }
 
-            // Top 10 results table
-            const tbody = document.getElementById('resultsTbody');
-            if (tbody) {
-                tbody.innerHTML = '';
-                data.top_matches.forEach((match, idx) => {
-                    const condName = match.condition.replace(/_/g, ' ');
-                    const matchPct = (match.final_score * 100).toFixed(1);
-                    const vPct = (match.visual_score * 100).toFixed(1);
-                    const sPct = (match.symptom_score * 100).toFixed(1);
-                    const contagious = match.contagious || 'Unknown';
-                    const isConfident = match.final_score >= 0.25;
-                    const badge = contagious === 'Contact'
-                        ? `<span class="badge-contact">⚠ Contact</span>`
-                        : contagious === 'Non-Contact'
-                            ? `<span class="badge-noncontact">✓ Non-Contact</span>`
-                            : `<span class="badge-unknown">? Unknown</span>`;
+            // Render table
+            renderAiResultsTable(data.top_matches);
 
-                    const tr = document.createElement('tr');
-                    tr.style.opacity = isConfident ? '1' : '0.65';
-                    tr.innerHTML = `
-                        <td>#${idx + 1}</td>
-                        <td>
-                            <strong>${condName}</strong>
-                            ${isConfident ? '' : '<span style="color:#fbbf24; font-size:0.75rem; margin-left:4px;">(Low Match)</span>'}<br>
-                            <small class="text-muted">${match.severity}</small>
-                        </td>
-                        <td><span class="badge ${isConfident ? '' : 'badge-low'}">${matchPct}%</span></td>
-                        <td>${vPct}%</td>
-                        <td>${sPct}%</td>
-                        <td>${badge}</td>`;
-                    tbody.appendChild(tr);
-                });
-            }
-
-            if (aiResultsCard) aiResultsCard.classList.remove('hidden');
-
-            // Auto-populate diagnosis fields
+            // Auto-fill diagnosis
             if (data.suggestions) {
                 const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
                 set('primary_diagnosis', data.suggestions.primary_diagnosis);
@@ -791,11 +703,7 @@ async function executeAiAnalysis() {
                 set('ddx_3', data.suggestions.ddx_3);
             }
 
-            if (data.is_low_confidence) {
-                alert(`⚠️ Inconclusive Scan (Top match only ${data.top_score}%).\n\nThe AI does not recognize a clear rash in this photo alone. Enter symptoms in Stage 3 for an accurate diagnosis!`);
-            } else {
-                alert(`✅ AI Analysis complete in ${data.inference_time_ms} ms! Top diagnoses auto-populated.`);
-            }
+            alert(`✅ 100% AI Analysis complete in ${data.inference_time_ms} ms! Diagnoses auto-populated.`);
         } else {
             alert('AI Examination Error: ' + (data.message || 'Unknown error'));
         }
@@ -803,16 +711,49 @@ async function executeAiAnalysis() {
         alert('Server request failed: ' + err);
     } finally {
         if (runBtn) {
-            runBtn.innerHTML = '<i class="fa-solid fa-brain"></i> Execute 50/50 AI Multimodal Fusion';
+            runBtn.innerHTML = '<i class="fa-solid fa-brain"></i> Execute 100% AI Vision Analysis';
             runBtn.disabled = false;
         }
     }
 }
 
-// Legacy alias — kept for backwards compatibility
-async function runAiExamination() { return executeAiAnalysis(); }
+function renderAiResultsTable(matches) {
+    const aiResultsCard = document.getElementById('aiResultsCard');
+    const tbody = document.getElementById('resultsTbody');
+    if (!tbody) return;
 
+    tbody.innerHTML = '';
+    matches.forEach((match, idx) => {
+        const condName = match.condition.replace(/_/g, ' ');
+        const confPct = match.ai_confidence_pct;
+        const contagious = match.contagious || 'Non-Contact';
+        const isConfident = confPct >= 20;
+
+        const badge = contagious === 'Contact'
+            ? `<span class="badge-contact">⚠ Contact</span>`
+            : `<span class="badge-noncontact">✓ Non-Contact</span>`;
+
+        const tr = document.createElement('tr');
+        tr.style.opacity = isConfident ? '1' : '0.65';
+        tr.innerHTML = `
+            <td>#${idx + 1}</td>
+            <td>
+                <strong>${condName}</strong>
+                ${isConfident ? '' : '<span style="color:#fbbf24; font-size:0.75rem; margin-left:4px;">(Low Match)</span>'}
+            </td>
+            <td><span class="badge ${isConfident ? '' : 'badge-low'}">${confPct}%</span></td>
+            <td>${badge}</td>
+            <td><small class="text-muted">${match.severity}</small></td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    if (aiResultsCard) aiResultsCard.classList.remove('hidden');
+}
+
+// -----------------------------------------------------------------------------
 // Save Patient Record
+// -----------------------------------------------------------------------------
 async function savePatientRecord() {
     const payload = {
         date_of_assessment: document.getElementById('date_of_assessment').value,
@@ -832,38 +773,31 @@ async function savePatientRecord() {
         past_medical_history: document.getElementById('past_medical_history').value,
         family_history: document.getElementById('family_history').value,
         occupational_hobbies: document.getElementById('occupational_hobbies').value,
-        travel: document.getElementById('travel').value,
-        drug_history: document.getElementById('drug_history').value,
-        smoking_alcohol: document.getElementById('smoking_alcohol').value,
         allergies: document.getElementById('allergies').value,
-        psychological_social: document.getElementById('psychological_social').value,
         distribution: document.getElementById('distribution').value,
-        color_discoloration: document.getElementById('color_discoloration').value,
+        color_discoloration: document.getElementById('skin_color_discoloration').value,
         morphology: document.getElementById('morphology').value,
         regional_lymph_nodes: document.getElementById('regional_lymph_nodes').value,
         primary_diagnosis: document.getElementById('primary_diagnosis').value,
         ddx_1: document.getElementById('ddx_1').value,
         ddx_2: document.getElementById('ddx_2').value,
         ddx_3: document.getElementById('ddx_3').value,
-        plan_investigations: document.getElementById('plan_investigations').value,
         plan_management: document.getElementById('plan_management').value,
-        plan_referral: document.getElementById('plan_referral').value,
         image_filename: currentImageFilename,
         ai_results: currentAiResults
     };
 
     try {
-        const response = await fetch('/api/patients', {
+        const res = await fetch('/api/patients', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
+        const data = await res.json();
 
-        const data = await response.json();
         if (data.success) {
             alert(`Patient record #${data.patient_id} saved successfully!`);
             document.getElementById('assessmentForm').reset();
-            // Reset wizard image upload state
             clearImageSelection();
             const aiResultsCard = document.getElementById('aiResultsCard');
             if (aiResultsCard) aiResultsCard.classList.add('hidden');
@@ -877,7 +811,9 @@ async function savePatientRecord() {
     }
 }
 
-// Load Admin Dashboard Patients Table
+// -----------------------------------------------------------------------------
+// Clinical Records Database & Reporting
+// -----------------------------------------------------------------------------
 async function loadPatientsDashboard() {
     const tbody = document.getElementById('patientsTbody');
     tbody.innerHTML = '<tr><td colspan="7">Loading patient records...</td></tr>';
@@ -914,22 +850,10 @@ async function loadPatientsDashboard() {
             });
         }
     } catch (err) {
-        tbody.innerHTML = '<tr><td colspan="7">Failed to load patients from database.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7">Failed to load patients.</td></tr>';
     }
 }
 
-// Filter Patients Table
-function filterPatientsTable() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const rows = document.querySelectorAll('#patientsTbody tr');
-
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-    });
-}
-
-// View Full Patient Report Modal
 async function viewPatientReport(patientId) {
     try {
         const response = await fetch(`/api/patients/${patientId}`);
@@ -941,46 +865,39 @@ async function viewPatientReport(patientId) {
                 ? `<img src="/uploads/${pt.image_filename}" style="max-width:280px; border-radius:12px; border:1px solid rgba(255,255,255,0.15); margin-bottom:1rem;">`
                 : '<div style="padding:1.5rem; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.1); text-align:center; color:var(--text-muted);"><i class="fa-solid fa-camera-slash" style="font-size:2rem; margin-bottom:0.5rem; display:block;"></i>No Rash Image Attached</div>';
 
-            // Parse AI results
             let topMatchesHtml = '';
             if (pt.ai_results && Array.isArray(pt.ai_results) && pt.ai_results.length > 0) {
                 const rows = pt.ai_results.map((match, idx) => {
                     const condName = match.condition.replace(/_/g, ' ');
-                    const matchPct = (match.final_score * 100).toFixed(1);
-                    const vPct = (match.visual_score * 100).toFixed(1);
-                    const sPct = (match.symptom_score * 100).toFixed(1);
-                    const contagious = match.contagious || 'Unknown';
+                    const confPct = match.ai_confidence_pct;
+                    const contagious = match.contagious || 'Non-Contact';
                     const badge = contagious === 'Contact'
                         ? `<span class="badge-contact">⚠ Contact</span>`
-                        : contagious === 'Non-Contact'
-                            ? `<span class="badge-noncontact">✓ Non-Contact</span>`
-                            : `<span class="badge-unknown">? Unknown</span>`;
+                        : `<span class="badge-noncontact">✓ Non-Contact</span>`;
 
                     return `
                         <tr>
                             <td>#${idx + 1}</td>
-                            <td><strong>${condName}</strong> <br><small class="text-muted">${match.severity}</small></td>
-                            <td><span class="badge">${matchPct}%</span></td>
-                            <td>${vPct}%</td>
-                            <td>${sPct}%</td>
+                            <td><strong>${condName}</strong></td>
+                            <td><span class="badge">${confPct}%</span></td>
                             <td>${badge}</td>
+                            <td><small class="text-muted">${match.severity}</small></td>
                         </tr>
                     `;
                 }).join('');
 
                 topMatchesHtml = `
                     <div style="margin-top:1.5rem;">
-                        <h4 style="margin-bottom:0.8rem;"><i class="fa-solid fa-brain text-cyan"></i> Top 10 Multimodal AI Differential Diagnoses</h4>
+                        <h4 style="margin-bottom:0.8rem;"><i class="fa-solid fa-brain text-cyan"></i> 100% AI Differential Diagnoses</h4>
                         <div class="table-responsive">
                             <table class="results-table clinical-table">
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
                                         <th>Condition</th>
-                                        <th>Match %</th>
-                                        <th>Vision %</th>
-                                        <th>Symptom %</th>
+                                        <th>AI Confidence</th>
                                         <th>Transmission</th>
+                                        <th>Severity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1026,24 +943,30 @@ async function viewPatientReport(patientId) {
                 ${topMatchesHtml}
 
                 <div class="glass-card medical-card" style="margin-top:1.5rem; padding:1.2rem;">
-                    <h4 style="margin-bottom:0.6rem; color:var(--success-color);"><i class="fa-solid fa-clipboard-check"></i> Clinical Management & Treatment Strategy</h4>
-                    <p>${pt.plan_management || pt.plan_investigations || 'Standard outpatient follow-up and symptom monitoring.'}</p>
+                    <h4 style="margin-bottom:0.6rem; color:var(--success-color);"><i class="fa-solid fa-clipboard-check"></i> Clinical Management Strategy</h4>
+                    <p>${pt.plan_management || 'Standard outpatient follow-up and monitoring.'}</p>
                 </div>
             `;
 
-            document.getElementById('patientReportModal').classList.remove('hidden');
+            const modal = document.getElementById('patientReportModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+            }
         }
     } catch (err) {
         alert('Could not retrieve report: ' + err);
     }
 }
 
-
 function closeReportModal() {
-    document.getElementById('patientReportModal').classList.add('hidden');
+    const modal = document.getElementById('patientReportModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
 }
 
-// Delete Patient Record
 async function deletePatientRecord(patientId) {
     if (confirm(`Are you sure you want to delete patient record #${patientId}?`)) {
         await fetch(`/api/patients/${patientId}`, { method: 'DELETE' });
