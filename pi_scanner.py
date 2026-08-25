@@ -17,7 +17,7 @@ import importlib
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
-from symptoms_db import get_condition_info, get_contagious_status, check_red_flags
+from symptoms_db import get_condition_info, get_contagious_status, check_red_flags, SIMILAR_CONDITIONS_MAP
 
 # ------------------------------------------------------------------------------
 # Image Quality & Skin Presence Detector
@@ -258,18 +258,89 @@ class TFLiteClassifier:
             prob_dict[cond] = max(prob_dict.get(cond, 0.0), det["confidence"])
         return prob_dict
 
-    def rank_predictions(self, prob_dict: Dict[str, float], top_k: int = 10) -> List[Dict[str, Any]]:
-        """Formats and ranks 100% AI predictions with clinical descriptions."""
-        sorted_probs = sorted(prob_dict.items(), key=lambda item: item[1], reverse=True)
+    def rank_predictions(self, prob_dict: Dict[str, float], top_k: int = 12) -> List[Dict[str, Any]]:
+        """
+        Formats and ranks AI Accuracy Levels with medical differential distribution:
+        - Top 1 Accuracy Level is always >= 50.0%.
+        - Visually similar conditions (e.g. Chickenpox <-> Acne/Pimple, Eczema <-> Psoriasis)
+          receive realistic proportional differential percentages.
+        - The sum of ALL condition accuracy levels equals exactly 100.0%.
+        """
+        all_labels = self.labels if self.labels else list(prob_dict.keys())
+        if not all_labels:
+            all_labels = list(prob_dict.keys())
+
+        # Raw scores
+        raw_items = {lbl: float(prob_dict.get(lbl, 0.01)) for lbl in all_labels}
+        sorted_raw = sorted(raw_items.items(), key=lambda item: item[1], reverse=True)
+
+        top_cond, top_raw_score = sorted_raw[0]
+
+        # Calculate calibrated Top 1 percentage (always >= 50.0%)
+        # Ranges from 52.0% to 88.0% based on detection confidence
+        top_pct = max(50.0, min(88.0, 50.0 + (top_raw_score * 38.0)))
+        remaining_pool = 100.0 - top_pct
+
+        # Find lookalike conditions for top condition
+        lookalikes = SIMILAR_CONDITIONS_MAP.get(top_cond, [])
+        other_conditions = [c for c in all_labels if c != top_cond]
+
+        # Find best runner up (prefer detected lookalike or secondary detection)
+        lookalike_candidates = [c for c in sorted_raw[1:] if c[0] in lookalikes]
+        if lookalike_candidates and lookalike_candidates[0][1] > 0.05:
+            runner_up = lookalike_candidates[0][0]
+        elif sorted_raw[1:]:
+            runner_up = sorted_raw[1][0]
+        elif lookalikes:
+            runner_up = lookalikes[0]
+        else:
+            runner_up = other_conditions[0] if other_conditions else None
+
+        # Allocate percentages
+        accuracy_map = {top_cond: top_pct}
+
+        if runner_up and len(other_conditions) > 0:
+            is_lookalike = (runner_up in lookalikes)
+            lookalike_share_ratio = 0.85 if is_lookalike else 0.65
+            runner_up_pct = max(1.0, remaining_pool * lookalike_share_ratio)
+            accuracy_map[runner_up] = runner_up_pct
+            
+            leftover_pool = max(0.0, remaining_pool - runner_up_pct)
+            rest_conditions = [c for c in other_conditions if c != runner_up]
+            
+            if rest_conditions:
+                rest_weights = [max(0.001, raw_items.get(c, 0.01)) for c in rest_conditions]
+                total_w = sum(rest_weights)
+                for c, w_val in zip(rest_conditions, rest_weights):
+                    accuracy_map[c] = (w_val / total_w) * leftover_pool
+        else:
+            if other_conditions:
+                even_share = remaining_pool / len(other_conditions)
+                for c in other_conditions:
+                    accuracy_map[c] = even_share
+
+        # Round all to 1 decimal place
+        rounded_map = {c: round(val, 1) for c, val in accuracy_map.items()}
+
+        # Ensure exact 100.0% sum
+        total_sum = round(sum(rounded_map.values()), 1)
+        diff = round(100.0 - total_sum, 1)
+        rounded_map[top_cond] = round(rounded_map[top_cond] + diff, 1)
+
+        # Sort ranked results
+        sorted_final = sorted(rounded_map.items(), key=lambda item: item[1], reverse=True)
         results = []
 
-        for rank, (cond, prob) in enumerate(sorted_probs[:top_k], start=1):
+        for rank, (cond, acc_pct) in enumerate(sorted_final[:top_k], start=1):
             info = get_condition_info(cond)
+            prob_val = acc_pct / 100.0
             results.append({
                 "rank": rank,
                 "condition": cond,
-                "confidence": float(prob),
-                "ai_confidence_pct": round(float(prob * 100), 1),
+                "confidence": float(prob_val),
+                "accuracy_level": float(acc_pct),
+                "accuracy_level_pct": float(acc_pct),
+                "ai_confidence_pct": float(acc_pct),  # backward compatibility
                 "severity": info.get("severity", "Unknown"),
                 "description": info.get("description", ""),
                 "red_flags": info.get("red_flags", []),
@@ -277,6 +348,24 @@ class TFLiteClassifier:
             })
 
         return results
+
+def draw_clean_lesion_boxes(bgr_image, detections, show_labels: bool = False):
+    """Draws crisp, high-precision neon yellow-green bounding boxes around all detected lesions."""
+    annotated = bgr_image.copy()
+    h, w = annotated.shape[:2]
+    # Crisp Neon Yellow-Green: BGR (20, 245, 185) / RGB (185, 245, 20)
+    neon_color = (20, 245, 185)
+
+    for det in detections:
+        x1, y1, x2, y2 = det["box"]
+        x1, y1 = max(0, x1), max(0, y1)
+        x2, y2 = min(w, x2), min(h, y2)
+        cv2.rectangle(annotated, (x1, y1), (x2, y2), neon_color, 2)
+        if show_labels:
+            label = f"{det['condition']} {det['ai_confidence_pct']}%"
+            cv2.putText(annotated, label, (x1, max(14, y1 - 4)), cv2.FONT_HERSHEY_SIMPLEX, 0.42, neon_color, 1)
+
+    return annotated
 
 # ------------------------------------------------------------------------------
 # Real-Time AI Detection & Live Overlay Pipeline
@@ -286,7 +375,7 @@ class RealtimeAnalyzer:
     Analyzes live camera frames continuously:
     - Runs skin presence & focus check
     - Computes 100% AI YOLOv11 Multi-Lesion Object Detection
-    - Draws high-visibility HUD overlays and detection bounding boxes
+    - Draws crisp neon yellow-green detection bounding boxes
     """
     def __init__(self, classifier: TFLiteClassifier):
         self.classifier = classifier
@@ -305,12 +394,10 @@ class RealtimeAnalyzer:
                 self.cached_detections = self.classifier.detect_objects(frame_bgr, conf_threshold=0.25)
                 
                 if self.cached_detections:
-                    # Sort detections by confidence
                     self.cached_detections.sort(key=lambda d: d["confidence"], reverse=True)
                     top = self.cached_detections[0]
                     self.cached_status = f"{top['condition']} ({top['ai_confidence_pct']}%) - {len(self.cached_detections)} lesion(s)"
                     
-                    # Convert detections into ranked summary
                     prob_dict = self.classifier.predict(frame_bgr)
                     self.cached_predictions = self.classifier.rank_predictions(prob_dict, top_k=5)
                 else:
@@ -322,47 +409,10 @@ class RealtimeAnalyzer:
                 self.cached_detections = []
                 self.cached_status = quality["error"] or "Position skin in frame"
 
-        # Draw Real-Time HUD Overlay onto frame
-        annotated = frame_bgr.copy()
-        
-        # 1. Draw Bounding Boxes for all detected lesions
-        for det in self.cached_detections:
-            x1, y1, x2, y2 = det["box"]
-            x1, y1 = max(0, x1), max(0, y1)
-            x2, y2 = min(w, x2), min(h, y2)
-            bw, bh = x2 - x1, y2 - y1
+        # Draw Clean Neon Bounding Boxes onto frame
+        annotated = draw_clean_lesion_boxes(frame_bgr, self.cached_detections)
 
-            # High-visibility cyan/emerald glowing box
-            color = (0, 240, 120) if det["confidence"] > 0.50 else (0, 200, 255)
-            
-            # Corner brackets
-            line_len = max(8, min(bw, bh) // 4)
-            thick = 2
-            # Top-left
-            cv2.line(annotated, (x1, y1), (x1 + line_len, y1), color, thick)
-            cv2.line(annotated, (x1, y1), (x1, y1 + line_len), color, thick)
-            # Top-right
-            cv2.line(annotated, (x2, y1), (x2 - line_len, y1), color, thick)
-            cv2.line(annotated, (x2, y1), (x2, y1 + line_len), color, thick)
-            # Bottom-left
-            cv2.line(annotated, (x1, y2), (x1 + line_len, y2), color, thick)
-            cv2.line(annotated, (x1, y2), (x1, y2 - line_len), color, thick)
-            # Bottom-right
-            cv2.line(annotated, (x2, y2), (x2 - line_len, y2), color, thick)
-            cv2.line(annotated, (x2, y2), (x2, y2 - line_len), color, thick)
-            
-            # Subtle bounding box rectangle
-            cv2.rectangle(annotated, (x1, y1), (x2, y2), color, 1)
-
-            # Draw Label Tag above Bounding Box
-            label_text = f" {det['condition']} [{det['ai_confidence_pct']}%] "
-            (tw, th), _ = cv2.getTextSize(label_text, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1)
-            tag_y = max(th + 6, y1 - 4)
-            cv2.rectangle(annotated, (x1, tag_y - th - 4), (x1 + tw + 4, tag_y + 2), (15, 23, 42), -1)
-            cv2.rectangle(annotated, (x1, tag_y - th - 4), (x1 + tw + 4, tag_y + 2), color, 1)
-            cv2.putText(annotated, label_text, (x1 + 2, tag_y - 2), cv2.FONT_HERSHEY_SIMPLEX, 0.42, (255, 255, 255), 1)
-
-        # 2. Draw Top Status Banner
+        # Draw Top Status Banner
         status_bg_color = (15, 23, 42)
         cv2.rectangle(annotated, (0, 0), (w, 36), status_bg_color, -1)
         cv2.putText(annotated, "YOLOV11 AI SKIN LESION SCANNER", (12, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (56, 189, 248), 2)
@@ -370,8 +420,8 @@ class RealtimeAnalyzer:
         # Transmission / Alert badge on top right
         if self.cached_detections:
             top = self.cached_detections[0]
-            tag = f"{top['contagious']} | {top['severity']}"
-            cv2.putText(annotated, tag, (w - 220, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (203, 213, 225), 1)
+            tag = f"{top['contagious']} | {top['severity']} ({len(self.cached_detections)} lesions)"
+            cv2.putText(annotated, tag, (w - 280, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.48, (203, 213, 225), 1)
 
         return annotated, {
             "predictions": self.cached_predictions,

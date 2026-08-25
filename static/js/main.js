@@ -895,7 +895,7 @@ async function viewPatientReport(patientId) {
                                     <tr>
                                         <th>Rank</th>
                                         <th>Condition</th>
-                                        <th>AI Confidence</th>
+                                        <th>Accuracy Level</th>
                                         <th>Transmission</th>
                                         <th>Severity</th>
                                     </tr>

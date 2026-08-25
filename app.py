@@ -20,7 +20,7 @@ import numpy as np
 from flask import Flask, render_template, request, jsonify, session, send_from_directory, Response
 
 # Import AI Engine components
-from pi_scanner import TFLiteClassifier, RealtimeAnalyzer, EdgeCamera, detect_skin_and_quality
+from pi_scanner import TFLiteClassifier, RealtimeAnalyzer, EdgeCamera, detect_skin_and_quality, draw_clean_lesion_boxes
 from symptoms_db import check_red_flags, get_condition_info
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -263,15 +263,22 @@ def realtime_capture():
                 "quality": quality
             }), 422
 
-        # Save snapshot file
+        # Run 100% AI Prediction & Lesion Object Detection
+        t0 = time.time()
+        detections = clf.detect_objects(frame_bgr, conf_threshold=0.20) if hasattr(clf, "detect_objects") else []
+        probs = clf.predict(frame_bgr)
+        elapsed_ms = (time.time() - t0) * 1000
+
+        # Save snapshot file and annotated version
         filename = f"live_capture_{uuid.uuid4().hex[:8]}.jpg"
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         cv2.imwrite(filepath, frame_bgr)
 
-        # Run 100% AI Prediction
-        t0 = time.time()
-        probs = clf.predict(frame_bgr)
-        elapsed_ms = (time.time() - t0) * 1000
+        # Draw clean neon bounding boxes
+        annotated_img = draw_clean_lesion_boxes(frame_bgr, detections)
+        annotated_filename = f"annotated_{filename}"
+        annotated_filepath = os.path.join(UPLOAD_FOLDER, annotated_filename)
+        cv2.imwrite(annotated_filepath, annotated_img)
 
         ranked_matches = clf.rank_predictions(probs, top_k=10)
         top_match = ranked_matches[0] if ranked_matches else None
@@ -286,7 +293,9 @@ def realtime_capture():
         return jsonify({
             "success": True,
             "filename": filename,
-            "image_url": f"/uploads/{filename}",
+            "image_url": f"/uploads/{annotated_filename}",
+            "raw_image_url": f"/uploads/{filename}",
+            "detections": detections,
             "inference_time_ms": round(elapsed_ms, 1),
             "quality": quality,
             "top_matches": ranked_matches,
@@ -404,10 +413,17 @@ def examine_rash():
             ddx_2 = ranked_matches[2]["condition"].replace("_", " ") if len(ranked_matches) > 2 else ""
             ddx_3 = ranked_matches[3]["condition"].replace("_", " ") if len(ranked_matches) > 3 else ""
 
+        # Draw clean neon bounding boxes onto examine image
+        annotated_img = draw_clean_lesion_boxes(frame_bgr, detections)
+        annotated_filename = f"annotated_{filename}"
+        annotated_filepath = os.path.join(UPLOAD_FOLDER, annotated_filename)
+        cv2.imwrite(annotated_filepath, annotated_img)
+
         return jsonify({
             "success": True,
             "image_filename": filename,
-            "image_url": f"/uploads/{filename}",
+            "image_url": f"/uploads/{annotated_filename}",
+            "raw_image_url": f"/uploads/{filename}",
             "inference_time_ms": round(elapsed_ms, 1),
             "quality": quality,
             "detections": detections,

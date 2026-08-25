@@ -101,7 +101,21 @@ CONTAGIOUS_MAP: Dict[str, str] = {
     "basal cell carcinoma": "Non-Contact",
     "melanoma":             "Non-Contact"
 }
-
+# Visually Similar / Clinical Lookalike Conditions for Differential Diagnosis
+SIMILAR_CONDITIONS_MAP: Dict[str, List[str]] = {
+    "Chickenpox": ["Acne", "Pimple", "Monkeypox"],
+    "Acne": ["Chickenpox", "Pimple", "Monkeypox"],
+    "Pimple": ["Acne", "Chickenpox", "Monkeypox"],
+    "Monkeypox": ["Chickenpox", "Acne", "Pimple"],
+    "Eczema": ["Psoriasis", "tinea-versicolor"],
+    "Psoriasis": ["Eczema", "tinea-versicolor"],
+    "Ringworm": ["tinea-versicolor", "Eczema"],
+    "tinea-versicolor": ["Ringworm", "vitiligo", "Eczema"],
+    "vitiligo": ["tinea-versicolor"],
+    "basal cell carcinoma": ["melanoma", "warts"],
+    "melanoma": ["basal cell carcinoma", "warts"],
+    "warts": ["basal cell carcinoma"]
+}
 # Critical Red Flag Emergency Keywords
 RED_FLAG_KEYWORDS = [
     "fever", "high fever", "breathing", "shortness of breath", "swallowing",
