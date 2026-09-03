@@ -357,63 +357,63 @@
                     </div>
 
                     <!-- ======================================================= -->
-                    <!-- STAGE 2: Rash Duration & Behavior (CHECKBOX GROUPS)     -->
+                    <!-- STAGE 2: Rash Duration & Behavior (RADIO BUTTON GROUPS) -->
                     <!-- ======================================================= -->
                     <div id="wizardStep2" class="wizard-step-content hidden" style="display: none;">
                         <div class="glass-card medical-card">
                             <div class="card-title"><i class="fa-solid fa-clock-rotate-left text-cyan"></i> Stage 2: Rash Onset, Pattern & Anatomical Location</div>
 
                             <div class="grid-3col-gap">
-                                <!-- Onset Checkbox Group -->
+                                <!-- Onset Radio Group -->
                                 <div class="form-group">
                                     <label><i class="fa-solid fa-stopwatch"></i> Onset Characteristics</label>
-                                    <div class="checkbox-pill-group" id="onsetGroup">
-                                        <label class="checkbox-card active">
-                                            <input type="checkbox" value="Sudden/Acute" checked onchange="togglePillActive(this)">
+                                    <div class="radio-pill-group" id="onsetGroup">
+                                        <label class="radio-card active">
+                                            <input type="radio" name="onset_radio" value="Sudden/Acute" checked onchange="handleOnsetChange(this)">
                                             <span>Sudden / Acute</span>
                                         </label>
-                                        <label class="checkbox-card">
-                                            <input type="checkbox" value="Gradual/Chronic" onchange="togglePillActive(this)">
+                                        <label class="radio-card">
+                                            <input type="radio" name="onset_radio" value="Gradual/Chronic" onchange="handleOnsetChange(this)">
                                             <span>Gradual / Chronic</span>
                                         </label>
                                     </div>
                                     <input type="hidden" id="onset" value="Sudden/Acute">
                                 </div>
 
-                                <!-- Course Pattern Checkbox Group -->
+                                <!-- Course Pattern Radio Group -->
                                 <div class="form-group">
                                     <label><i class="fa-solid fa-chart-line"></i> Course Pattern</label>
-                                    <div class="checkbox-pill-group" id="patternGroup">
-                                        <label class="checkbox-card active">
-                                            <input type="checkbox" value="Constant" checked onchange="togglePillActive(this)">
+                                    <div class="radio-pill-group" id="patternGroup">
+                                        <label class="radio-card active">
+                                            <input type="radio" name="pattern_radio" value="Constant" checked onchange="handlePatternChange(this)">
                                             <span>Constant</span>
                                         </label>
-                                        <label class="checkbox-card">
-                                            <input type="checkbox" value="Episodic/Recurrent" onchange="togglePillActive(this)">
+                                        <label class="radio-card">
+                                            <input type="radio" name="pattern_radio" value="Episodic/Recurrent" onchange="handlePatternChange(this)">
                                             <span>Episodic / Recurrent</span>
                                         </label>
-                                        <label class="checkbox-card">
-                                            <input type="checkbox" value="Flaring with Triggers" onchange="togglePillActive(this)">
+                                        <label class="radio-card">
+                                            <input type="radio" name="pattern_radio" value="Flaring with Triggers" onchange="handlePatternChange(this)">
                                             <span>Flaring with Triggers</span>
                                         </label>
                                     </div>
                                     <input type="hidden" id="pattern" value="Constant">
                                 </div>
 
-                                <!-- Progression Checkbox Group -->
+                                <!-- Progression Radio Group -->
                                 <div class="form-group">
                                     <label><i class="fa-solid fa-arrows-split-up-and-left"></i> Progression</label>
-                                    <div class="checkbox-pill-group" id="progressionGroup">
-                                        <label class="checkbox-card">
-                                            <input type="checkbox" value="Improving" onchange="togglePillActive(this)">
+                                    <div class="radio-pill-group" id="progressionGroup">
+                                        <label class="radio-card">
+                                            <input type="radio" name="progression_radio" value="Improving" onchange="handleProgressionChange(this)">
                                             <span>Improving</span>
                                         </label>
-                                        <label class="checkbox-card">
-                                            <input type="checkbox" value="Worsening" onchange="togglePillActive(this)">
+                                        <label class="radio-card">
+                                            <input type="radio" name="progression_radio" value="Worsening" onchange="handleProgressionChange(this)">
                                             <span>Worsening</span>
                                         </label>
-                                        <label class="checkbox-card active">
-                                            <input type="checkbox" value="Static" checked onchange="togglePillActive(this)">
+                                        <label class="radio-card active">
+                                            <input type="radio" name="progression_radio" value="Static" checked onchange="handleProgressionChange(this)">
                                             <span>Static</span>
                                         </label>
                                     </div>

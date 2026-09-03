@@ -397,6 +397,33 @@ function handleLymphChange(radioInput) {
     if (hiddenField) hiddenField.value = radioInput.value;
 }
 
+function handleOnsetChange(radioInput) {
+    document.querySelectorAll('input[name="onset_radio"]').forEach(r => {
+        r.closest('.radio-card').classList.remove('active');
+    });
+    radioInput.closest('.radio-card').classList.add('active');
+    const hiddenField = document.getElementById('onset');
+    if (hiddenField) hiddenField.value = radioInput.value;
+}
+
+function handlePatternChange(radioInput) {
+    document.querySelectorAll('input[name="pattern_radio"]').forEach(r => {
+        r.closest('.radio-card').classList.remove('active');
+    });
+    radioInput.closest('.radio-card').classList.add('active');
+    const hiddenField = document.getElementById('pattern');
+    if (hiddenField) hiddenField.value = radioInput.value;
+}
+
+function handleProgressionChange(radioInput) {
+    document.querySelectorAll('input[name="progression_radio"]').forEach(r => {
+        r.closest('.radio-card').classList.remove('active');
+    });
+    radioInput.closest('.radio-card').classList.add('active');
+    const hiddenField = document.getElementById('progression');
+    if (hiddenField) hiddenField.value = radioInput.value;
+}
+
 function togglePillActive(checkbox) {
     const card = checkbox.closest('.checkbox-card');
     const group = checkbox.closest('.checkbox-pill-group');
