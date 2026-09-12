@@ -77,27 +77,17 @@ Open your web browser and navigate to `http://localhost:5000`:
 
 ---
 
-## 🍓 Raspberry Pi 4 Edge Deployment
+## 🏷️ Desktop Icon Launcher & Landing Screen Model Selector
 
-### 1. Enable Camera Hardware
-On Raspberry Pi OS:
-```bash
-sudo raspi-config
-# Navigate to: Interface Options -> Camera -> Enable
-sudo reboot
-```
+The system uses **1 unified Desktop Launcher Icon** (`Rashilience Scanner`) on the Desktop. Upon launching, clinicians select their model variant directly on the **Landing Screen**:
 
-### 2. Install Dependencies on Pi 4
-```bash
-sudo apt update && sudo apt install -y python3-opencv python3-libcamera python3-kmsxx
-pip3 install flask tflite-runtime numpy opencv-python
-```
+- ⚡ **Current Model (12 Conditions)**: Baseline fast model fine-tuned for core dermatological rashes.
+- 🛡️ **Rash-22 Model (22 Conditions)**: Extended dataset covering 22 skin disease categories.
+- 🔬 **Rash-50 Model (50 Conditions)**: Deep clinical dataset covering 50 dermatological & infectious conditions.
 
-### 3. Launch Web Server on Pi 4
-```bash
-python3 app.py --host 0.0.0.0 --port 5000
-```
-Access the scanner portal from any tablet, PC, or smartphone on your local network at `http://<YOUR_PI_IP>:5000`.
+### 📱 Raspberry Pi Desktop Icon Setup
+Run `python3 create_shortcuts.py` or `./setup_env.sh` to install the single desktop launcher icon:
+- **`RashScanner.desktop`**: Installs onto `~/Desktop` with app logo. Double-click to start kiosk mode!
 
 ---
 

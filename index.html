@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warcraft III — Human UI</title>
+    <style>
+        /* ───────── RESET & BASE ───────── */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background: #0b0907;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+            color: #ecd8b0;
+        }
+
+        /* ───────── TOP BAR (resources + day/night) ───────── */
+        .top-bar {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            background: rgba(12, 10, 8, 0.75);
+            border: 2px solid #6a5a42;
+            border-radius: 8px;
+            padding: 8px 28px 8px 24px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 215, 140, 0.15);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
+        .top-bar .res-group {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .top-bar .res-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .top-bar .res-item .icon {
+            font-size: 20px;
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.3));
+        }
+        .top-bar .res-item.gold {
+            color: #ffd700;
+        }
+        .top-bar .res-item.lumber {
+            color: #c4a050;
+        }
+        .top-bar .res-item.food {
+            color: #80b080;
+        }
+        .top-bar .res-item.food .food-num {
+            color: #ffd700;
+        }
+
+        .top-bar .divider {
+            width: 2px;
+            height: 28px;
+            background: linear-gradient(to bottom, transparent, #6a5a42, transparent);
+        }
+
+        .top-bar .day-night {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .top-bar .day-night .circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffe88a, #d4a020);
+            border: 2px solid #b8942a;
+            box-shadow: 0 0 16px rgba(255, 200, 50, 0.25), inset 0 -3px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+        .top-bar .day-night .circle::after {
+            content: '☀️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            filter: drop-shadow(0 0 4px #ffdd44);
+        }
+        .top-bar .day-night .time-label {
+            font-size: 15px;
+            color: #c8b088;
+            text-shadow: 1px 1px 3px #000;
+            font-weight: bold;
+        }
+
+        /* ───────── GAME VIEWPORT (just backdrop) ───────── */
+        .game-viewport {
+            flex: 1;
+            background:
+                radial-gradient(ellipse at 30% 40%, #1d2a1a 0%, #0d120b 70%),
+                radial-gradient(ellipse at 70% 60%, #1a2215 0%, #080c06 80%);
+            position: relative;
+        }
+        /* subtle "ground" line */
+        .game-viewport::after {
+            content: '';
+            position: absolute;
+            bottom: 240px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #3a4a2a, #5a7a3a, #3a4a2a, transparent);
+            opacity: 0.3;
+        }
+
+        /* ───────── MAIN UI CONTAINER ───────── */
+        .wc3-ui {
+            width: 100%;
+            height: 240px;
+            min-height: 240px;
+            background: #15110d;
+            border-top: 4px solid #5a4a34;
+            display: grid;
+            grid-template-columns: 230px 1fr 230px;
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.9);
+            position: relative;
+            flex-shrink: 0;
+            /* ornate border overlay using pseudo */
+        }
+        .wc3-ui::before {
+            content: '';
+            position: absolute;
+            inset: -6px -4px -6px -4px;
+            border: 2px solid #8a7a5a;
+            border-radius: 4px 4px 0 0;
+            pointer-events: none;
+            box-shadow: 0 0 0 1px #3a3224 inset, 0 0 0 2px #2a2218 inset;
+            z-index: 5;
+        }
+        .wc3-ui::after {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 12px;
+            background: linear-gradient(to bottom, #8a7a5a, #5a4a34);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            opacity: 0.25;
+            filter: blur(2px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ───────── PANEL BASE ───────── */
+        .panel {
+            background: #1c1712;
+            border: 2px solid #3a3224;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ───────── LEFT: MINIMAP ───────── */
+        .minimap-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f0c08;
+            border-right: 3px solid #3a3224;
+            padding: 10px 8px;
+            position: relative;
+        }
+        .minimap-panel::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 10%;
+            height: 80%;
+            width: 6px;
+            background: linear-gradient(to bottom, #3a3224, #1a140e, #3a3224);
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+
+        .minimap-frame {
+            padding: 6px;
+            background: #2a2218;
+            border: 3px solid #6a5a42;
+            border-radius: 6px;
+            box-shadow: inset 0 0 12px #000, 0 4px 12px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+        .minimap-frame::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 1px solid #8a7a5a;
+            border-radius: 10px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .minimap {
+            width: 170px;
+            height: 170px;
+            background: #0a1208;
+            border: 1px solid #1a2212;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        /* terrain blobs */
+        .minimap .terrain {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        .minimap .terrain.grass {
+            background: #1a3a1a;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            opacity: 1;
+        }
+        .minimap .terrain.water {
+            background: #0a2a4a;
+            width: 40%;
+            height: 35%;
+            bottom: 10%;
+            right: 8%;
+            border-radius: 40% 20% 30% 20%;
+            opacity: 0.6;
+            box-shadow: inset 0 0 20px #0a3a5a;
+        }
+        .minimap .terrain.tree {
+            background: #1a3a0a;
+            width: 20%;
+            height: 25%;
+            top: 15%;
+            left: 10%;
+            border-radius: 30% 50% 20% 40%;
+            opacity: 0.5;
+        }
+        .minimap .terrain.tree2 {
+            background: #1a3a0a;
+            width: 15%;
+            height: 20%;
+            top: 40%;
+            left: 25%;
+            border-radius: 40% 30% 50% 20%;
+            opacity: 0.4;
+        }
+        .minimap .terrain.rock {
+            background: #3a3a3a;
+            width: 8%;
+            height: 6%;
+            top: 55%;
+            left: 55%;
+            border-radius: 20% 40% 30% 20%;
+            opacity: 0.4;
+        }
+        .minimap .terrain.path {
+            background: #2a3a1a;
+            width: 30%;
+            height: 8%;
+            top: 70%;
+            left: 20%;
+            border-radius: 10px;
+            opacity: 0.3;
+        }
+
+        /* hero dot */
+        .minimap .hero-dot {
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #66ff66, #00aa00);
+            border-radius: 50%;
+            position: absolute;
+            top: 42%;
+            left: 38%;
+            box-shadow: 0 0 12px #00ff44, 0 0 24px rgba(0, 255, 68, 0.2);
+            z-index: 3;
+            border: 1px solid #aaffaa;
+        }
+        /* hero dot glow ring */
+        .minimap .hero-dot::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 68, 0.15);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* enemy dots */
+        .minimap .enemy-dot {
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle, #ff4444, #aa0000);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 6px #ff2222;
+            border: 1px solid #ff6666;
+        }
+        .minimap .enemy-dot.e1 {
+            top: 25%;
+            left: 70%;
+        }
+        .minimap .enemy-dot.e2 {
+            top: 60%;
+            left: 80%;
+        }
+        .minimap .enemy-dot.e3 {
+            top: 15%;
+            left: 55%;
+        }
+
+        /* minimap border decorations */
+        .minimap-frame .corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: #b8944a;
+            border-style: solid;
+            border-width: 0;
+            opacity: 0.6;
+        }
+        .minimap-frame .corner.tl {
+            top: -2px;
+            left: -2px;
+            border-top-width: 3px;
+            border-left-width: 3px;
+        }
+        .minimap-frame .corner.tr {
+            top: -2px;
+            right: -2px;
+            border-top-width: 3px;
+            border-right-width: 3px;
+        }
+        .minimap-frame .corner.bl {
+            bottom: -2px;
+            left: -2px;
+            border-bottom-width: 3px;
+            border-left-width: 3px;
+        }
+        .minimap-frame .corner.br {
+            bottom: -2px;
+            right: -2px;
+            border-bottom-width: 3px;
+            border-right-width: 3px;
+        }
+
+        /* ───────── CENTER: INFO / PORTRAIT ───────── */
+        .info-panel {
+            display: flex;
+            align-items: center;
+            padding: 8px 20px 8px 24px;
+            background: radial-gradient(ellipse at 40% 50%, #231e17, #120e0a);
+            gap: 16px;
+            border-left: 2px solid #3a3224;
+            border-right: 2px solid #3a3224;
+            position: relative;
+        }
+        .info-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #6a5a42, #b8944a, #6a5a42, transparent);
+            opacity: 0.3;
+        }
+
+        /* portrait frame */
+        .portrait-frame {
+            width: 120px;
+            height: 160px;
+            border: 4px solid #6a5a42;
+            border-radius: 8px 8px 4px 4px;
+            background: #0a0806;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .portrait-frame::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 2px solid #8a7a5a;
+            border-radius: 12px 12px 8px 8px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .portrait-frame::after {
+            content: '✦';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #b8944a;
+            font-size: 14px;
+            text-shadow: 0 0 8px rgba(184, 148, 74, 0.3);
+            background: #1c1712;
+            padding: 0 8px;
+        }
+        .portrait-frame .portrait-emoji {
+            font-size: 68px;
+            filter: drop-shadow(0 0 12px rgba(200, 180, 120, 0.15));
+            transform: scaleX(-1);
+            line-height: 1;
+        }
+
+        /* unit details */
+        .unit-details {
+            flex: 1;
+            min-width: 0;
+        }
+        .unit-details .unit-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 1px 1px 3px #000, 0 0 12px rgba(255, 215, 0, 0.1);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .unit-details .unit-name .level {
+            font-size: 14px;
+            color: #b8944a;
+            font-weight: normal;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .unit-details .unit-class {
+            font-size: 13px;
+            color: #a09078;
+            margin-bottom: 6px;
+            font-style: italic;
+            letter-spacing: 0.3px;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .bar-container {
+            width: 100%;
+            max-width: 300px;
+            height: 18px;
+            background: #0a0806;
+            border: 2px solid #3a3224;
+            border-radius: 3px;
+            margin-top: 4px;
+            position: relative;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+        .bar-container .bar-fill {
+            height: 100%;
+            border-radius: 1px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        .bar-container .bar-fill.hp {
+            width: 78%;
+            background: linear-gradient(180deg, #44cc44 0%, #1a7a1a 100%);
+            box-shadow: inset 0 2px 4px rgba(100, 255, 100, 0.2);
+        }
+        .bar-container .bar-fill.hp.low {
+            background: linear-gradient(180deg, #cc4444 0%, #7a1a1a 100%);
+        }
+        .bar-container .bar-fill.mp {
+            width: 62%;
+            background: linear-gradient(180deg, #4488ff 0%, #1a3a8a 100%);
+            box-shadow: inset 0 2px 4px rgba(100, 150, 255, 0.2);
+        }
+        .bar-container .bar-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 3px #000, 0 0 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.3px;
+            z-index: 2;
+        }
+        .bar-container .bar-text .hp-color {
+            color: #88ff88;
+        }
+        .bar-container .bar-text .mp-color {
+            color: #88bbff;
+        }
+
+        /* ───────── RIGHT: COMMAND GRID ───────── */
+        .command-panel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            padding: 8px 10px;
+            background: #14100c;
+            border-left: 3px solid #3a3224;
+            position: relative;
+        }
+        .command-panel::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10%;
+            height: 80%;
+            width: 6px;
+            background: linear-gradient(to bottom, #3a3224, #1a140e, #3a3224);
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+
+        .cmd-btn {
+            background: linear-gradient(180deg, #3a3224 0%, #221c14 100%);
+            border: 2px solid #5a4a34;
+            border-radius: 4px;
+            color: #d4c39c;
+            font-weight: bold;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: inset 0 1px 2px rgba(255, 215, 140, 0.08), 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.08s ease;
+            text-shadow: 1px 1px 2px #000;
+            gap: 1px;
+            line-height: 1.2;
+            padding: 2px;
+            position: relative;
+        }
+        .cmd-btn .icon {
+            font-size: 22px;
+            filter: drop-shadow(0 0 4px rgba(200, 180, 120, 0.1));
+        }
+        .cmd-btn .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #b0a088;
+        }
+        .cmd-btn .hotkey {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            font-size: 8px;
+            color: #6a5a42;
+            font-weight: bold;
+        }
+
+        .cmd-btn:hover {
+            border-color: #b8944a;
+            background: linear-gradient(180deg, #4a3e2e 0%, #2a2218 100%);
+            box-shadow: inset 0 0 20px rgba(184, 148, 74, 0.08), 0 0 12px rgba(184, 148, 74, 0.05);
+            transform: scale(1.02);
+        }
+        .cmd-btn:active {
+            background: #1a140e;
+            box-shadow: inset 0 2px 8px #000;
+            transform: scale(0.96);
+            border-color: #8a7a5a;
+        }
+        .cmd-btn.empty {
+            background: #0a0806;
+            border-color: #1f1912;
+            cursor: default;
+            box-shadow: none;
+        }
+        .cmd-btn.empty:hover {
+            transform: none;
+            border-color: #1f1912;
+            background: #0a0806;
+            box-shadow: none;
+        }
+
+        /* ability-specific colors */
+        .cmd-btn.attack .icon {
+            color: #ff6644;
+        }
+        .cmd-btn.move .icon {
+            color: #88ccff;
+        }
+        .cmd-btn.blizzard .icon {
+            color: #88ddff;
+        }
+        .cmd-btn.water .icon {
+            color: #44aaff;
+        }
+        .cmd-btn.aura .icon {
+            color: #ffcc44;
+        }
+        .cmd-btn.tele .icon {
+            color: #cc88ff;
+        }
+        .cmd-btn.patrol .icon {
+            color: #88dd88;
+        }
+        .cmd-btn.stop .icon {
+            color: #ff8844;
+        }
+        .cmd-btn.hold .icon {
+            color: #ddaa66;
+        }
+
+        /* ───────── RESPONSIVE TWEAKS ───────── */
+        @media (max-width: 820px) {
+            .wc3-ui {
+                grid-template-columns: 160px 1fr 160px;
+                height: 200px;
+                min-height: 200px;
+            }
+            .minimap {
+                width: 120px;
+                height: 120px;
+            }
+            .portrait-frame {
+                width: 80px;
+                height: 110px;
+            }
+            .portrait-frame .portrait-emoji {
+                font-size: 44px;
+            }
+            .unit-details .unit-name {
+                font-size: 17px;
+            }
+            .bar-container {
+                max-width: 180px;
+                height: 14px;
+            }
+            .cmd-btn .icon {
+                font-size: 17px;
+            }
+            .cmd-btn .label {
+                font-size: 7px;
+            }
+            .top-bar {
+                gap: 16px;
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+            .top-bar .res-item {
+                font-size: 13px;
+            }
+            .top-bar .day-night .circle {
+                width: 24px;
+                height: 24px;
+            }
+            .top-bar .day-night .circle::after {
+                font-size: 13px;
+            }
+            .game-viewport::after {
+                bottom: 200px;
+            }
+            .minimap-frame {
+                padding: 4px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .wc3-ui {
+                grid-template-columns: 100px 1fr 100px;
+                height: 160px;
+                min-height: 160px;
+            }
+            .minimap {
+                width: 80px;
+                height: 80px;
+            }
+            .minimap-panel {
+                padding: 4px;
+            }
+            .minimap-frame {
+                padding: 3px;
+            }
+            .minimap .hero-dot {
+                width: 5px;
+                height: 5px;
+            }
+            .minimap .enemy-dot {
+                width: 3px;
+                height: 3px;
+            }
+            .portrait-frame {
+                width: 56px;
+                height: 80px;
+            }
+            .portrait-frame .portrait-emoji {
+                font-size: 30px;
+            }
+            .info-panel {
+                padding: 4px 8px;
+                gap: 8px;
+            }
+            .unit-details .unit-name {
+                font-size: 13px;
+            }
+            .unit-details .unit-class {
+                font-size: 10px;
+            }
+            .bar-container {
+                max-width: 100px;
+                height: 10px;
+            }
+            .bar-container .bar-text {
+                font-size: 8px;
+            }
+            .command-panel {
+                gap: 3px;
+                padding: 4px 6px;
+            }
+            .cmd-btn .icon {
+                font-size: 13px;
+            }
+            .cmd-btn .label {
+                display: none;
+            }
+            .cmd-btn .hotkey {
+                font-size: 6px;
+                top: 1px;
+                right: 3px;
+            }
+            .top-bar {
+                gap: 8px;
+                padding: 4px 10px;
+                font-size: 10px;
+                top: 6px;
+                border-radius: 4px;
+            }
+            .top-bar .res-item {
+                font-size: 10px;
+                gap: 3px;
+            }
+            .top-bar .res-item .icon {
+                font-size: 13px;
+            }
+            .top-bar .divider {
+                height: 16px;
+            }
+            .top-bar .day-night .circle {
+                width: 18px;
+                height: 18px;
+            }
+            .top-bar .day-night .circle::after {
+                font-size: 9px;
+            }
+            .top-bar .day-night .time-label {
+                font-size: 10px;
+            }
+            .game-viewport::after {
+                bottom: 160px;
+            }
+            .wc3-ui::before {
+                inset: -4px -2px -4px -2px;
+            }
+            .minimap .terrain.tree,
+            .minimap .terrain.tree2,
+            .minimap .terrain.rock,
+            .minimap .terrain.path {
+                display: none;
+            }
+            .minimap .terrain.water {
+                width: 30%;
+                height: 25%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════ TOP BAR ═══════ -->
+    <div class="top-bar">
+        <div class="res-group">
+            <span class="res-item gold">
+                <span class="icon">👑</span> 1240
+            </span>
+            <span class="res-item lumber">
+                <span class="icon">🪵</span> 480
+            </span>
+            <span class="res-item food">
+                <span class="icon">🍖</span>
+                <span class="food-num">42</span> / 50
+            </span>
+        </div>
+        <div class="divider"></div>
+        <div class="day-night">
+            <div class="circle"></div>
+            <span class="time-label">Day 3</span>
+        </div>
+    </div>
+
+    <!-- ═══════ GAME VIEWPORT ═══════ -->
+    <div class="game-viewport"></div>
+
+    <!-- ═══════ BOTTOM UI ═══════ -->
+    <div class="wc3-ui">
+
+        <!-- ─── LEFT: MINIMAP ─── -->
+        <div class="panel minimap-panel">
+            <div class="minimap-frame">
+                <div class="minimap">
+                    <div class="terrain grass"></div>
+                    <div class="terrain water"></div>
+                    <div class="terrain tree"></div>
+                    <div class="terrain tree2"></div>
+                    <div class="terrain rock"></div>
+                    <div class="terrain path"></div>
+                    <div class="hero-dot"></div>
+                    <div class="enemy-dot e1"></div>
+                    <div class="enemy-dot e2"></div>
+                    <div class="enemy-dot e3"></div>
+                </div>
+                <div class="corner tl"></div>
+                <div class="corner tr"></div>
+                <div class="corner bl"></div>
+                <div class="corner br"></div>
+            </div>
+        </div>
+
+        <!-- ─── CENTER: PORTRAIT + STATS ─── -->
+        <div class="panel info-panel">
+            <div class="portrait-frame">
+                <span class="portrait-emoji">🧙‍♂️</span>
+            </div>
+            <div class="unit-details">
+                <div class="unit-name">
+                    Archmage
+                    <span class="level">★ Level 3</span>
+                </div>
+                <div class="unit-class">Human · Sorcerer</div>
+
+                <div class="bar-container">
+                    <div class="bar-fill hp" style="width:78%;"></div>
+                    <div class="bar-text">
+                        <span class="hp-color">575</span> / 700
+                    </div>
+                </div>
+
+                <div class="bar-container">
+                    <div class="bar-fill mp" style="width:62%;"></div>
+                    <div class="bar-text">
+                        <span class="mp-color">270</span> / 450
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── RIGHT: COMMAND GRID ─── -->
+        <div class="panel command-panel">
+
+            <button class="cmd-btn move">
+                <span class="hotkey">M</span>
+                <span class="icon">🏃</span>
+                <span class="label">Move</span>
+            </button>
+            <button class="cmd-btn stop">
+                <span class="hotkey">S</span>
+                <span class="icon">🛑</span>
+                <span class="label">Stop</span>
+            </button>
+            <button class="cmd-btn hold">
+                <span class="hotkey">H</span>
+                <span class="icon">🛡️</span>
+                <span class="label">Hold</span>
+            </button>
+            <button class="cmd-btn attack">
+                <span class="hotkey">A</span>
+                <span class="icon">⚔️</span>
+                <span class="label">Attack</span>
+            </button>
+
+            <button class="cmd-btn patrol">
+                <span class="hotkey">P</span>
+                <span class="icon">🔄</span>
+                <span class="label">Patrol</span>
+            </button>
+            <button class="cmd-btn blizzard">
+                <span class="hotkey">B</span>
+                <span class="icon">❄️</span>
+                <span class="label">Blizzard</span>
+            </button>
+            <button class="cmd-btn water">
+                <span class="hotkey">W</span>
+                <span class="icon">💧</span>
+                <span class="label">Water</span>
+            </button>
+            <button class="cmd-btn aura">
+                <span class="hotkey">R</span>
+                <span class="icon">✨</span>
+                <span class="label">Aura</span>
+            </button>
+
+            <button class="cmd-btn empty"></button>
+            <button class="cmd-btn empty"></button>
+            <button class="cmd-btn empty"></button>
+            <button class="cmd-btn tele">
+                <span class="hotkey">T</span>
+                <span class="icon">📡</span>
+                <span class="label">Mass Tele</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ─── INTERACTIVE POLISH ───
+        // make HP/MP bars react to clicks on the portrait (just for fun)
+        document.querySelector('.portrait-frame').addEventListener('click', function() {
+            const hp = document.querySelector('.bar-fill.hp');
+            const mp = document.querySelector('.bar-fill.mp');
+            const hpText = document.querySelector('.bar-container .bar-text .hp-color');
+            const mpText = document.querySelector('.bar-container .bar-text .mp-color');
+
+            // random damage/heal
+            const hpChange = Math.floor(Math.random() * 30) - 10;
+            const mpChange = Math.floor(Math.random() * 25) - 8;
+
+            let hpVal = parseInt(hpText.textContent) + hpChange;
+            let mpVal = parseInt(mpText.textContent) + mpChange;
+            const hpMax = 700;
+            const mpMax = 450;
+
+            hpVal = Math.max(0, Math.min(hpMax, hpVal));
+            mpVal = Math.max(0, Math.min(mpMax, mpVal));
+
+            hpText.textContent = hpVal;
+            mpText.textContent = mpVal;
+
+            const hpPct = (hpVal / hpMax) * 100;
+            const mpPct = (mpVal / mpMax) * 100;
+            hp.style.width = hpPct + '%';
+            mp.style.width = mpPct + '%';
+
+            // low hp visual
+            if (hpPct < 25) {
+                hp.classList.add('low');
+            } else {
+                hp.classList.remove('low');
+            }
+
+            // update the text after the bar
+            const hpBarText = document.querySelector('.bar-container:first-child .bar-text');
+            const mpBarText = document.querySelector('.bar-container:last-child .bar-text');
+            hpBarText.innerHTML = `<span class="hp-color">${hpVal}</span> / ${hpMax}`;
+            mpBarText.innerHTML = `<span class="mp-color">${mpVal}</span> / ${mpMax}`;
+        });
+
+        // tooltip-like effect on command buttons
+        document.querySelectorAll('.cmd-btn:not(.empty)').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const label = this.querySelector('.label')?.textContent || 'command';
+                const orig = this.style.borderColor;
+                this.style.borderColor = '#ffd700';
+                this.style.boxShadow = '0 0 20px rgba(255,215,0,0.15)';
+                setTimeout(() => {
+                    this.style.borderColor = orig || '';
+                    this.style.boxShadow = '';
+                }, 150);
+                e.stopPropagation();
+            });
+        });
+
+        // minimap click "ping"
+        document.querySelector('.minimap').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            const ping = document.createElement('div');
+            ping.style.cssText = `
+                    position: absolute;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, rgba(255,255,200,0.8), rgba(255,200,100,0));
+                    top: ${y-6}%;
+                    left: ${x-6}%;
+                    pointer-events: none;
+                    z-index: 10;
+                    animation: ping-fade 0.8s ease-out forwards;
+                `;
+            this.appendChild(ping);
+            setTimeout(() => ping.remove(), 800);
+        });
+
+        // inject keyframe for ping
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+                @keyframes ping-fade {
+                    0% { transform: scale(0.5); opacity: 1; }
+                    100% { transform: scale(2.5); opacity: 0; }
+                }
+            `;
+        document.head.appendChild(styleSheet);
+
+        // day/night toggle on click (for fun)
+        document.querySelector('.day-night .circle').addEventListener('click', function() {
+            const isDay = this.classList.toggle('night');
+            if (isDay) {
+                this.style.background = 'radial-gradient(circle at 35% 35%, #446688, #0a1a2a)';
+                this.style.borderColor = '#2a4a6a';
+                this.querySelector('::after')?.remove();
+                const moon = document.createElement('span');
+                moon.textContent = '🌙';
+                moon.style.cssText =
+                    'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;filter:drop-shadow(0 0 4px #88aacc);';
+                this.appendChild(moon);
+                document.querySelector('.time-label').textContent = 'Night 3';
+            } else {
+                this.style.background = 'radial-gradient(circle at 35% 35%, #ffe88a, #d4a020)';
+                this.style.borderColor = '#b8942a';
+                const moon = this.querySelector('span');
+                if (moon) moon.remove();
+                const sun = document.createElement('span');
+                sun.textContent = '☀️';
+                sun.style.cssText =
+                    'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;filter:drop-shadow(0 0 4px #ffdd44);';
+                this.appendChild(sun);
+                document.querySelector('.time-label').textContent = 'Day 3';
+            }
+        });
+
+        // small visual: click on name changes level (just silly)
+        document.querySelector('.unit-name .level').addEventListener('click', function() {
+            const lvl = parseInt(this.textContent.match(/\d+/)?.[0] || 3);
+            const newLvl = Math.min(10, lvl + 1);
+            this.textContent = `★ Level ${newLvl}`;
+        });
+    </script>
+
+</body>
+</html>

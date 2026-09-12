@@ -64,11 +64,17 @@ import app
 print('[SUCCESS] All Python libraries and TFLite model loaded successfully!')
 "
 
+# 5. Install Desktop Launcher Icon & Permissions
+echo ""
+echo "[5/5] Installing Rashilience Desktop Launcher Icon..."
+python3 create_shortcuts.py || true
+
 # Ensure execution permissions
-chmod +x start_kiosk.sh setup_env.sh 2>/dev/null || true
+chmod +x start_kiosk.sh setup_env.sh *.desktop 2>/dev/null || true
 
 echo ""
 echo "======================================================="
-echo "   Setup Complete! To launch the kiosk run:           "
-echo "   ./start_kiosk.sh                                    "
+echo "   Setup Complete! Single Desktop Icon Installed!     "
+echo "   Double-click 'Rashilience Scanner' on Desktop       "
+echo "   Select Model Mode directly on the Landing Screen   "
 echo "======================================================="

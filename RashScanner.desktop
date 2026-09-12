@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Rashilience Scanner
+Comment=Launch 100% AI Skin Disease Decision Support System & Kiosk
+Exec=/bin/bash -c "cd 'C:/Users/Tom Pc/Desktop/Commissions/RashScannerAI' && ./start_kiosk.sh"
+Icon=C:/Users/Tom Pc/Desktop/Commissions/RashScannerAI/static/app_logo.png
+Terminal=true
+Categories=Medical;Science;Education;AI;
+Path=C:/Users/Tom Pc/Desktop/Commissions/RashScannerAI
+StartupNotify=true

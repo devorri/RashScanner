@@ -27,35 +27,103 @@ app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = "rash_scanner_secret_key_edge_pi"
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-# Configuration
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
-DB_PATH = os.path.join(os.path.dirname(__file__), "patients.db")
-MODEL_PT = os.path.join(os.path.dirname(__file__), "best.pt")
-MODEL_TFLITE = os.path.join(os.path.dirname(__file__), "rash_model.tflite")
-LABELS_PATH = os.path.join(os.path.dirname(__file__), "labels.txt")
-MODEL_PATH = MODEL_PT if os.path.exists(MODEL_PT) else MODEL_TFLITE
+# Configuration & Preset Management
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+DB_PATH = os.path.join(BASE_DIR, "patients.db")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Lazy-loaded YOLOv11 / TFLite Classifier & Realtime Analyzer Instances
+PRESET_DEFINITIONS = {
+    "current": {
+        "key": "current",
+        "name": "Current Model (12 Conditions)",
+        "folder": BASE_DIR,
+        "description": "Default baseline YOLOv11 / TFLite model fine-tuned on 12 common skin conditions."
+    },
+    "rash-22": {
+        "key": "rash-22",
+        "name": "Rash-22 Model (22 Conditions)",
+        "folder": os.path.join(BASE_DIR, "rash-22"),
+        "description": "Expanded model trained on 22 distinct skin disease categories."
+    },
+    "rash-50": {
+        "key": "rash-50",
+        "name": "Rash-50 Model (50 Conditions)",
+        "folder": os.path.join(BASE_DIR, "rash-50"),
+        "description": "Comprehensive model trained across 50 dermatological conditions."
+    }
+}
+
+ACTIVE_PRESET_KEY = "current"
 classifier = None
 realtime_analyzer = None
 active_camera = None
 
+def resolve_preset_files(folder_path):
+    """Finds best available model weights (.pt, .tflite, .onnx) and labels file in a directory."""
+    pt_path = os.path.join(folder_path, "best.pt")
+    onnx_path = os.path.join(folder_path, "best.onnx")
+    tflite_candidates = [
+        os.path.join(folder_path, "rash_model.tflite"),
+        os.path.join(folder_path, "rash_model (2).tflite"),
+        os.path.join(folder_path, "model22.tflite"),
+        os.path.join(folder_path, "model50.tflite"),
+    ]
+    labels_candidates = [
+        os.path.join(folder_path, "labels.txt"),
+        os.path.join(folder_path, "labels (2).txt"),
+    ]
+
+    target_model = None
+    if os.path.exists(pt_path):
+        target_model = pt_path
+    elif os.path.exists(onnx_path):
+        target_model = onnx_path
+    else:
+        for tfc in tflite_candidates:
+            if os.path.exists(tfc):
+                target_model = tfc
+                break
+
+    target_labels = None
+    for lc in labels_candidates:
+        if os.path.exists(lc):
+            target_labels = lc
+            break
+
+    return target_model, target_labels
+
+def load_model_preset(preset_key="current"):
+    global classifier, realtime_analyzer, ACTIVE_PRESET_KEY
+    if preset_key not in PRESET_DEFINITIONS:
+        preset_key = "current"
+
+    config = PRESET_DEFINITIONS[preset_key]
+    folder = config["folder"]
+    model_path, labels_path = resolve_preset_files(folder)
+
+    if not model_path or not labels_path:
+        print(f"[App Error] Failed to resolve model/labels for preset '{preset_key}' in {folder}")
+        return False
+
+    try:
+        new_classifier = TFLiteClassifier(model_path=model_path, labels_path=labels_path)
+        new_analyzer = RealtimeAnalyzer(new_classifier)
+        classifier = new_classifier
+        realtime_analyzer = new_analyzer
+        ACTIVE_PRESET_KEY = preset_key
+        print(f"[App] Active AI Model Preset set to '{preset_key}' ({config['name']}) -> {model_path} ({len(classifier.labels)} classes).")
+        return True
+    except Exception as e:
+        print(f"[App Error] Exception loading preset '{preset_key}': {e}")
+        return False
+
 def get_classifier():
-    global classifier, realtime_analyzer
+    global classifier
     if classifier is None:
-        target_model = MODEL_PT if os.path.exists(MODEL_PT) else MODEL_TFLITE
-        if os.path.exists(target_model) and os.path.exists(LABELS_PATH):
-            try:
-                classifier = TFLiteClassifier(model_path=target_model, labels_path=LABELS_PATH)
-                realtime_analyzer = RealtimeAnalyzer(classifier)
-                print(f"[App] 100% AI YOLOv11 Detector & Real-Time Analyzer initialized successfully ({target_model}).")
-            except Exception as e:
-                print(f"[App Warning] Failed to initialize AI classifier: {e}")
-        else:
-            print("[App Warning] Model weights or labels.txt not found.")
+        load_model_preset(ACTIVE_PRESET_KEY)
     return classifier
 
 def get_camera():
@@ -586,7 +654,45 @@ def get_or_update_power_state(reset=False):
             json.dump(state, f)
     except Exception:
         pass
-    return state
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, "static"), "app_logo.png", mimetype="image/png")
+
+# ------------------------------------------------------------------------------
+# Multi-Model Preset API Routes
+# ------------------------------------------------------------------------------
+@app.route("/api/model/active", methods=["GET"])
+def api_model_active():
+    """Returns info about the currently active AI model preset."""
+    config = PRESET_DEFINITIONS.get(ACTIVE_PRESET_KEY, {})
+    num_classes = len(classifier.labels) if classifier and hasattr(classifier, 'labels') else 0
+    return jsonify({
+        "success": True,
+        "active_preset": ACTIVE_PRESET_KEY,
+        "active_name": config.get("name", ACTIVE_PRESET_KEY),
+        "description": config.get("description", ""),
+        "num_classes": num_classes,
+        "presets": {k: {"key": v["key"], "name": v["name"], "description": v["description"]} for k, v in PRESET_DEFINITIONS.items()}
+    })
+
+@app.route("/api/model/switch", methods=["POST"])
+def api_model_switch():
+    """Switches the active AI model preset at runtime."""
+    data = request.get_json(force=True)
+    preset_key = data.get("preset", "current")
+    if preset_key not in PRESET_DEFINITIONS:
+        return jsonify({"success": False, "message": f"Unknown preset: {preset_key}"}), 400
+    if preset_key == ACTIVE_PRESET_KEY:
+        config = PRESET_DEFINITIONS[preset_key]
+        num_classes = len(classifier.labels) if classifier and hasattr(classifier, 'labels') else 0
+        return jsonify({"success": True, "message": "Already active", "preset": preset_key, "name": config["name"], "num_classes": num_classes})
+    success = load_model_preset(preset_key)
+    if success:
+        config = PRESET_DEFINITIONS[ACTIVE_PRESET_KEY]
+        num_classes = len(classifier.labels) if classifier and hasattr(classifier, 'labels') else 0
+        return jsonify({"success": True, "message": f"Switched to {config['name']}", "preset": ACTIVE_PRESET_KEY, "name": config["name"], "num_classes": num_classes})
+    else:
+        return jsonify({"success": False, "message": f"Failed to load preset '{preset_key}'. Check model files exist."}), 500
 
 @app.route("/api/system/status", methods=["GET"])
 def system_status():
@@ -691,15 +797,35 @@ def reboot_system():
 
 if __name__ == "__main__":
     import argparse
+    import threading
+    import webbrowser
+
     parser = argparse.ArgumentParser(description="Local 100% AI Real-Time Skin Disease Web Server")
     parser.add_argument("--port", type=int, default=5000)
     parser.add_argument("--host", type=str, default="0.0.0.0")
+    parser.add_argument("--preset", "--model", "-m", type=str, default="current", choices=["current", "rash-22", "rash-50"], help="Select AI model preset (current, rash-22, rash-50)")
+    parser.add_argument("positional_preset", nargs="?", default=None, help="Optional positional model preset name")
+    parser.add_argument("--no-browser", action="store_true", help="Do not automatically open web browser")
     args = parser.parse_args()
 
+    chosen_preset = args.positional_preset if (args.positional_preset and args.positional_preset in PRESET_DEFINITIONS) else args.preset
+    load_model_preset(chosen_preset)
+    active_info = PRESET_DEFINITIONS.get(ACTIVE_PRESET_KEY, {})
+
     print(f"\n=======================================================")
-    print(f"   RASHILIENCE 100% AI SERVER RUNNING ON PORT {args.port} ")
-    print(f"   Access Web Portal: http://localhost:{args.port}")
-    print(f"   10 Unique Dermatological Conditions • Real-Time Stream")
+    print(f"   RASHILIENCE 100% AI SERVER RUNNING ON PORT {args.port}")
+    print(f"   Active Model Preset : {chosen_preset.upper()} ({active_info.get('name', '')})")
+    print(f"   Access Web Portal   : http://localhost:{args.port}")
     print(f"=======================================================\n")
-    
+
+    # Automatically open browser window immediately
+    if not args.no_browser:
+        def open_browser_window():
+            time.sleep(1.0)
+            try:
+                webbrowser.open(f"http://localhost:{args.port}")
+            except Exception:
+                pass
+        threading.Thread(target=open_browser_window, daemon=True).start()
+
     app.run(host=args.host, port=args.port, debug=False)

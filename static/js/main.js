@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     startSplashAnimation();
+    fetchActiveModelInfo();
 
     // Start 10,000mAh Power Bank Battery Monitor
     updateBatteryStatus();
@@ -148,8 +149,8 @@ function applyBatteryUI(percentage, hoursLeft, isLowVoltage) {
     const modalIcon = document.getElementById('modalBatteryIcon');
 
     if (modalPercent) modalPercent.textContent = `${percentage}%`;
-    if (modalSubtext) modalSubtext.textContent = isLowVoltage ? 
-        `⚠️ LOW VOLTAGE DETECTED! Connect Power Bank / Charger immediately.` : 
+    if (modalSubtext) modalSubtext.textContent = isLowVoltage ?
+        `⚠️ LOW VOLTAGE DETECTED! Connect Power Bank / Charger immediately.` :
         `Estimated Runtime Remaining: ~${hoursLeft} Hours`;
     if (modalIcon) modalIcon.className = `${iconClass}`;
 }
@@ -266,22 +267,22 @@ async function executeSystemAction(action) {
     if (action === 'kill') {
         if (!confirm('Kill App & Exit Kiosk?\n\nThis will close the fullscreen browser and stop the server.')) return;
         closePowerModal();
-        try { await fetch('/api/system/kill-kiosk', { method: 'POST' }); } catch (e) {}
-        setTimeout(() => { try { window.close(); } catch (e) {} }, 500);
+        try { await fetch('/api/system/kill-kiosk', { method: 'POST' }); } catch (e) { }
+        setTimeout(() => { try { window.close(); } catch (e) { } }, 500);
     } else if (action === 'shutdown') {
         if (!confirm('Safely Shut Down Raspberry Pi?')) return;
         closePowerModal();
-        try { await fetch('/api/system/shutdown', { method: 'POST' }); } catch (e) {}
+        try { await fetch('/api/system/shutdown', { method: 'POST' }); } catch (e) { }
     } else if (action === 'reboot') {
         if (!confirm('Reboot Raspberry Pi?')) return;
         closePowerModal();
-        try { await fetch('/api/system/reboot', { method: 'POST' }); } catch (e) {}
+        try { await fetch('/api/system/reboot', { method: 'POST' }); } catch (e) { }
     }
 }
 
 function exitKioskMode() { executeSystemAction('kill'); }
 function minimizeKiosk() {
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => { });
     alert('Exited fullscreen mode.');
 }
 function rebootKiosk() { executeSystemAction('reboot'); }
@@ -428,7 +429,7 @@ function togglePillActive(checkbox) {
     const card = checkbox.closest('.checkbox-card');
     const group = checkbox.closest('.checkbox-pill-group');
     const isChecked = checkbox.checked;
-    
+
     if (isChecked) {
         card.classList.add('active');
     } else {
@@ -537,7 +538,7 @@ async function pollRealtimeStatus() {
                 if (subInfoEl) subInfoEl.textContent = "Hold camera 4-8 inches from affected skin area";
             }
         }
-    } catch (e) {}
+    } catch (e) { }
 }
 
 async function captureRealtimeSnapshot() {
@@ -669,7 +670,7 @@ async function executeAiAnalysis() {
 
     try {
         const formData = new FormData();
-        const symptomsText = document.getElementById('associated_symptoms') ? 
+        const symptomsText = document.getElementById('associated_symptoms') ?
             document.getElementById('associated_symptoms').value.trim() : '';
         formData.append('associated_symptoms', symptomsText);
 
@@ -1000,3 +1001,111 @@ async function deletePatientRecord(patientId) {
         loadPatientsDashboard();
     }
 }
+
+// ------------------------------------------------------------------------------
+// Multi-Model Preset Management & Hub / Header UI Sync
+// ------------------------------------------------------------------------------
+function updateModelLabelsUI(presetKey, numClasses, activeName) {
+    const presetLabels = {
+        'current': `Current (${numClasses || 12})`,
+        'rash-22': `Rash-22 (${numClasses || 22})`,
+        'rash-50': `Rash-50 (${numClasses || 50})`
+    };
+    const labelText = presetLabels[presetKey] || `${activeName || presetKey} (${numClasses || 10})`;
+
+    // Update header label
+    const headerLabel = document.getElementById('headerModelLabel');
+    if (headerLabel) {
+        headerLabel.innerText = labelText;
+    }
+
+    // Update assessment tab status text
+    const assessmentLabel = document.getElementById('assessmentActiveModelText');
+    if (assessmentLabel) {
+        assessmentLabel.innerText = `${labelText} Conditions`;
+    }
+
+    // Highlight active card on hub
+    document.querySelectorAll('.model-card').forEach(card => card.classList.remove('active'));
+    const targetCard = document.getElementById(`landingCard_${presetKey}`);
+    if (targetCard) {
+        targetCard.classList.add('active');
+    }
+
+    // Highlight active item in dropdown
+    document.querySelectorAll('.model-dropdown-item').forEach(item => {
+        if (item.getAttribute('data-preset') === presetKey) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    // Update hub status bar
+    const statusText = document.getElementById('modelSwitchStatus');
+    if (statusText) {
+        statusText.innerHTML = `<span style="color: var(--success-color); font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Active AI Model Preset: <strong>${labelText}</strong></span>`;
+    }
+}
+
+async function fetchActiveModelInfo() {
+    try {
+        const res = await fetch('/api/model/active');
+        const data = await res.json();
+        if (data.success) {
+            updateModelLabelsUI(data.active_preset, data.num_classes, data.active_name);
+        }
+    } catch (e) {
+        console.warn('Failed to fetch model info:', e);
+    }
+}
+
+async function selectLandingModel(presetKey) {
+    await switchActiveModelUI(presetKey);
+}
+
+async function switchActiveModelUI(presetKey) {
+    try {
+        const res = await fetch('/api/model/switch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ preset: presetKey })
+        });
+        const data = await res.json();
+        if (data.success) {
+            updateModelLabelsUI(presetKey, data.num_classes, data.active_name);
+        } else {
+            alert(data.message || 'Failed to switch model');
+        }
+    } catch (e) {
+        alert('Error switching AI model: ' + e.message);
+    }
+}
+
+function toggleModelDropdown(e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('modelDropdownMenu');
+    if (menu) {
+        menu.classList.toggle('show');
+    }
+}
+
+function closeModelDropdown() {
+    const menu = document.getElementById('modelDropdownMenu');
+    if (menu) {
+        menu.classList.remove('show');
+    }
+}
+
+async function switchModelFromHeader(presetKey) {
+    closeModelDropdown();
+    await switchActiveModelUI(presetKey);
+}
+
+// Close model dropdown on document click outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('modelSwitcherDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        closeModelDropdown();
+    }
+});
