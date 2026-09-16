@@ -22,6 +22,31 @@ from symptoms_db import get_condition_info, get_contagious_status, check_red_fla
 # ------------------------------------------------------------------------------
 # Image Quality & Skin Presence Detector
 # ------------------------------------------------------------------------------
+def ensure_bgr(img):
+    """
+    Guarantees that the input image is a valid 3-channel (BGR) numpy array.
+    Converts 4-channel (RGBA/BGRA/XBGR), 1-channel (Grayscale), or multi-channel arrays cleanly.
+    """
+    if img is None or not isinstance(img, np.ndarray) or img.size == 0:
+        return img
+
+    if len(img.shape) == 2:  # Grayscale (H, W) -> BGR
+        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+    if len(img.shape) == 3:
+        channels = img.shape[2]
+        if channels == 4:
+            # 4-channel image (RGBA/BGRA/XBGR) -> 3-channel BGR
+            return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+        elif channels == 3:
+            return img
+        elif channels == 1:
+            return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        elif channels > 4:
+            return img[:, :, :3]
+
+    return img
+
 def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     """
     Validates image before neural network inference:
@@ -29,7 +54,7 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     2. Blur / Focus Clarity: Laplacian variance check.
     3. Lighting / Exposure: Brightness level analysis.
     """
-    if bgr_image is None or bgr_image.size == 0:
+    if bgr_image is None or not isinstance(bgr_image, np.ndarray) or bgr_image.size == 0:
         res = {
             "is_valid": False,
             "skin_detected": False,
@@ -43,6 +68,7 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
             res["skin_mask"] = None
         return res
 
+    bgr_image = ensure_bgr(bgr_image)
     h, w = bgr_image.shape[:2]
     total_pixels = h * w
 
@@ -146,21 +172,46 @@ class EdgeCamera:
                 self.backend = "synthetic"
                 print("[Camera Info] Switched to Synthetic Test Frame mode.")
 
-    def capture_frame(self):
-        """Captures a single BGR frame."""
-        if self.backend == "picamera2" and self.picam2:
-            frame_rgb = self.picam2.capture_array()
-            return cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
-        elif self.backend == "opencv" and self.cap and self.cap.isOpened():
-            ret, frame = self.cap.read()
-            if ret:
-                return frame
-
-        # Synthetic Fallback Frame
+    def _make_synthetic_frame(self):
         img = np.zeros((self.resolution[1], self.resolution[0], 3), dtype=np.uint8)
         cv2.circle(img, (self.resolution[0]//2, self.resolution[1]//2), 90, (140, 180, 210), -1)
         cv2.putText(img, "Synthetic Test Feed", (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
         return img
+
+    def capture_frame(self):
+        """Captures a single BGR frame safely handling 1, 3, or 4 channel inputs."""
+        if self.backend == "picamera2" and self.picam2:
+            try:
+                frame_arr = self.picam2.capture_array()
+                if frame_arr is None or frame_arr.size == 0:
+                    return self._make_synthetic_frame()
+
+                if len(frame_arr.shape) == 3:
+                    channels = frame_arr.shape[2]
+                    if channels == 4:
+                        # Picamera2 4-channel array (RGBA / XBGR)
+                        return cv2.cvtColor(frame_arr, cv2.COLOR_RGBA2BGR)
+                    elif channels == 3:
+                        # Picamera2 3-channel array (RGB)
+                        return cv2.cvtColor(frame_arr, cv2.COLOR_RGB2BGR)
+                    elif channels == 1:
+                        return cv2.cvtColor(frame_arr, cv2.COLOR_GRAY2BGR)
+                elif len(frame_arr.shape) == 2:
+                    return cv2.cvtColor(frame_arr, cv2.COLOR_GRAY2BGR)
+            except Exception as e:
+                print(f"[Camera Error] Picamera2 capture failed: {e}")
+                return self._make_synthetic_frame()
+
+        elif self.backend == "opencv" and self.cap and self.cap.isOpened():
+            try:
+                ret, frame = self.cap.read()
+                if ret and frame is not None and frame.size > 0:
+                    return ensure_bgr(frame)
+            except Exception as e:
+                print(f"[Camera Error] OpenCV capture failed: {e}")
+
+        # Synthetic Fallback Frame
+        return self._make_synthetic_frame()
 
     def release(self):
         if self.picam2:
@@ -225,6 +276,10 @@ class TFLiteClassifier:
         Runs object detection and returns list of detected lesion boxes:
         [{"box": (x1, y1, x2, y2), "condition": "Eczema", "confidence": 0.88, ...}, ...]
         """
+        if bgr_image is None or bgr_image.size == 0:
+            return []
+        bgr_image = ensure_bgr(bgr_image)
+
         detections = []
         if self.backend == "yolo":
             results = self.yolo_model.predict(source=bgr_image, conf=conf_threshold, imgsz=512, verbose=False)
@@ -251,6 +306,7 @@ class TFLiteClassifier:
 
     def predict(self, bgr_image) -> Dict[str, float]:
         """Returns aggregated dictionary mapping condition to top confidence score."""
+        bgr_image = ensure_bgr(bgr_image)
         detections = self.detect_objects(bgr_image, conf_threshold=0.15)
         prob_dict = {label: 0.01 for label in self.labels}
         for det in detections:
@@ -351,6 +407,9 @@ class TFLiteClassifier:
 
 def draw_clean_lesion_boxes(bgr_image, detections, show_labels: bool = False):
     """Draws crisp, high-precision neon yellow-green bounding boxes around all detected lesions."""
+    if bgr_image is None or bgr_image.size == 0:
+        return bgr_image
+    bgr_image = ensure_bgr(bgr_image)
     annotated = bgr_image.copy()
     h, w = annotated.shape[:2]
     # Crisp Neon Yellow-Green: BGR (20, 245, 185) / RGB (185, 245, 20)
@@ -385,6 +444,9 @@ class RealtimeAnalyzer:
 
     def process_frame(self, frame_bgr, run_ai: bool = True):
         """Processes frame, updates detection cache, and returns annotated frame + telemetry."""
+        if frame_bgr is None or frame_bgr.size == 0:
+            frame_bgr = np.zeros((480, 640, 3), dtype=np.uint8)
+        frame_bgr = ensure_bgr(frame_bgr)
         h, w = frame_bgr.shape[:2]
         quality = detect_skin_and_quality(frame_bgr, return_mask=True)
 

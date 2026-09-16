@@ -20,7 +20,7 @@ import numpy as np
 from flask import Flask, render_template, request, jsonify, session, send_from_directory, Response
 
 # Import AI Engine components
-from pi_scanner import TFLiteClassifier, RealtimeAnalyzer, EdgeCamera, detect_skin_and_quality, draw_clean_lesion_boxes
+from pi_scanner import TFLiteClassifier, RealtimeAnalyzer, EdgeCamera, detect_skin_and_quality, draw_clean_lesion_boxes, ensure_bgr
 from symptoms_db import check_red_flags, get_condition_info
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -444,6 +444,8 @@ def examine_rash():
 
         if frame_bgr is None or frame_bgr.size == 0:
             return jsonify({"success": False, "message": "Please upload an image or capture a camera frame for analysis."}), 400
+
+        frame_bgr = ensure_bgr(frame_bgr)
 
         # Step 1: Intelligent Quality & Focus Check
         quality = detect_skin_and_quality(frame_bgr)
