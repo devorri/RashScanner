@@ -22,6 +22,7 @@ sudo apt install -y \
   python3-dev \
   python3-picamera2 \
   python3-opencv \
+  v4l-utils \
   libatlas-base-dev \
   libopenblas-dev \
   libglib2.0-0 \
@@ -46,8 +47,11 @@ echo "[3/4] Installing Python packages in venv..."
 source venv/bin/activate
 pip install --upgrade pip setuptools wheel
 
-# Install required Python packages
-pip install Flask>=2.3.0 "numpy>=1.24.0,<2.0.0" opencv-python-headless Pillow
+# Install required Python packages (use pyOpenSSL for adhoc HTTPS and preserve system OpenCV)
+pip install Flask>=2.3.0 "numpy>=1.24.0,<2.0.0" Pillow pyOpenSSL
+
+# Verify OpenCV import; only install PyPI opencv-python if system python3-opencv was missing
+python3 -c "import cv2; print('OpenCV OK:', cv2.__version__)" 2>/dev/null || pip install opencv-python
 
 # Install TFLite Runtime (tries ai-edge-litert first, then tflite-runtime, then tensorflow)
 echo "Installing TFLite runtime backend..."

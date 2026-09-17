@@ -404,6 +404,29 @@ def camera_snap():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
+@app.route("/api/camera/status", methods=["GET"])
+def camera_status():
+    """Checks whether a hardware camera (Picamera2 or OpenCV USB) is available on the host."""
+    cam = get_camera()
+    return jsonify({
+        "success": True,
+        "is_hardware_available": getattr(cam, "is_hardware_available", False),
+        "backend": getattr(cam, "backend", "unknown"),
+        "resolution": getattr(cam, "resolution", [640, 480]),
+        "last_error": getattr(cam, "last_error", None)
+    })
+
+@app.route("/api/camera/reconnect", methods=["POST"])
+def camera_reconnect():
+    """Attempts to re-detect host cameras if hardware was plugged in after boot."""
+    cam = get_camera()
+    success = cam.reconnect() if hasattr(cam, "reconnect") else False
+    return jsonify({
+        "success": True,
+        "is_hardware_available": success,
+        "backend": getattr(cam, "backend", "unknown")
+    })
+
 # ------------------------------------------------------------------------------
 # 100% AI Examination Endpoint
 # ------------------------------------------------------------------------------
@@ -808,16 +831,22 @@ if __name__ == "__main__":
     parser.add_argument("--preset", "--model", "-m", type=str, default="current", choices=["current", "rash-22", "rash-50"], help="Select AI model preset (current, rash-22, rash-50)")
     parser.add_argument("positional_preset", nargs="?", default=None, help="Optional positional model preset name")
     parser.add_argument("--no-browser", action="store_true", help="Do not automatically open web browser")
+    parser.add_argument("--ssl", action="store_true", help="Run with HTTPS using adhoc SSL certificate (enables browser camera over LAN)")
     args = parser.parse_args()
 
     chosen_preset = args.positional_preset if (args.positional_preset and args.positional_preset in PRESET_DEFINITIONS) else args.preset
     load_model_preset(chosen_preset)
     active_info = PRESET_DEFINITIONS.get(ACTIVE_PRESET_KEY, {})
 
+    protocol = "https" if args.ssl else "http"
     print(f"\n=======================================================")
     print(f"   RASHILIENCE 100% AI SERVER RUNNING ON PORT {args.port}")
     print(f"   Active Model Preset : {chosen_preset.upper()} ({active_info.get('name', '')})")
-    print(f"   Access Web Portal   : http://localhost:{args.port}")
+    print(f"   Access Web Portal   : {protocol}://localhost:{args.port}")
+    if args.ssl:
+        print(f"   Mode                : HTTPS Active (Client WebRTC Camera Enabled over LAN)")
+    else:
+        print(f"   Notice              : Use --ssl to enable HTTPS for WebRTC camera over LAN")
     print(f"=======================================================\n")
 
     # Automatically open browser window immediately
@@ -825,9 +854,10 @@ if __name__ == "__main__":
         def open_browser_window():
             time.sleep(1.0)
             try:
-                webbrowser.open(f"http://localhost:{args.port}")
+                webbrowser.open(f"{protocol}://localhost:{args.port}")
             except Exception:
                 pass
         threading.Thread(target=open_browser_window, daemon=True).start()
 
-    app.run(host=args.host, port=args.port, debug=False)
+    ssl_ctx = "adhoc" if args.ssl else None
+    app.run(host=args.host, port=args.port, debug=False, ssl_context=ssl_ctx)

@@ -148,34 +148,94 @@ class EdgeCamera:
 
     def __init__(self, camera_index=0, resolution=(640, 480)):
         self.resolution = resolution
+        self.preferred_index = camera_index
         self.picam2 = None
         self.cap = None
         self.backend = None
+        self.is_hardware_available = False
+        self.last_error = None
+        self._init_hardware()
 
+    def _init_hardware(self):
+        """Attempts native Picamera2 first, then OpenCV across multiple V4L2/USB indices."""
+        # 1. Try Native Picamera2 (Raspberry Pi CSI ribbon camera)
         try:
             picam_mod = importlib.import_module("picamera2")
             Picamera2_cls = getattr(picam_mod, "Picamera2")
             self.picam2 = Picamera2_cls()
-            config = self.picam2.create_preview_configuration(main={"size": resolution})
+            # Video configuration is headless-safe and ideal for web streaming & CV
+            try:
+                config = self.picam2.create_video_configuration(main={"size": self.resolution, "format": "RGB888"})
+            except Exception:
+                config = self.picam2.create_preview_configuration(main={"size": self.resolution})
             self.picam2.configure(config)
             self.picam2.start()
             self.backend = "picamera2"
-            print("[Camera] Initialized native Raspberry Pi Picamera2!")
-        except Exception:
-            self.cap = cv2.VideoCapture(camera_index)
-            if self.cap.isOpened():
-                self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
-                self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
-                self.backend = "opencv"
-                print(f"[Camera] Initialized OpenCV VideoCapture({camera_index}).")
-            else:
-                self.backend = "synthetic"
-                print("[Camera Info] Switched to Synthetic Test Frame mode.")
+            self.is_hardware_available = True
+            print("[Camera] Initialized native Raspberry Pi Picamera2 successfully!")
+            return
+        except Exception as e_picam:
+            self.picam2 = None
+            print(f"[Camera Info] Picamera2 not active ({type(e_picam).__name__}: {e_picam}). Checking USB/V4L2 cameras...")
+
+        # 2. Try OpenCV across multiple camera indices (0, 1, 2, 4)
+        indices_to_try = [self.preferred_index]
+        for idx in [0, 1, 2, 3, 4]:
+            if idx not in indices_to_try:
+                indices_to_try.append(idx)
+
+        # On Linux/Pi, prefer V4L2 backend
+        backends_to_try = [cv2.CAP_V4L2, cv2.CAP_ANY] if hasattr(cv2, "CAP_V4L2") and sys.platform.startswith("linux") else [cv2.CAP_ANY]
+
+        for backend_flag in backends_to_try:
+            for idx in indices_to_try:
+                try:
+                    cap = cv2.VideoCapture(idx, backend_flag) if backend_flag != cv2.CAP_ANY else cv2.VideoCapture(idx)
+                    if cap.isOpened():
+                        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.resolution[0])
+                        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.resolution[1])
+                        # Verify that frames can actually be grabbed (avoid false-positive video codec nodes)
+                        ret, test_frame = cap.read()
+                        if ret and test_frame is not None and test_frame.size > 0:
+                            self.cap = cap
+                            self.backend = "opencv"
+                            self.is_hardware_available = True
+                            print(f"[Camera] Initialized OpenCV VideoCapture(index={idx}, backend={backend_flag}).")
+                            return
+                        else:
+                            cap.release()
+                except Exception as e_cv:
+                    pass
+
+        # 3. No hardware camera found
+        self.backend = "synthetic"
+        self.is_hardware_available = False
+        self.last_error = "No Raspberry Pi CSI or USB camera detected."
+        print("[Camera Info] No physical camera found on host. Host stream set to Standby.")
+
+    def reconnect(self):
+        """Attempts to re-detect host cameras if hardware was plugged in after launch."""
+        self.release()
+        self._init_hardware()
+        return self.is_hardware_available
 
     def _make_synthetic_frame(self):
-        img = np.zeros((self.resolution[1], self.resolution[0], 3), dtype=np.uint8)
-        cv2.circle(img, (self.resolution[0]//2, self.resolution[1]//2), 90, (140, 180, 210), -1)
-        cv2.putText(img, "Synthetic Test Feed", (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        """Renders an informative, high-contrast dark medical HUD graphic when no host camera is connected."""
+        w, h = self.resolution[0], self.resolution[1]
+        img = np.zeros((h, w, 3), dtype=np.uint8)
+        img[:] = (18, 22, 28) # Clean dark slate background
+
+        # Draw outer grid & medical crosshairs
+        cv2.rectangle(img, (20, 20), (w - 20, h - 20), (45, 55, 72), 1)
+        cx, cy = w // 2, h // 2
+        cv2.line(img, (cx - 35, cy), (cx + 35, cy), (0, 210, 255), 1)
+        cv2.line(img, (cx, cy - 35), (cx, cy + 35), (0, 210, 255), 1)
+        cv2.circle(img, (cx, cy), 45, (0, 210, 255), 1)
+
+        # Draw Clean Status Typography
+        cv2.putText(img, "HOST PI CAMERA STANDBY", (cx - 165, cy - 70), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 210, 255), 2)
+        cv2.putText(img, "No Hardware Camera on Host", (cx - 135, cy + 80), cv2.FONT_HERSHEY_SIMPLEX, 0.52, (200, 210, 225), 1)
+        cv2.putText(img, "Use Device Webcam / Native Photo Button", (cx - 175, cy + 105), cv2.FONT_HERSHEY_SIMPLEX, 0.46, (140, 160, 180), 1)
         return img
 
     def capture_frame(self):
@@ -189,10 +249,8 @@ class EdgeCamera:
                 if len(frame_arr.shape) == 3:
                     channels = frame_arr.shape[2]
                     if channels == 4:
-                        # Picamera2 4-channel array (RGBA / XBGR)
                         return cv2.cvtColor(frame_arr, cv2.COLOR_RGBA2BGR)
                     elif channels == 3:
-                        # Picamera2 3-channel array (RGB)
                         return cv2.cvtColor(frame_arr, cv2.COLOR_RGB2BGR)
                     elif channels == 1:
                         return cv2.cvtColor(frame_arr, cv2.COLOR_GRAY2BGR)
@@ -210,7 +268,6 @@ class EdgeCamera:
             except Exception as e:
                 print(f"[Camera Error] OpenCV capture failed: {e}")
 
-        # Synthetic Fallback Frame
         return self._make_synthetic_frame()
 
     def release(self):
@@ -219,8 +276,15 @@ class EdgeCamera:
                 self.picam2.stop()
             except Exception:
                 pass
+            self.picam2 = None
         if self.cap:
-            self.cap.release()
+            try:
+                self.cap.release()
+            except Exception:
+                pass
+            self.cap = None
+        self.backend = None
+        self.is_hardware_available = False
 
 # ------------------------------------------------------------------------------
 # 100% AI YOLOv11 / TFLite Computer Vision Detector
