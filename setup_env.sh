@@ -47,15 +47,18 @@ echo "[3/4] Installing Python packages in venv..."
 source venv/bin/activate
 pip install --upgrade pip setuptools wheel
 
-# Install required Python packages (use pyOpenSSL for adhoc HTTPS and preserve system OpenCV)
-pip install Flask>=2.3.0 "numpy>=1.24.0,<2.0.0" Pillow pyOpenSSL
+# Install ALL required Python packages from requirements.txt
+pip install -r requirements.txt
+
+# Also install pyOpenSSL for optional adhoc HTTPS support
+pip install pyOpenSSL || true
 
 # Verify OpenCV import; only install PyPI opencv-python if system python3-opencv was missing
-python3 -c "import cv2; print('OpenCV OK:', cv2.__version__)" 2>/dev/null || pip install opencv-python
+python3 -c "import cv2; print('OpenCV OK:', cv2.__version__)" 2>/dev/null || pip install opencv-python-headless
 
-# Install TFLite Runtime (tries ai-edge-litert first, then tflite-runtime, then tensorflow)
+# Install TFLite Runtime as additional fallback backend
 echo "Installing TFLite runtime backend..."
-pip install ai-edge-litert || pip install tflite-runtime || pip install tensorflow || true
+pip install ai-edge-litert || pip install tflite-runtime || true
 
 # 4. Verification Check
 echo ""

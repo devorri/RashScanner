@@ -449,6 +449,8 @@ class TFLiteClassifier:
     def rank_predictions(self, prob_dict: Dict[str, float], top_k: int = 12) -> List[Dict[str, Any]]:
         """
         Ranks conditions directly based on the model's actual outputs without artificial manipulation.
+        For classification models (rash-22, rash-50), softmax outputs already sum to ~100%.
+        For detection models (12-class), raw scores are normalized to sum to 100% for consistency.
         """
         if not prob_dict:
             return []
@@ -463,6 +465,12 @@ class TFLiteClassifier:
 
         if not sorted_raw or sorted_raw[0][1] <= 0.0:
             return []
+
+        # Normalize scores so they always sum to exactly 100%
+        # Classification models (softmax) already sum to ~1.0, detection models may not
+        total_score = sum(score for _, score in sorted_raw)
+        if total_score > 0:
+            sorted_raw = [(lbl, score / total_score) for lbl, score in sorted_raw]
 
         results = []
         for rank, (cond, conf) in enumerate(sorted_raw[:top_k], start=1):
@@ -531,25 +539,19 @@ class RealtimeAnalyzer:
         quality = detect_skin_and_quality(frame_bgr, return_mask=True)
 
         if run_ai:
-            if quality["is_valid"]:
-                # Run YOLOv11 Object Detection
-                self.cached_detections = self.classifier.detect_objects(frame_bgr, conf_threshold=0.25)
-                
-                if self.cached_detections:
-                    self.cached_detections.sort(key=lambda d: d["confidence"], reverse=True)
-                    top = self.cached_detections[0]
-                    self.cached_status = f"{top['condition']} ({top['ai_confidence_pct']}%) - {len(self.cached_detections)} lesion(s)"
-                    
-                    prob_dict = self.classifier.predict(frame_bgr)
-                    self.cached_predictions = self.classifier.rank_predictions(prob_dict, top_k=5)
-                else:
-                    self.cached_status = "Skin detected • Scanning for lesions..."
-                    prob_dict = self.classifier.predict(frame_bgr)
-                    self.cached_predictions = self.classifier.rank_predictions(prob_dict, top_k=5)
+            # Always run AI inference — let the model decide, never gate on skin/quality checks
+            self.cached_detections = self.classifier.detect_objects(frame_bgr, conf_threshold=0.15)
+
+            if self.cached_detections:
+                self.cached_detections.sort(key=lambda d: d["confidence"], reverse=True)
+                top = self.cached_detections[0]
+                self.cached_status = f"{top['condition']} ({top['ai_confidence_pct']}%) - {len(self.cached_detections)} lesion(s)"
             else:
-                self.cached_predictions = []
-                self.cached_detections = []
-                self.cached_status = quality["error"] or "Position skin in frame"
+                self.cached_status = "Scanning..."
+
+            # Always run full prediction ranking
+            prob_dict = self.classifier.predict(frame_bgr)
+            self.cached_predictions = self.classifier.rank_predictions(prob_dict, top_k=5)
 
         # Draw Clean Neon Bounding Boxes onto frame
         annotated = draw_clean_lesion_boxes(frame_bgr, self.cached_detections)
