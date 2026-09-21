@@ -492,15 +492,20 @@ def examine_rash():
         red_flags = check_red_flags(symptoms_text)
 
         top_score = ranked_matches[0]["confidence"] if ranked_matches else 0.0
-        is_low_confidence = bool(top_score < 0.20)
+        is_low_confidence = bool(top_score < 0.20) or not ranked_matches
 
-        if is_low_confidence:
+        if not ranked_matches:
+            primary_diag = "Inconclusive (No Lesion Detected)"
+            ddx_1 = "No distinct dermatological lesion recognized"
+            ddx_2 = ""
+            ddx_3 = ""
+        elif is_low_confidence:
             primary_diag = "Inconclusive (Low AI Confidence)"
-            ddx_1 = f"Possible: {ranked_matches[0]['condition'].replace('_', ' ')} ({(top_score*100):.1f}%)" if ranked_matches else ""
+            ddx_1 = f"Possible: {ranked_matches[0]['condition'].replace('_', ' ')} ({(top_score*100):.1f}%)"
             ddx_2 = f"Possible: {ranked_matches[1]['condition'].replace('_', ' ')} ({(ranked_matches[1]['confidence']*100):.1f}%)" if len(ranked_matches) > 1 else ""
             ddx_3 = f"Possible: {ranked_matches[2]['condition'].replace('_', ' ')} ({(ranked_matches[2]['confidence']*100):.1f}%)" if len(ranked_matches) > 2 else ""
         else:
-            primary_diag = ranked_matches[0]["condition"].replace("_", " ") if ranked_matches else "Inconclusive"
+            primary_diag = ranked_matches[0]["condition"].replace("_", " ")
             ddx_1 = ranked_matches[1]["condition"].replace("_", " ") if len(ranked_matches) > 1 else ""
             ddx_2 = ranked_matches[2]["condition"].replace("_", " ") if len(ranked_matches) > 2 else ""
             ddx_3 = ranked_matches[3]["condition"].replace("_", " ") if len(ranked_matches) > 3 else ""

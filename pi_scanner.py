@@ -322,10 +322,11 @@ class TFLiteClassifier:
             try:
                 from ultralytics import YOLO
                 self.yolo_model = YOLO(model_path)
+                self.task = getattr(self.yolo_model, "task", "detect")
                 if hasattr(self.yolo_model, "names") and self.yolo_model.names:
                     self.labels = list(self.yolo_model.names.values())
                 self.backend = "yolo"
-                print(f"[AI Model] Loaded YOLOv11 Model from '{model_path}' ({len(self.labels)} classes).")
+                print(f"[AI Model] Loaded YOLOv11 Model from '{model_path}' ({len(self.labels)} classes, task={self.task}).")
                 return
             except Exception as e:
                 print(f"[AI Model Warning] Failed to load via Ultralytics: {e}. Checking TFLite fallback...")
@@ -345,74 +346,133 @@ class TFLiteClassifier:
             self.input_details = self.interpreter.get_input_details()
             self.output_details = self.interpreter.get_output_details()
             self.backend = "tflite"
+            self.task = "detect"
             print(f"[AI Model] Loaded TFLite Model from '{tflite_fallback}'.")
         else:
             raise FileNotFoundError(f"Neither {model_path} nor {tflite_fallback} found.")
 
     def detect_objects(self, bgr_image, conf_threshold: float = 0.20) -> List[Dict[str, Any]]:
         """
-        Runs object detection and returns list of detected lesion boxes:
-        [{"box": (x1, y1, x2, y2), "condition": "Eczema", "confidence": 0.88, ...}, ...]
+        Runs object detection and returns list of detected lesion boxes.
+        Handles both YOLO detection models (r.boxes) and classification models (r.probs).
         """
         if bgr_image is None or bgr_image.size == 0:
             return []
         bgr_image = ensure_bgr(bgr_image)
+        h, w = bgr_image.shape[:2]
 
         detections = []
         if self.backend == "yolo":
-            results = self.yolo_model.predict(source=bgr_image, conf=conf_threshold, imgsz=512, verbose=False)
-            for r in results:
-                boxes = r.boxes
-                for box in boxes:
-                    xyxy = box.xyxy[0].cpu().numpy().astype(int)
-                    cls_id = int(box.cls[0])
-                    conf = float(box.conf[0])
-                    cond_name = self.labels[cls_id] if cls_id < len(self.labels) else f"Condition_{cls_id}"
-                    info = get_condition_info(cond_name)
-                    
-                    detections.append({
-                        "box": (int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])),
-                        "condition": cond_name,
-                        "confidence": conf,
-                        "ai_confidence_pct": round(conf * 100, 1),
-                        "severity": info.get("severity", "Moderate"),
-                        "description": info.get("description", ""),
-                        "red_flags": info.get("red_flags", []),
-                        "contagious": get_contagious_status(cond_name)
-                    })
+            is_classify = getattr(self, "task", "detect") == "classify"
+
+            if is_classify:
+                # Classification model (e.g. rash-22, rash-50)
+                results = self.yolo_model.predict(source=bgr_image, imgsz=256, verbose=False)
+                if results and len(results) > 0 and getattr(results[0], "probs", None) is not None:
+                    probs = results[0].probs
+                    top1_id = int(probs.top1)
+                    top1_conf = float(probs.top1conf)
+                    cond_name = self.labels[top1_id] if top1_id < len(self.labels) else f"Condition_{top1_id}"
+
+                    # Ignore normal or background classes if below threshold
+                    if top1_conf >= conf_threshold and cond_name.lower() not in ["unknown_normal", "normal"]:
+                        info = get_condition_info(cond_name)
+                        # Center region reticle box for classification visualization
+                        margin_x, margin_y = int(w * 0.15), int(h * 0.15)
+                        detections.append({
+                            "box": (margin_x, margin_y, w - margin_x, h - margin_y),
+                            "condition": cond_name,
+                            "confidence": top1_conf,
+                            "ai_confidence_pct": round(top1_conf * 100, 1),
+                            "severity": info.get("severity", "Moderate"),
+                            "description": info.get("description", ""),
+                            "red_flags": info.get("red_flags", []),
+                            "contagious": get_contagious_status(cond_name)
+                        })
+            else:
+                # Object detection model with bounding boxes (e.g. 12-class root best.pt)
+                results = self.yolo_model.predict(source=bgr_image, conf=conf_threshold, imgsz=512, verbose=False)
+                for r in results:
+                    boxes = getattr(r, "boxes", None)
+                    if boxes is None:
+                        continue
+                    for box in boxes:
+                        xyxy = box.xyxy[0].cpu().numpy().astype(int)
+                        cls_id = int(box.cls[0])
+                        conf = float(box.conf[0])
+                        cond_name = self.labels[cls_id] if cls_id < len(self.labels) else f"Condition_{cls_id}"
+                        info = get_condition_info(cond_name)
+
+                        detections.append({
+                            "box": (int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])),
+                            "condition": cond_name,
+                            "confidence": conf,
+                            "ai_confidence_pct": round(conf * 100, 1),
+                            "severity": info.get("severity", "Moderate"),
+                            "description": info.get("description", ""),
+                            "red_flags": info.get("red_flags", []),
+                            "contagious": get_contagious_status(cond_name)
+                        })
         return detections
 
     def predict(self, bgr_image) -> Dict[str, float]:
-        """Returns aggregated dictionary mapping condition to top confidence score."""
+        """Returns aggregated dictionary mapping condition to true AI confidence score."""
         bgr_image = ensure_bgr(bgr_image)
-        detections = self.detect_objects(bgr_image, conf_threshold=0.15)
-        prob_dict = {label: 0.01 for label in self.labels}
-        for det in detections:
-            cond = det["condition"]
-            prob_dict[cond] = max(prob_dict.get(cond, 0.0), det["confidence"])
-        return prob_dict
+        if bgr_image is None or bgr_image.size == 0:
+            return {label: 0.0 for label in self.labels}
+
+        if self.backend == "yolo":
+            if getattr(self, "task", "detect") == "classify":
+                # Direct classification probabilities
+                results = self.yolo_model.predict(source=bgr_image, imgsz=256, verbose=False)
+                if results and len(results) > 0 and getattr(results[0], "probs", None) is not None:
+                    probs_tensor = results[0].probs.data.cpu().numpy()
+                    prob_dict = {}
+                    for idx, p in enumerate(probs_tensor):
+                        name = self.labels[idx] if idx < len(self.labels) else f"Class_{idx}"
+                        prob_dict[name] = float(p)
+                    return prob_dict
+                return {label: 0.0 for label in self.labels}
+            else:
+                # Object detection model: only populate if lesions were actually detected
+                detections = self.detect_objects(bgr_image, conf_threshold=0.25)
+                if not detections:
+                    return {label: 0.0 for label in self.labels}
+
+                prob_dict = {label: 0.0 for label in self.labels}
+                for det in detections:
+                    cond = det["condition"]
+                    prob_dict[cond] = max(prob_dict.get(cond, 0.0), det["confidence"])
+                return prob_dict
+
+        return {label: 0.0 for label in self.labels}
 
     def rank_predictions(self, prob_dict: Dict[str, float], top_k: int = 12) -> List[Dict[str, Any]]:
         """
-        Formats and ranks AI Accuracy Levels with medical differential distribution:
-        - Top 1 Accuracy Level is always >= 50.0%.
-        - Visually similar conditions (e.g. Chickenpox <-> Acne/Pimple, Eczema <-> Psoriasis)
-          receive realistic proportional differential percentages.
-        - The sum of ALL condition accuracy levels equals exactly 100.0%.
+        Formats and ranks AI Accuracy Levels:
+        - If no lesion detected or max raw confidence < 0.15: returns empty (Inconclusive).
+        - If real lesions detected: accurately distributes confidence and differential diagnosis.
         """
         all_labels = self.labels if self.labels else list(prob_dict.keys())
         if not all_labels:
             all_labels = list(prob_dict.keys())
 
         # Raw scores
-        raw_items = {lbl: float(prob_dict.get(lbl, 0.01)) for lbl in all_labels}
+        raw_items = {lbl: float(prob_dict.get(lbl, 0.0)) for lbl in all_labels}
         sorted_raw = sorted(raw_items.items(), key=lambda item: item[1], reverse=True)
+
+        if not sorted_raw:
+            return []
 
         top_cond, top_raw_score = sorted_raw[0]
 
-        # Calculate calibrated Top 1 percentage (always >= 50.0%)
-        # Ranges from 52.0% to 88.0% based on detection confidence
-        top_pct = max(50.0, min(88.0, 50.0 + (top_raw_score * 38.0)))
+        # If highest raw confidence is below threshold or unknown normal, no lesion is recognized
+        if top_raw_score < 0.15 or top_cond.lower() in ["unknown_normal", "normal"]:
+            return []
+
+        # Calculate calibrated Top 1 percentage based on real detection confidence
+        # Scaled between 52.0% and 88.0%
+        top_pct = max(52.0, min(88.0, 50.0 + (top_raw_score * 40.0)))
         remaining_pool = 100.0 - top_pct
 
         # Find lookalike conditions for top condition
