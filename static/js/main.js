@@ -474,11 +474,12 @@ function toggleSymptomChip(checkbox) {
 }
 
 // -----------------------------------------------------------------------------
-// FULL-SCREEN REAL-TIME AI CAMERA SCANNER LOGIC (CLIENT WEBCAM + PI HARDWARE)
+// FULL-SCREEN REAL-TIME AI WEBCAM SCANNER LOGIC
 // -----------------------------------------------------------------------------
-let currentCameraSource = 'webcam'; // 'webcam' or 'host'
 let clientMediaStream = null;
-let currentFacingMode = 'environment'; // 'environment' (back) or 'user' (front)
+let currentFacingMode = 'user'; // 'user' (front/webcam) or 'environment' (back)
+let availableVideoDevices = [];
+let currentDeviceIndex = 0;
 let reticleAnimFrameId = null;
 let scanLineY = 0;
 let scanLineDir = 1;
@@ -492,18 +493,18 @@ async function openCameraFullscreen(event) {
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
 
-    // Check host hardware camera status in background
-    checkHostCameraAvailability();
+    // Query available video devices
+    await updateAvailableVideoDevices();
 
-    // Default to Client Webcam (Laptop/Phone Camera)
-    await switchCameraSource('webcam');
+    // Start Real-Time Webcam
+    await startClientWebcam();
 }
 
 function closeCameraFullscreen() {
     const modal = document.getElementById('cameraFullscreenModal');
     if (!modal) return;
 
-    // 1. Stop Client Webcam Tracks
+    // 1. Stop Webcam Tracks
     stopClientWebcamTracks();
 
     // 2. Stop Canvas Reticle Animation
@@ -512,82 +513,17 @@ function closeCameraFullscreen() {
         reticleAnimFrameId = null;
     }
 
-    // 3. Stop Host Stream & Telemetry Polling
-    const streamImg = document.getElementById('liveMjpegStream');
-    if (streamImg) streamImg.src = '';
-    if (realtimePollInterval) {
-        clearInterval(realtimePollInterval);
-        realtimePollInterval = null;
-    }
-
     modal.classList.add('hidden');
     modal.style.display = 'none';
 }
 
-async function checkHostCameraAvailability() {
+async function updateAvailableVideoDevices() {
     try {
-        const res = await fetch('/api/camera/status');
-        const data = await res.json();
-        const btnHost = document.getElementById('btnSourceHost');
-        if (btnHost) {
-            if (data.is_hardware_available) {
-                btnHost.title = `Host Pi Camera Active (${data.backend})`;
-                btnHost.innerHTML = `<i class="fa-solid fa-microchip text-success"></i> <span>Pi Cam</span>`;
-            } else {
-                btnHost.title = "Host Pi Camera Standby / Disconnected";
-                btnHost.innerHTML = `<i class="fa-solid fa-microchip" style="opacity:0.6;"></i> <span>Pi Cam</span>`;
-            }
-        }
-    } catch (e) {}
-}
-
-async function switchCameraSource(source) {
-    currentCameraSource = source;
-    const btnWebcam = document.getElementById('btnSourceWebcam');
-    const btnHost = document.getElementById('btnSourceHost');
-    const video = document.getElementById('clientWebcamVideo');
-    const streamImg = document.getElementById('liveMjpegStream');
-    const insecureNotice = document.getElementById('camInsecureNotice');
-
-    if (source === 'webcam') {
-        if (btnWebcam) btnWebcam.classList.add('active');
-        if (btnHost) btnHost.classList.remove('active');
-
-        // Stop host stream & polling
-        if (streamImg) {
-            streamImg.src = '';
-            streamImg.style.display = 'none';
-        }
-        if (realtimePollInterval) {
-            clearInterval(realtimePollInterval);
-            realtimePollInterval = null;
-        }
-
-        // Start client webcam
-        if (video) video.style.display = 'block';
-        await startClientWebcam();
-
-    } else if (source === 'host') {
-        if (btnHost) btnHost.classList.add('active');
-        if (btnWebcam) btnWebcam.classList.remove('active');
-
-        // Stop client webcam
-        stopClientWebcamTracks();
-        if (video) video.style.display = 'none';
-        if (insecureNotice) insecureNotice.style.display = 'none';
-
-        // Start host MJPEG stream
-        if (streamImg) {
-            streamImg.style.display = 'block';
-            streamImg.src = `/api/video_feed?t=${Date.now()}`;
-        }
-
-        // Start telemetry polling for host camera
-        if (realtimePollInterval) clearInterval(realtimePollInterval);
-        realtimePollInterval = setInterval(pollRealtimeStatus, 300);
-
-        const subInfo = document.getElementById('hudSubInfo');
-        if (subInfo) subInfo.textContent = "Streaming from Host Raspberry Pi Camera";
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        availableVideoDevices = devices.filter(d => d.kind === 'videoinput');
+    } catch (e) {
+        availableVideoDevices = [];
     }
 }
 
@@ -609,53 +545,71 @@ async function startClientWebcam() {
                 msg.innerHTML = "Webcam blocked by browser security (HTTP LAN Origin).<br><small style='color:#94a3b8;'>Modern browsers require HTTPS or localhost to prompt for webcam.</small>";
             }
         }
-        if (subInfo) subInfo.textContent = "Tap 'Open Native Camera Photo' or switch to Host Pi Cam";
+        if (subInfo) subInfo.textContent = "Tap 'Open Native Camera Photo' below to snap a picture";
         return;
     }
 
     if (insecureNotice) insecureNotice.style.display = 'none';
 
-    try {
-        const constraints = {
-            video: {
-                facingMode: currentFacingMode,
-                width: { ideal: 1280 },
-                height: { ideal: 720 }
-            },
-            audio: false
-        };
+    // Attempt preferred constraint first, with fallback to basic video
+    let stream = null;
+    const selectedDeviceId = (availableVideoDevices.length > 0 && availableVideoDevices[currentDeviceIndex])
+        ? availableVideoDevices[currentDeviceIndex].deviceId
+        : null;
 
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        clientMediaStream = stream;
+    const attempts = [];
+    if (selectedDeviceId) {
+        attempts.push({ video: { deviceId: { exact: selectedDeviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+        attempts.push({ video: { deviceId: { exact: selectedDeviceId } }, audio: false });
+    }
+    attempts.push({ video: { facingMode: currentFacingMode, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+    attempts.push({ video: { facingMode: currentFacingMode }, audio: false });
+    attempts.push({ video: true, audio: false });
 
-        if (video) {
-            video.srcObject = stream;
-            await video.play();
-            startReticleAnimation();
+    for (const constraints of attempts) {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            if (stream) break;
+        } catch (err) {
+            // Try next constraint
         }
+    }
 
-        if (subInfo) subInfo.textContent = "Client Device Camera Active • Target lesion in reticle";
-        const topCond = document.getElementById('hudTopCondition');
-        if (topCond) topCond.textContent = "Position camera on skin lesion...";
-        const topConf = document.getElementById('hudTopConfidence');
-        if (topConf) topConf.textContent = "LIVE";
-
-    } catch (err) {
-        console.warn("[Webcam] getUserMedia failed:", err);
+    if (!stream) {
+        console.warn("[Webcam] Unable to start webcam on any constraint.");
         if (insecureNotice) {
             insecureNotice.classList.remove('hidden');
             insecureNotice.style.display = 'block';
             const msg = document.getElementById('camInsecureMessage');
             if (msg) {
-                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-                    msg.innerHTML = "⚠️ Camera permission was blocked.<br><small>Please allow camera permissions in your browser URL bar.</small>";
-                } else {
-                    msg.innerHTML = `⚠️ Camera access failed: ${err.message || err.name}`;
-                }
+                msg.innerHTML = "⚠️ Camera access was blocked or unavailable.<br><small>Please allow camera permissions in your browser URL bar.</small>";
             }
         }
         if (subInfo) subInfo.textContent = "Use 'Open Native Camera Photo' button below";
+        return;
     }
+
+    clientMediaStream = stream;
+
+    if (video) {
+        video.srcObject = stream;
+        try {
+            await video.play();
+        } catch (playErr) {
+            console.warn("[Webcam] video.play error:", playErr);
+        }
+        startReticleAnimation();
+    }
+
+    const deviceLabel = (availableVideoDevices.length > 0 && availableVideoDevices[currentDeviceIndex]?.label)
+        ? availableVideoDevices[currentDeviceIndex].label
+        : "Webcam";
+
+    if (subInfo) subInfo.textContent = `${deviceLabel} Active • Position lesion in reticle`;
+    const topCond = document.getElementById('hudTopCondition');
+    if (topCond) topCond.textContent = "Position camera on skin lesion...";
+    const topConf = document.getElementById('hudTopConfidence');
+    if (topConf) topConf.textContent = "READY";
 }
 
 function stopClientWebcamTracks() {
@@ -669,11 +623,13 @@ function stopClientWebcamTracks() {
     if (video) video.srcObject = null;
 }
 
-function flipWebcamFacingMode() {
-    currentFacingMode = (currentFacingMode === 'environment') ? 'user' : 'environment';
-    if (currentCameraSource === 'webcam') {
-        startClientWebcam();
+async function flipWebcamFacingMode() {
+    if (availableVideoDevices.length > 1) {
+        currentDeviceIndex = (currentDeviceIndex + 1) % availableVideoDevices.length;
+    } else {
+        currentFacingMode = (currentFacingMode === 'user') ? 'environment' : 'user';
     }
+    await startClientWebcam();
 }
 
 function triggerNativeCameraSnap(event) {
@@ -834,110 +790,66 @@ async function captureRealtimeSnapshot() {
     }
 
     try {
-        // CASE A: Client Device Webcam (Capture high-res frame from <video>)
-        if (currentCameraSource === 'webcam') {
-            const video = document.getElementById('clientWebcamVideo');
-            if (!video || !video.videoWidth || !video.videoHeight) {
-                alert('No active webcam video stream to capture. Please allow camera permission or tap Direct Snap.');
-                return;
+        const video = document.getElementById('clientWebcamVideo');
+        if (!video || !video.videoWidth || !video.videoHeight) {
+            alert('No active webcam video stream to capture. Please allow camera permissions or tap Direct Snap.');
+            return;
+        }
+
+        const canvas = document.getElementById('captureCanvas') || document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageBase64 = canvas.toDataURL('image/jpeg', 0.92);
+
+        // Send base64 frame to 100% AI examination endpoint
+        const formData = new FormData();
+        const symptomsText = document.getElementById('associated_symptoms') ?
+            document.getElementById('associated_symptoms').value.trim() : '';
+        formData.append('associated_symptoms', symptomsText);
+        formData.append('image_base64', imageBase64);
+
+        const res = await fetch('/api/examine', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (!data.success && data.error_type === 'quality_rejection') {
+            alert('⚠️ ' + data.message);
+            return;
+        }
+
+        if (data.success) {
+            closeCameraFullscreen();
+
+            currentImageFilename = data.image_filename;
+            currentImageBase64 = null;
+            selectedImageFile = null;
+            currentAiResults = data.top_matches;
+
+            const preview = document.getElementById('imagePreview');
+            const previewBox = document.getElementById('imagePreviewBox');
+            const dropzone = document.getElementById('imageDropzone');
+
+            if (preview) preview.src = data.image_url;
+            if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
+            if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
+
+            renderAiResultsTable(data.top_matches);
+
+            if (data.suggestions) {
+                const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+                set('primary_diagnosis', data.suggestions.primary_diagnosis);
+                set('ddx_1', data.suggestions.ddx_1);
+                set('ddx_2', data.suggestions.ddx_2);
+                set('ddx_3', data.suggestions.ddx_3);
             }
 
-            const canvas = document.getElementById('captureCanvas') || document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageBase64 = canvas.toDataURL('image/jpeg', 0.92);
-
-            // Send base64 frame to 100% AI examination endpoint
-            const formData = new FormData();
-            const symptomsText = document.getElementById('associated_symptoms') ?
-                document.getElementById('associated_symptoms').value.trim() : '';
-            formData.append('associated_symptoms', symptomsText);
-            formData.append('image_base64', imageBase64);
-
-            const res = await fetch('/api/examine', { method: 'POST', body: formData });
-            const data = await res.json();
-
-            if (!data.success && data.error_type === 'quality_rejection') {
-                alert('⚠️ ' + data.message);
-                return;
-            }
-
-            if (data.success) {
-                closeCameraFullscreen();
-
-                currentImageFilename = data.image_filename;
-                currentImageBase64 = null;
-                selectedImageFile = null;
-                currentAiResults = data.top_matches;
-
-                const preview = document.getElementById('imagePreview');
-                const previewBox = document.getElementById('imagePreviewBox');
-                const dropzone = document.getElementById('imageDropzone');
-
-                if (preview) preview.src = data.image_url;
-                if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
-                if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
-
-                renderAiResultsTable(data.top_matches);
-
-                if (data.suggestions) {
-                    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
-                    set('primary_diagnosis', data.suggestions.primary_diagnosis);
-                    set('ddx_1', data.suggestions.ddx_1);
-                    set('ddx_2', data.suggestions.ddx_2);
-                    set('ddx_3', data.suggestions.ddx_3);
-                }
-
-                alert(`✅ Snapshot diagnosed in ${data.inference_time_ms} ms!\nTop AI Match: ${data.suggestions.primary_diagnosis} (${data.top_score}%)`);
-            } else {
-                alert('Capture Error: ' + (data.message || 'Unknown error'));
-            }
-
-        // CASE B: Host Raspberry Pi Hardware Camera
+            alert(`✅ Snapshot diagnosed in ${data.inference_time_ms} ms!\nTop AI Match: ${data.suggestions.primary_diagnosis} (${data.top_score}%)`);
         } else {
-            const res = await fetch('/api/realtime/capture', { method: 'POST' });
-            const data = await res.json();
-
-            if (!data.success && data.error_type === 'quality_rejection') {
-                alert('⚠️ ' + data.message);
-                return;
-            }
-
-            if (data.success) {
-                closeCameraFullscreen();
-
-                currentImageFilename = data.filename;
-                currentImageBase64 = null;
-                selectedImageFile = null;
-                currentAiResults = data.top_matches;
-
-                const preview = document.getElementById('imagePreview');
-                const previewBox = document.getElementById('imagePreviewBox');
-                const dropzone = document.getElementById('imageDropzone');
-
-                if (preview) preview.src = data.image_url;
-                if (previewBox) { previewBox.classList.remove('hidden'); previewBox.style.display = ''; }
-                if (dropzone) { dropzone.classList.add('hidden'); dropzone.style.display = 'none'; }
-
-                renderAiResultsTable(data.top_matches);
-
-                if (data.suggestions) {
-                    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
-                    set('primary_diagnosis', data.suggestions.primary_diagnosis);
-                    set('ddx_1', data.suggestions.ddx_1);
-                    set('ddx_2', data.suggestions.ddx_2);
-                    set('ddx_3', data.suggestions.ddx_3);
-                }
-
-                alert(`✅ Host Camera diagnosed in ${data.inference_time_ms} ms!\nTop AI Match: ${data.suggestions.primary_diagnosis} (${data.top_score}%)`);
-            } else {
-                alert('Capture Error: ' + (data.message || 'Unknown error'));
-            }
+            alert('Capture Error: ' + (data.message || 'Unknown error'));
         }
     } catch (e) {
-        alert('Real-Time Capture Failed: ' + e);
+        alert('Webcam Capture Failed: ' + e);
     }
 }
 

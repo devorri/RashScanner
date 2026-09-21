@@ -406,14 +406,13 @@ def camera_snap():
 
 @app.route("/api/camera/status", methods=["GET"])
 def camera_status():
-    """Checks whether a hardware camera (Picamera2 or OpenCV USB) is available on the host."""
-    cam = get_camera()
+    """Returns client webcam status without seizing host camera devices."""
     return jsonify({
         "success": True,
-        "is_hardware_available": getattr(cam, "is_hardware_available", False),
-        "backend": getattr(cam, "backend", "unknown"),
-        "resolution": getattr(cam, "resolution", [640, 480]),
-        "last_error": getattr(cam, "last_error", None)
+        "is_hardware_available": False,
+        "backend": "webcam",
+        "resolution": [1280, 720],
+        "message": "Client Device Webcam mode enabled"
     })
 
 @app.route("/api/camera/reconnect", methods=["POST"])

@@ -51,15 +51,15 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     """
     Validates image before neural network inference:
     1. Skin Color Distribution: Multi-space (YCrCb + HSV) detector supporting Fitzpatrick tones I-VI.
-    2. Blur / Focus Clarity: Laplacian variance check.
-    3. Lighting / Exposure: Brightness level analysis.
+    2. Lighting / Exposure: Brightness level analysis.
+    (Note: Blur / sharpness gating has been removed so scans and webcam captures are never rejected for blur.)
     """
     if bgr_image is None or not isinstance(bgr_image, np.ndarray) or bgr_image.size == 0:
         res = {
             "is_valid": False,
             "skin_detected": False,
             "skin_ratio": 0.0,
-            "is_blurry": True,
+            "is_blurry": False,
             "blur_score": 0.0,
             "brightness": 0.0,
             "error": "Empty or invalid image frame"
@@ -90,38 +90,34 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     skin_pixels = cv2.countNonZero(skin_mask)
     skin_ratio = skin_pixels / total_pixels
 
-    # 2. Blur / Sharpness check
+    # Sharpness calculation (purely informational telemetry, never invalidates image)
     gray = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2GRAY)
-    blur_score = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+    try:
+        blur_score = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+    except Exception:
+        blur_score = 0.0
 
-    # 3. Brightness level check
+    # 2. Brightness level check
     brightness = float(np.mean(gray))
 
-    MIN_SKIN_RATIO = 0.05   # At least 5% skin presence
-    MIN_BLUR_SCORE = 8.0    # Sharpness threshold (lowered — skin close-ups have less edge detail)
-    MIN_BRIGHTNESS = 20.0
-    MAX_BRIGHTNESS = 245.0
+    MIN_SKIN_RATIO = 0.02   # Generous skin presence threshold
+    MIN_BRIGHTNESS = 15.0
+    MAX_BRIGHTNESS = 250.0
 
     skin_detected = bool(skin_ratio >= MIN_SKIN_RATIO)
-    is_sharp = bool(blur_score >= MIN_BLUR_SCORE)
-    is_blurry = not is_sharp
+    is_sharp = True
+    is_blurry = False
     is_poor_lighting = bool(brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS)
-    is_valid = bool(skin_detected and is_sharp and not is_poor_lighting)
+    is_valid = bool(skin_detected and not is_poor_lighting)
 
     error_msg = None
     if not skin_detected:
         error_msg = f"No human skin detected ({skin_ratio*100:.1f}% coverage). Please position camera on skin."
-    elif not is_sharp:
-        error_msg = f"Camera frame is blurry ({blur_score:.1f} sharpness). Please hold camera steady."
     elif is_poor_lighting:
         if brightness < MIN_BRIGHTNESS:
             error_msg = "Frame is too dark. Please increase illumination."
         else:
             error_msg = "Frame is over-exposed or glaring."
-
-    warnings = []
-    if blur_score < 18.0 and is_sharp:
-        warnings.append(f"Moderate sharpness ({blur_score:.1f}). Hold still for optimal precision.")
 
     result = {
         "is_valid": is_valid,
@@ -131,7 +127,7 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
         "is_blurry": is_blurry,
         "blur_score": round(float(blur_score), 1),
         "brightness": round(float(brightness), 1),
-        "warnings": warnings,
+        "warnings": [],
         "error": error_msg
     }
 

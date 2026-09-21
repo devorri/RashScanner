@@ -728,14 +728,13 @@
                                     <!-- Real-Time Camera Launch Card -->
                                     <div class="camera-hero-card" onclick="openCameraFullscreen()">
                                         <div class="camera-hero-icon">
-                                            <i class="fa-solid fa-camera-retro"></i>
+                                            <i class="fa-solid fa-video"></i>
                                         </div>
-                                        <h3>Launch Real-Time AI Camera Scanner</h3>
-                                        <p>Open full-screen camera with live lesion detection, real-time bounding box
-                                            target reticle, and one-tap capture.</p>
+                                        <h3>Launch Real-Time AI Webcam Scanner</h3>
+                                        <p>Open full-screen webcam with live lesion reticle targeting and one-tap instant diagnosis capture.</p>
                                         <div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap;">
                                             <button type="button" class="btn btn-primary btn-lg pulse-hover" onclick="openCameraFullscreen(event)">
-                                                <i class="fa-solid fa-expand"></i> Open Full-Screen AI Camera
+                                                <i class="fa-solid fa-video"></i> Open Full-Screen AI Webcam
                                             </button>
                                             <button type="button" class="btn btn-secondary btn-lg" onclick="triggerNativeCameraSnap(event)" title="Snap Photo Directly from Device Camera">
                                                 <i class="fa-solid fa-camera"></i> Direct Camera Snap
@@ -948,42 +947,33 @@
     </div>
 
     <!-- =================================================================== -->
-    <!-- MODAL: FULL-SCREEN REAL-TIME AI CAMERA SCANNER                     -->
+    <!-- MODAL: FULL-SCREEN REAL-TIME AI WEBCAM SCANNER                      -->
     <!-- =================================================================== -->
     <div id="cameraFullscreenModal" class="fullscreen-camera-modal hidden" style="display: none;">
         <!-- Top Control Bar -->
         <div class="fullscreen-cam-header">
             <div class="cam-title-badge">
                 <span class="live-pulse-dot"></span>
-                <span id="camHeaderTitle">REAL-TIME 100% AI VISION SCANNER</span>
+                <span id="camHeaderTitle">REAL-TIME AI WEBCAM SCANNER</span>
             </div>
 
-            <!-- Source Switcher Tabs -->
+            <!-- Webcam Switcher / Controls -->
             <div class="cam-source-tabs">
-                <button type="button" id="btnSourceWebcam" class="cam-source-btn active" onclick="switchCameraSource('webcam')" title="Client Device Camera (Webcam / Phone)">
-                    <i class="fa-solid fa-laptop"></i> <span>Device Cam</span>
-                </button>
-                <button type="button" id="btnSourceHost" class="cam-source-btn" onclick="switchCameraSource('host')" title="Raspberry Pi Hardware Camera">
-                    <i class="fa-solid fa-microchip"></i> <span>Pi Cam</span>
-                </button>
-                <button type="button" id="btnFlipCamera" class="cam-source-btn" onclick="flipWebcamFacingMode()" title="Flip Front / Rear Camera">
-                    <i class="fa-solid fa-camera-rotate"></i>
+                <button type="button" id="btnFlipCamera" class="cam-source-btn" onclick="flipWebcamFacingMode()" title="Switch Front / Rear / USB Webcam">
+                    <i class="fa-solid fa-camera-rotate"></i> <span>Switch Webcam</span>
                 </button>
             </div>
 
             <!-- Exit Camera Button -->
-            <button class="btn-exit-camera" onclick="closeCameraFullscreen()" title="Exit Full-Screen Camera">
-                <i class="fa-solid fa-xmark"></i> EXIT CAMERA
+            <button class="btn-exit-camera" onclick="closeCameraFullscreen()" title="Exit Full-Screen Webcam">
+                <i class="fa-solid fa-xmark"></i> EXIT WEBCAM
             </button>
         </div>
 
         <!-- Video Stream Viewport -->
         <div class="fullscreen-cam-viewport">
-            <!-- Client WebRTC Camera Stream (Default for Laptops / Phones) -->
+            <!-- Client WebRTC Camera Stream (Primary Real-Time Webcam) -->
             <video id="clientWebcamVideo" autoplay playsinline muted></video>
-
-            <!-- Raspberry Pi Host MJPEG Video Stream (For Kiosk with Camera) -->
-            <img id="liveMjpegStream" src="" alt="Hardware Camera Feed" style="display: none;">
 
             <!-- Animated Medical Reticle Canvas Overlay -->
             <canvas id="webcamOverlayCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
