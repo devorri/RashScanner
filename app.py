@@ -333,7 +333,7 @@ def realtime_capture():
 
         # Run 100% AI Prediction & Lesion Object Detection
         t0 = time.time()
-        detections = clf.detect_objects(frame_bgr, conf_threshold=0.20) if hasattr(clf, "detect_objects") else []
+        detections = clf.detect_objects(frame_bgr, conf_threshold=0.15) if hasattr(clf, "detect_objects") else []
         probs = clf.predict(frame_bgr)
         elapsed_ms = (time.time() - t0) * 1000
 
@@ -351,9 +351,9 @@ def realtime_capture():
         ranked_matches = clf.rank_predictions(probs, top_k=10)
         top_match = ranked_matches[0] if ranked_matches else None
         top_conf = top_match["confidence"] if top_match else 0.0
-        is_low_conf = bool(top_conf < 0.20)
+        is_low_conf = bool(top_conf < 0.10)
 
-        primary_diag = top_match["condition"].replace("_", " ") if top_match and not is_low_conf else "Inconclusive"
+        primary_diag = top_match["condition"].replace("_", " ") if top_match else "Inconclusive"
         ddx_1 = ranked_matches[1]["condition"].replace("_", " ") if len(ranked_matches) > 1 else ""
         ddx_2 = ranked_matches[2]["condition"].replace("_", " ") if len(ranked_matches) > 2 else ""
         ddx_3 = ranked_matches[3]["condition"].replace("_", " ") if len(ranked_matches) > 3 else ""
@@ -483,7 +483,7 @@ def examine_rash():
 
         # Step 2: Run 100% AI Computer Vision Inference & Object Detection
         t0 = time.time()
-        detections = clf.detect_objects(frame_bgr, conf_threshold=0.20) if hasattr(clf, "detect_objects") else []
+        detections = clf.detect_objects(frame_bgr, conf_threshold=0.15) if hasattr(clf, "detect_objects") else []
         probs = clf.predict(frame_bgr)
         elapsed_ms = (time.time() - t0) * 1000
 
@@ -492,23 +492,18 @@ def examine_rash():
         red_flags = check_red_flags(symptoms_text)
 
         top_score = ranked_matches[0]["confidence"] if ranked_matches else 0.0
-        is_low_confidence = bool(top_score < 0.20) or not ranked_matches
+        is_low_confidence = bool(top_score < 0.10)
 
-        if not ranked_matches:
-            primary_diag = "Inconclusive (No Lesion Detected)"
-            ddx_1 = "No distinct dermatological lesion recognized"
-            ddx_2 = ""
-            ddx_3 = ""
-        elif is_low_confidence:
-            primary_diag = "Inconclusive (Low AI Confidence)"
-            ddx_1 = f"Possible: {ranked_matches[0]['condition'].replace('_', ' ')} ({(top_score*100):.1f}%)"
-            ddx_2 = f"Possible: {ranked_matches[1]['condition'].replace('_', ' ')} ({(ranked_matches[1]['confidence']*100):.1f}%)" if len(ranked_matches) > 1 else ""
-            ddx_3 = f"Possible: {ranked_matches[2]['condition'].replace('_', ' ')} ({(ranked_matches[2]['confidence']*100):.1f}%)" if len(ranked_matches) > 2 else ""
-        else:
+        if ranked_matches:
             primary_diag = ranked_matches[0]["condition"].replace("_", " ")
             ddx_1 = ranked_matches[1]["condition"].replace("_", " ") if len(ranked_matches) > 1 else ""
             ddx_2 = ranked_matches[2]["condition"].replace("_", " ") if len(ranked_matches) > 2 else ""
             ddx_3 = ranked_matches[3]["condition"].replace("_", " ") if len(ranked_matches) > 3 else ""
+        else:
+            primary_diag = "Inconclusive"
+            ddx_1 = ""
+            ddx_2 = ""
+            ddx_3 = ""
 
         # Draw clean neon bounding boxes onto examine image
         annotated_img = draw_clean_lesion_boxes(frame_bgr, detections)

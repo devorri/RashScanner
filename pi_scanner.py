@@ -108,16 +108,17 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     is_sharp = True
     is_blurry = False
     is_poor_lighting = bool(brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS)
-    is_valid = bool(skin_detected and not is_poor_lighting)
+    # Always allow model inference without blocking the user
+    is_valid = True
 
-    error_msg = None
+    warnings = []
     if not skin_detected:
-        error_msg = f"No human skin detected ({skin_ratio*100:.1f}% coverage). Please position camera on skin."
-    elif is_poor_lighting:
+        warnings.append(f"Low skin coverage ({skin_ratio*100:.1f}%). Point camera closer to affected area.")
+    if is_poor_lighting:
         if brightness < MIN_BRIGHTNESS:
-            error_msg = "Frame is too dark. Please increase illumination."
+            warnings.append("Frame is relatively dark. Consider increasing lighting.")
         else:
-            error_msg = "Frame is over-exposed or glaring."
+            warnings.append("Frame has strong glare.")
 
     result = {
         "is_valid": is_valid,
@@ -127,8 +128,8 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
         "is_blurry": is_blurry,
         "blur_score": round(float(blur_score), 1),
         "brightness": round(float(brightness), 1),
-        "warnings": [],
-        "error": error_msg
+        "warnings": warnings,
+        "error": None
     }
 
     if return_mask:
@@ -374,21 +375,19 @@ class TFLiteClassifier:
                     top1_conf = float(probs.top1conf)
                     cond_name = self.labels[top1_id] if top1_id < len(self.labels) else f"Condition_{top1_id}"
 
-                    # Ignore normal or background classes if below threshold
-                    if top1_conf >= conf_threshold and cond_name.lower() not in ["unknown_normal", "normal"]:
-                        info = get_condition_info(cond_name)
-                        # Center region reticle box for classification visualization
-                        margin_x, margin_y = int(w * 0.15), int(h * 0.15)
-                        detections.append({
-                            "box": (margin_x, margin_y, w - margin_x, h - margin_y),
-                            "condition": cond_name,
-                            "confidence": top1_conf,
-                            "ai_confidence_pct": round(top1_conf * 100, 1),
-                            "severity": info.get("severity", "Moderate"),
-                            "description": info.get("description", ""),
-                            "red_flags": info.get("red_flags", []),
-                            "contagious": get_contagious_status(cond_name)
-                        })
+                    info = get_condition_info(cond_name)
+                    # Center reticle box for classification model visual overlay
+                    margin_x, margin_y = int(w * 0.15), int(h * 0.15)
+                    detections.append({
+                        "box": (margin_x, margin_y, w - margin_x, h - margin_y),
+                        "condition": cond_name,
+                        "confidence": top1_conf,
+                        "ai_confidence_pct": round(top1_conf * 100, 1),
+                        "severity": info.get("severity", "Moderate"),
+                        "description": info.get("description", ""),
+                        "red_flags": info.get("red_flags", []),
+                        "contagious": get_contagious_status(cond_name)
+                    })
             else:
                 # Object detection model with bounding boxes (e.g. 12-class root best.pt)
                 results = self.yolo_model.predict(source=bgr_image, conf=conf_threshold, imgsz=512, verbose=False)
@@ -416,7 +415,7 @@ class TFLiteClassifier:
         return detections
 
     def predict(self, bgr_image) -> Dict[str, float]:
-        """Returns aggregated dictionary mapping condition to true AI confidence score."""
+        """Returns aggregated dictionary mapping condition to true AI confidence score directly from model."""
         bgr_image = ensure_bgr(bgr_image)
         if bgr_image is None or bgr_image.size == 0:
             return {label: 0.0 for label in self.labels}
@@ -434,10 +433,10 @@ class TFLiteClassifier:
                     return prob_dict
                 return {label: 0.0 for label in self.labels}
             else:
-                # Object detection model: only populate if lesions were actually detected
-                detections = self.detect_objects(bgr_image, conf_threshold=0.25)
+                # Object detection model
+                detections = self.detect_objects(bgr_image, conf_threshold=0.05)
                 if not detections:
-                    return {label: 0.0 for label in self.labels}
+                    detections = self.detect_objects(bgr_image, conf_threshold=0.01)
 
                 prob_dict = {label: 0.0 for label in self.labels}
                 for det in detections:
@@ -449,92 +448,35 @@ class TFLiteClassifier:
 
     def rank_predictions(self, prob_dict: Dict[str, float], top_k: int = 12) -> List[Dict[str, Any]]:
         """
-        Formats and ranks AI Accuracy Levels:
-        - If no lesion detected or max raw confidence < 0.15: returns empty (Inconclusive).
-        - If real lesions detected: accurately distributes confidence and differential diagnosis.
+        Ranks conditions directly based on the model's actual outputs without artificial manipulation.
         """
+        if not prob_dict:
+            return []
+
         all_labels = self.labels if self.labels else list(prob_dict.keys())
         if not all_labels:
             all_labels = list(prob_dict.keys())
 
-        # Raw scores
-        raw_items = {lbl: float(prob_dict.get(lbl, 0.0)) for lbl in all_labels}
-        sorted_raw = sorted(raw_items.items(), key=lambda item: item[1], reverse=True)
+        # Extract raw model probabilities
+        raw_items = [(lbl, float(prob_dict.get(lbl, 0.0))) for lbl in all_labels]
+        sorted_raw = sorted(raw_items, key=lambda item: item[1], reverse=True)
 
-        if not sorted_raw:
+        if not sorted_raw or sorted_raw[0][1] <= 0.0:
             return []
 
-        top_cond, top_raw_score = sorted_raw[0]
-
-        # If highest raw confidence is below threshold or unknown normal, no lesion is recognized
-        if top_raw_score < 0.15 or top_cond.lower() in ["unknown_normal", "normal"]:
-            return []
-
-        # Calculate calibrated Top 1 percentage based on real detection confidence
-        # Scaled between 52.0% and 88.0%
-        top_pct = max(52.0, min(88.0, 50.0 + (top_raw_score * 40.0)))
-        remaining_pool = 100.0 - top_pct
-
-        # Find lookalike conditions for top condition
-        lookalikes = SIMILAR_CONDITIONS_MAP.get(top_cond, [])
-        other_conditions = [c for c in all_labels if c != top_cond]
-
-        # Find best runner up (prefer detected lookalike or secondary detection)
-        lookalike_candidates = [c for c in sorted_raw[1:] if c[0] in lookalikes]
-        if lookalike_candidates and lookalike_candidates[0][1] > 0.05:
-            runner_up = lookalike_candidates[0][0]
-        elif sorted_raw[1:]:
-            runner_up = sorted_raw[1][0]
-        elif lookalikes:
-            runner_up = lookalikes[0]
-        else:
-            runner_up = other_conditions[0] if other_conditions else None
-
-        # Allocate percentages
-        accuracy_map = {top_cond: top_pct}
-
-        if runner_up and len(other_conditions) > 0:
-            is_lookalike = (runner_up in lookalikes)
-            lookalike_share_ratio = 0.85 if is_lookalike else 0.65
-            runner_up_pct = max(1.0, remaining_pool * lookalike_share_ratio)
-            accuracy_map[runner_up] = runner_up_pct
-            
-            leftover_pool = max(0.0, remaining_pool - runner_up_pct)
-            rest_conditions = [c for c in other_conditions if c != runner_up]
-            
-            if rest_conditions:
-                rest_weights = [max(0.001, raw_items.get(c, 0.01)) for c in rest_conditions]
-                total_w = sum(rest_weights)
-                for c, w_val in zip(rest_conditions, rest_weights):
-                    accuracy_map[c] = (w_val / total_w) * leftover_pool
-        else:
-            if other_conditions:
-                even_share = remaining_pool / len(other_conditions)
-                for c in other_conditions:
-                    accuracy_map[c] = even_share
-
-        # Round all to 1 decimal place
-        rounded_map = {c: round(val, 1) for c, val in accuracy_map.items()}
-
-        # Ensure exact 100.0% sum
-        total_sum = round(sum(rounded_map.values()), 1)
-        diff = round(100.0 - total_sum, 1)
-        rounded_map[top_cond] = round(rounded_map[top_cond] + diff, 1)
-
-        # Sort ranked results
-        sorted_final = sorted(rounded_map.items(), key=lambda item: item[1], reverse=True)
         results = []
-
-        for rank, (cond, acc_pct) in enumerate(sorted_final[:top_k], start=1):
+        for rank, (cond, conf) in enumerate(sorted_raw[:top_k], start=1):
+            if conf <= 0.0 and rank > 1:
+                continue
+            pct = round(conf * 100.0, 1)
             info = get_condition_info(cond)
-            prob_val = acc_pct / 100.0
             results.append({
                 "rank": rank,
                 "condition": cond,
-                "confidence": float(prob_val),
-                "accuracy_level": float(acc_pct),
-                "accuracy_level_pct": float(acc_pct),
-                "ai_confidence_pct": float(acc_pct),  # backward compatibility
+                "confidence": float(conf),
+                "accuracy_level": pct,
+                "accuracy_level_pct": pct,
+                "ai_confidence_pct": pct,
                 "severity": info.get("severity", "Unknown"),
                 "description": info.get("description", ""),
                 "red_flags": info.get("red_flags", []),
