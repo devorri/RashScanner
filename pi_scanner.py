@@ -98,7 +98,7 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
     brightness = float(np.mean(gray))
 
     MIN_SKIN_RATIO = 0.05   # At least 5% skin presence
-    MIN_BLUR_SCORE = 25.0   # Sharpness threshold
+    MIN_BLUR_SCORE = 8.0    # Sharpness threshold (lowered — skin close-ups have less edge detail)
     MIN_BRIGHTNESS = 20.0
     MAX_BRIGHTNESS = 245.0
 
@@ -120,7 +120,7 @@ def detect_skin_and_quality(bgr_image, return_mask: bool = False):
             error_msg = "Frame is over-exposed or glaring."
 
     warnings = []
-    if blur_score < 40.0 and is_sharp:
+    if blur_score < 18.0 and is_sharp:
         warnings.append(f"Moderate sharpness ({blur_score:.1f}). Hold still for optimal precision.")
 
     result = {
@@ -170,6 +170,24 @@ class EdgeCamera:
                 config = self.picam2.create_preview_configuration(main={"size": self.resolution})
             self.picam2.configure(config)
             self.picam2.start()
+
+            # Enable continuous autofocus for Pi Camera Module v3 (motorized AF lens)
+            try:
+                from libcamera import controls as libcam_controls
+                self.picam2.set_controls({
+                    "AfMode": libcam_controls.AfModeEnum.Continuous,
+                    "AfSpeed": libcam_controls.AfSpeedEnum.Fast
+                })
+                print("[Camera] Continuous autofocus enabled (Pi Camera v3 AF lens).")
+            except Exception:
+                # Fallback: use raw integer values if libcamera import fails
+                # AfMode: 2 = Continuous, AfSpeed: 1 = Fast
+                try:
+                    self.picam2.set_controls({"AfMode": 2, "AfSpeed": 1})
+                    print("[Camera] Continuous autofocus enabled (Pi Camera v3, raw controls).")
+                except Exception as e_af:
+                    print(f"[Camera Info] Autofocus not available on this camera module: {e_af}")
+
             self.backend = "picamera2"
             self.is_hardware_available = True
             print("[Camera] Initialized native Raspberry Pi Picamera2 successfully!")
