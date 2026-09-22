@@ -15,7 +15,7 @@ pkill -f "chromium" 2>/dev/null
 sleep 1
 
 # Start Flask server in background
-python3 app.py --port 5000 &
+python3 app.py --port 5000 --no-browser &
 FLASK_PID=$!
 echo "Rashilience server started (PID: $FLASK_PID)"
 
