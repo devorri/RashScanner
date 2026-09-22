@@ -77,10 +77,10 @@ def resolve_preset_files(folder_path):
     ]
 
     target_model = None
-    if os.path.exists(pt_path):
-        target_model = pt_path
-    elif os.path.exists(onnx_path):
+    if os.path.exists(onnx_path):
         target_model = onnx_path
+    elif os.path.exists(pt_path):
+        target_model = pt_path
     else:
         for tfc in tflite_candidates:
             if os.path.exists(tfc):
